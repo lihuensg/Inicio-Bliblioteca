@@ -67,113 +67,77 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuscarEdicion.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="BuscarEdicion.cs" />
     <Compile Include="BuscarEdicion.Designer.cs">
       <DependentUpon>BuscarEdicion.cs</DependentUpon>
     </Compile>
-    <Compile Include="BuscarEjemplar.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="BuscarEjemplar.cs" />
     <Compile Include="BuscarEjemplar.Designer.cs">
       <DependentUpon>BuscarEjemplar.cs</DependentUpon>
     </Compile>
-    <Compile Include="BuscarOSeleccionarObra.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="BuscarOSeleccionarObra.cs" />
     <Compile Include="BuscarOSeleccionarObra.Designer.cs">
       <DependentUpon>BuscarOSeleccionarObra.cs</DependentUpon>
     </Compile>
-    <Compile Include="BuscarPrestamo.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="BuscarPrestamo.cs" />
     <Compile Include="BuscarPrestamo.Designer.cs">
       <DependentUpon>BuscarPrestamo.cs</DependentUpon>
     </Compile>
-    <Compile Include="BuscarUsuario.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="BuscarUsuario.cs" />
     <Compile Include="BuscarUsuario.Designer.cs">
       <DependentUpon>BuscarUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="CrearEdicion.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="CrearEdicion.cs" />
     <Compile Include="CrearEdicion.Designer.cs">
       <DependentUpon>CrearEdicion.cs</DependentUpon>
     </Compile>
-    <Compile Include="DarDeAltaEjemplar.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="DarDeAltaEjemplar.cs" />
     <Compile Include="DarDeAltaEjemplar.Designer.cs">
       <DependentUpon>DarDeAltaEjemplar.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditarEjemplar.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="EditarEjemplar.cs" />
     <Compile Include="EditarEjemplar.Designer.cs">
       <DependentUpon>EditarEjemplar.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditarUsuario.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="EditarUsuario.cs" />
     <Compile Include="EditarUsuario.Designer.cs">
       <DependentUpon>EditarUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ejemplares.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Ejemplares.cs" />
     <Compile Include="Ejemplares.Designer.cs">
       <DependentUpon>Ejemplares.cs</DependentUpon>
     </Compile>
-    <Compile Include="PrestamosProxVencer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="PrestamosProxVencer.cs" />
     <Compile Include="PrestamosProxVencer.Designer.cs">
       <DependentUpon>PrestamosProxVencer.cs</DependentUpon>
     </Compile>
-    <Compile Include="PrestamosYDevoluciones.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="PrestamosYDevoluciones.cs" />
     <Compile Include="PrestamosYDevoluciones.Designer.cs">
       <DependentUpon>PrestamosYDevoluciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="RegistrarPrestamos.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="RegistrarPrestamos.cs" />
     <Compile Include="RegistrarPrestamos.Designer.cs">
       <DependentUpon>RegistrarPrestamos.cs</DependentUpon>
     </Compile>
-    <Compile Include="RegistrarUsuario.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="RegistrarUsuario.cs" />
     <Compile Include="RegistrarUsuario.Designer.cs">
       <DependentUpon>RegistrarUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="SeleccionarEdicion.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="SeleccionarEdicion.cs" />
     <Compile Include="SeleccionarEdicion.Designer.cs">
       <DependentUpon>SeleccionarEdicion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Usuario Biblioteca.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Usuario Biblioteca.cs" />
     <Compile Include="Usuario Biblioteca.Designer.cs">
       <DependentUpon>Usuario Biblioteca.cs</DependentUpon>
     </Compile>
-    <Compile Include="Inicio.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Inicio.cs" />
     <Compile Include="Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Usuarios.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Usuarios.cs" />
     <Compile Include="Usuarios.Designer.cs">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </Compile>
@@ -269,6 +233,12 @@
   <ItemGroup>
     <None Include="book.jpg" />
     <Content Include="Icono-Biblioteca-color.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Aplication\Aplication.csproj">
+      <Project>{553f342f-4970-4042-b3f1-ceae86a38275}</Project>
+      <Name>Aplication</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
