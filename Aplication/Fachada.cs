@@ -223,12 +223,21 @@ namespace Aplication
         }
         public bool LoguearUsuario(string nombreUsuario, string password)
         {
-            bool contraCorrecta;
+            bool contraCorrecta = false;
 
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                Usuario us1 = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
-                contraCorrecta = us1.Password == password;
+                try
+                {
+                    Usuario us1 = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
+                    contraCorrecta = us1.Password == password;
+                }
+                catch (Exception)
+                {
+
+                   
+                }
+                
                 bUoW.Complete();
 
             }
