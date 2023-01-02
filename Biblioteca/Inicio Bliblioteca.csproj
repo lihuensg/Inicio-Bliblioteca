@@ -148,6 +148,7 @@
     <Compile Include="Ejemplares.Designer.cs">
       <DependentUpon>Ejemplares.cs</DependentUpon>
     </Compile>
+    <Compile Include="InformacionDelLogin.cs" />
     <Compile Include="PrestamosProxVencer.cs">
       <SubType>UserControl</SubType>
     </Compile>

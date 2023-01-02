@@ -8,6 +8,6 @@ namespace Inicio_Bliblioteca
 {
     static class InformacionDelLogin
     {
-        public static int DNI;
+        public static int? DNI = null;
     }
 }

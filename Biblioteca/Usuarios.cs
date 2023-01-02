@@ -7,14 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Aplication;
 
 namespace Inicio_Bliblioteca
 {
     public partial class Usuarios : UserControl
     {
+
+        Aplication.Fachada fachada;
+
         public Usuarios()
         {
             InitializeComponent();
+            fachada = new Fachada();
         }
 
         private void btnEditarUsuario_Click(object sender, EventArgs e)
@@ -51,6 +56,20 @@ namespace Inicio_Bliblioteca
         {
             RegistrarUsuario registroUsuario = new RegistrarUsuario();
             registroUsuario.ShowDialog();
+        }
+
+        private void Usuarios_Load(object sender, EventArgs e)
+        {
+            if(InformacionDelLogin.DNI != null)
+            {
+                DTOUsuario infoUsuario = fachada.ObtenerUsuario(InformacionDelLogin.DNI.Value);
+                lNombre.Text = infoUsuario.Nombre;
+                //lUltimoInicio.Text = infoUsuario.
+                lPuntaje.Text = infoUsuario.Puntaje.ToString();
+                lMail.Text = infoUsuario.Mail;
+                lFechaRegistro.Text = infoUsuario.FechaRegistro.ToString();
+            }
+            
         }
     }
 }

@@ -45,11 +45,12 @@ namespace Inicio_Bliblioteca
                 MessageBox.Show("Logueado correctamente");
             
                     string nombre = txtUsuario.Text;
+                    InformacionDelLogin.DNI = fachada.ObtenerUsuario(txtUsuario.Text).Dni;
                     txtUsuario.Clear();
                     txtContraseña.Clear();
                     this.Hide();
                     using (Usuario ventanaUsuario = new Usuario(nombre))
-                        ventanaUsuario.ShowDialog();
+                    ventanaUsuario.ShowDialog();
             }
             else
             {
