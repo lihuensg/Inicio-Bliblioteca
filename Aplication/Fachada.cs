@@ -32,6 +32,40 @@ namespace Aplication
             cMapper = mConfiguration.CreateMapper();
         }
 
+        public DTOUsuario ObtenerUsuario(string nombreUsuario)
+        {
+            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
+            {
+                Usuario usuarioObtenido = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
+                return new DTOUsuario
+                {
+                    Nombre = usuarioObtenido.NombreUsuario,
+                    Dni = usuarioObtenido.Dni,
+                    Password = usuarioObtenido.Password,
+                    Mail = usuarioObtenido.Mail,
+                    FechaRegistro = usuarioObtenido.FechaRegistro,
+                    Puntaje = usuarioObtenido.Puntaje,
+                };
+            }
+        }
+
+        public DTOUsuario ObtenerUsuario(int DNI)
+        {
+            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
+            {
+                Usuario usuarioObtenido = bUoW.RepositorioUsuarios.ObtenerPorDNI(DNI);
+                return new DTOUsuario
+                {
+                    Nombre= usuarioObtenido.NombreUsuario,
+                    Dni = usuarioObtenido.Dni,
+                    Password = usuarioObtenido.Password,
+                    Mail = usuarioObtenido.Mail,
+                    FechaRegistro = usuarioObtenido.FechaRegistro,
+                    Puntaje = usuarioObtenido.Puntaje,
+                };
+            }
+        }
+
         public void AgregarUsuario(DTOUsuario usuario, bool esAdmin)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
