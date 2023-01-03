@@ -32,22 +32,21 @@ namespace Inicio_Bliblioteca
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numDNI = new System.Windows.Forms.NumericUpDown();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaDeRegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Puntaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnFiltrar = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.Mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDNI)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(423, 343);
+            this.btnCancelar.Location = new System.Drawing.Point(423, 279);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 16;
@@ -57,12 +56,13 @@ namespace Inicio_Bliblioteca
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(285, 343);
+            this.btnAceptar.Location = new System.Drawing.Point(245, 279);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 15;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // dgvUsuarios
             // 
@@ -71,11 +71,39 @@ namespace Inicio_Bliblioteca
             this.Nombre,
             this.DNI,
             this.FechaDeRegistro,
-            this.Puntaje});
-            this.dgvUsuarios.Location = new System.Drawing.Point(182, 187);
+            this.Puntaje,
+            this.Mail});
+            this.dgvUsuarios.Location = new System.Drawing.Point(108, 181);
             this.dgvUsuarios.Name = "dgvUsuarios";
-            this.dgvUsuarios.Size = new System.Drawing.Size(436, 128);
+            this.dgvUsuarios.Size = new System.Drawing.Size(543, 78);
             this.dgvUsuarios.TabIndex = 8;
+            this.dgvUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellContentClick);
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(423, 123);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.TabIndex = 14;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(242, 129);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(26, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "DNI";
+            // 
+            // numDNI
+            // 
+            this.numDNI.Location = new System.Drawing.Point(274, 127);
+            this.numDNI.Name = "numDNI";
+            this.numDNI.Size = new System.Drawing.Size(120, 20);
+            this.numDNI.TabIndex = 17;
             // 
             // Nombre
             // 
@@ -101,73 +129,27 @@ namespace Inicio_Bliblioteca
             this.Puntaje.Name = "Puntaje";
             this.Puntaje.ReadOnly = true;
             // 
-            // btnFiltrar
+            // Mail
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(504, 124);
-            this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
-            this.btnFiltrar.TabIndex = 14;
-            this.btnFiltrar.Text = "Filtrar";
-            this.btnFiltrar.UseVisualStyleBackColor = true;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(359, 126);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 13;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(399, 110);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(26, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "DNI";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(233, 126);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 11;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(261, 110);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Nombre";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(335, 85);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Filtros";
+            this.Mail.HeaderText = "Mail";
+            this.Mail.Name = "Mail";
+            this.Mail.ReadOnly = true;
             // 
             // BuscarUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.numDNI);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.dgvUsuarios);
-            this.Controls.Add(this.btnFiltrar);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Name = "BuscarUsuario";
             this.Text = "BuscarUsuario1";
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDNI)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,15 +160,13 @@ namespace Inicio_Bliblioteca
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.DataGridView dgvUsuarios;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numDNI;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
         private System.Windows.Forms.DataGridViewTextBoxColumn FechaDeRegistro;
         private System.Windows.Forms.DataGridViewTextBoxColumn Puntaje;
-        private System.Windows.Forms.Button btnFiltrar;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Mail;
     }
 }

@@ -237,17 +237,17 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 Usuario usuario1 = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
-                if (usuario.Nombre.Length != 0)
+                if (usuario.Nombre != null && usuario.Nombre.Length != 0)
                 {
                     usuario1.NombreUsuario = usuario.Nombre;
                 }
 
-                if (usuario.Mail.Length != 0)
+                if (usuario.Mail != null && usuario.Mail.Length != 0)
                 {
                     usuario1.Mail = usuario.Mail;
                 }
 
-                if (usuario.Password.Length != 0)
+                if (usuario.Password != null && usuario.Password.Length != 0)
                 {
                     usuario1.Password = usuario.Password;
                 }

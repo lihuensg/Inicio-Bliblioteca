@@ -184,10 +184,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bdBiblio.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="bdBiblio_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>bdBiblio.mdf</DependentUpon>
     </Content>
   </ItemGroup>

@@ -36,11 +36,14 @@ namespace Inicio_Bliblioteca
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtDNI = new System.Windows.Forms.TextBox();
             this.txtMail = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numDNI = new System.Windows.Forms.NumericUpDown();
+            this.checkAdmin = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDNI)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancelar
@@ -61,14 +64,17 @@ namespace Inicio_Bliblioteca
             this.btnAceptar.TabIndex = 4;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.checkAdmin);
+            this.panel1.Controls.Add(this.numDNI);
+            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.txtContraseña);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.txtDNI);
             this.panel1.Controls.Add(this.txtMail);
             this.panel1.Controls.Add(this.txtNombre);
             this.panel1.Controls.Add(this.label1);
@@ -80,7 +86,7 @@ namespace Inicio_Bliblioteca
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(74, 248);
+            this.label4.Location = new System.Drawing.Point(74, 199);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 13);
             this.label4.TabIndex = 7;
@@ -88,7 +94,7 @@ namespace Inicio_Bliblioteca
             // 
             // txtContraseña
             // 
-            this.txtContraseña.Location = new System.Drawing.Point(190, 241);
+            this.txtContraseña.Location = new System.Drawing.Point(190, 192);
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.PasswordChar = '*';
             this.txtContraseña.Size = new System.Drawing.Size(118, 20);
@@ -97,7 +103,7 @@ namespace Inicio_Bliblioteca
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(74, 174);
+            this.label3.Location = new System.Drawing.Point(74, 143);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 13);
             this.label3.TabIndex = 5;
@@ -106,22 +112,15 @@ namespace Inicio_Bliblioteca
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(74, 99);
+            this.label2.Location = new System.Drawing.Point(74, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Mail";
             // 
-            // txtDNI
-            // 
-            this.txtDNI.Location = new System.Drawing.Point(190, 167);
-            this.txtDNI.Name = "txtDNI";
-            this.txtDNI.Size = new System.Drawing.Size(118, 20);
-            this.txtDNI.TabIndex = 3;
-            // 
             // txtMail
             // 
-            this.txtMail.Location = new System.Drawing.Point(190, 96);
+            this.txtMail.Location = new System.Drawing.Point(190, 82);
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(118, 20);
             this.txtMail.TabIndex = 2;
@@ -142,6 +141,31 @@ namespace Inicio_Bliblioteca
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(74, 248);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(51, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Es Admin";
+            // 
+            // numDNI
+            // 
+            this.numDNI.Location = new System.Drawing.Point(190, 141);
+            this.numDNI.Name = "numDNI";
+            this.numDNI.Size = new System.Drawing.Size(120, 20);
+            this.numDNI.TabIndex = 10;
+            // 
+            // checkAdmin
+            // 
+            this.checkAdmin.AutoSize = true;
+            this.checkAdmin.Location = new System.Drawing.Point(190, 248);
+            this.checkAdmin.Name = "checkAdmin";
+            this.checkAdmin.Size = new System.Drawing.Size(15, 14);
+            this.checkAdmin.TabIndex = 11;
+            this.checkAdmin.UseVisualStyleBackColor = true;
+            // 
             // RegistrarUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,6 +178,7 @@ namespace Inicio_Bliblioteca
             this.Text = "RegistrarUsuario1";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDNI)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -167,9 +192,11 @@ namespace Inicio_Bliblioteca
         private System.Windows.Forms.TextBox txtContraseña;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtDNI;
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numDNI;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox checkAdmin;
     }
 }

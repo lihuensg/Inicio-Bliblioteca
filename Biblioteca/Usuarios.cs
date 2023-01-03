@@ -47,7 +47,9 @@ namespace Inicio_Bliblioteca
             buscarUsuario.ShowDialog();
             if (buscarUsuario.EncontroUsuario())
             {
-                throw new NotImplementedException();
+                var usuarioEncontrado = buscarUsuario.ObtenerUsuarioSeleccionado();
+                fachada.BajaUsuario(usuarioEncontrado.Dni);
+                MessageBox.Show("Usuario eliminado correctamente");
             }
 
         }

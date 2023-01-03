@@ -34,14 +34,15 @@ namespace Inicio_Bliblioteca
             this.label1 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnReinicioContraseña = new System.Windows.Forms.Button();
             this.btnCambioContraseña = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.textBox2);
@@ -57,6 +58,7 @@ namespace Inicio_Bliblioteca
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(261, 20);
             this.textBox1.TabIndex = 1;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label1
             // 
@@ -73,6 +75,7 @@ namespace Inicio_Bliblioteca
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(261, 20);
             this.textBox2.TabIndex = 2;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label2
             // 
@@ -83,44 +86,48 @@ namespace Inicio_Bliblioteca
             this.label2.TabIndex = 4;
             this.label2.Text = "Mail";
             // 
-            // btnReinicioContraseña
-            // 
-            this.btnReinicioContraseña.Location = new System.Drawing.Point(508, 301);
-            this.btnReinicioContraseña.Name = "btnReinicioContraseña";
-            this.btnReinicioContraseña.Size = new System.Drawing.Size(152, 24);
-            this.btnReinicioContraseña.TabIndex = 11;
-            this.btnReinicioContraseña.Text = "Reiniciar contraseña";
-            this.btnReinicioContraseña.UseVisualStyleBackColor = true;
-            // 
             // btnCambioContraseña
             // 
-            this.btnCambioContraseña.Location = new System.Drawing.Point(295, 301);
+            this.btnCambioContraseña.Location = new System.Drawing.Point(333, 301);
             this.btnCambioContraseña.Name = "btnCambioContraseña";
             this.btnCambioContraseña.Size = new System.Drawing.Size(152, 24);
             this.btnCambioContraseña.TabIndex = 10;
             this.btnCambioContraseña.Text = "Cambiar contraseña";
             this.btnCambioContraseña.UseVisualStyleBackColor = true;
+            this.btnCambioContraseña.Click += new System.EventHandler(this.btnCambioContraseña_Click);
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(163, 301);
+            this.btnAceptar.Location = new System.Drawing.Point(181, 301);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 24);
             this.btnAceptar.TabIndex = 9;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // EditarUsuario1
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(590, 301);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(59, 23);
+            this.btnCancelar.TabIndex = 13;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // EditarUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnReinicioContraseña);
             this.Controls.Add(this.btnCambioContraseña);
             this.Controls.Add(this.btnAceptar);
-            this.Name = "EditarUsuario1";
+            this.Name = "EditarUsuario";
             this.Text = "EditarUsuario1";
+            this.Load += new System.EventHandler(this.EditarUsuario_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -134,8 +141,8 @@ namespace Inicio_Bliblioteca
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnReinicioContraseña;
         private System.Windows.Forms.Button btnCambioContraseña;
         private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }
