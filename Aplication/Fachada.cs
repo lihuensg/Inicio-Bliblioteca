@@ -126,12 +126,13 @@ namespace Aplication
         }
 
 
-        public List<DTOPrestamo> PrestamosProximosAVencer(int dni)
+        public List<DTOPrestamo> PrestamosProximosAVencer()
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var listaPrestamosProxAVencer = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni && (u.FechaVencimiento - DateTime.Now).TotalDays < 7).ToList();
-                return listaPrestamosProxAVencer.Select(p => new DTOPrestamo { Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
+                var sig7Dias = DateTime.Today.AddDays(7);
+                var listaPrestamosProxAVencer = bUoW.RepositorioPrestamos.Search(u => (u.FechaVencimiento <= sig7Dias && u.FechaDevolucion == null)).ToList();
+                return listaPrestamosProxAVencer.Select(p => new DTOPrestamo { SolicitanteDNI = p.Solicitante.Dni, Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
             }
         }
 
@@ -140,7 +141,7 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaPrestamos = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni).ToList();
-                return listaPrestamos.Select(p => new DTOPrestamo { Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
+                return listaPrestamos.Select(p => new DTOPrestamo {  SolicitanteDNI = p.Solicitante.Dni, Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
             }
         }
 
@@ -149,7 +150,7 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaPrestamosEntreFechas = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni && u.FechaPrestamo <= fechaFin && u.FechaPrestamo >= fechaInicio).ToList();
-                return listaPrestamosEntreFechas.Select(p => new DTOPrestamo { Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
+                return listaPrestamosEntreFechas.Select(p => new DTOPrestamo { SolicitanteDNI = p.Solicitante.Dni, Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
             }
         }
 

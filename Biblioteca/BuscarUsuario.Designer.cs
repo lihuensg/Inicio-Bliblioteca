@@ -32,21 +32,21 @@ namespace Inicio_Bliblioteca
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.numDNI = new System.Windows.Forms.NumericUpDown();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaDeRegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Puntaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numDNI = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDNI)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(423, 279);
+            this.btnCancelar.Location = new System.Drawing.Point(475, 268);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 16;
@@ -56,7 +56,7 @@ namespace Inicio_Bliblioteca
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(245, 279);
+            this.btnAceptar.Location = new System.Drawing.Point(199, 268);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 15;
@@ -75,35 +75,10 @@ namespace Inicio_Bliblioteca
             this.Mail});
             this.dgvUsuarios.Location = new System.Drawing.Point(108, 181);
             this.dgvUsuarios.Name = "dgvUsuarios";
-            this.dgvUsuarios.Size = new System.Drawing.Size(543, 78);
+            this.dgvUsuarios.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dgvUsuarios.Size = new System.Drawing.Size(543, 59);
             this.dgvUsuarios.TabIndex = 8;
             this.dgvUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellContentClick);
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Location = new System.Drawing.Point(423, 123);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 14;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(242, 129);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(26, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "DNI";
-            // 
-            // numDNI
-            // 
-            this.numDNI.Location = new System.Drawing.Point(274, 127);
-            this.numDNI.Name = "numDNI";
-            this.numDNI.Size = new System.Drawing.Size(120, 20);
-            this.numDNI.TabIndex = 17;
             // 
             // Nombre
             // 
@@ -134,6 +109,32 @@ namespace Inicio_Bliblioteca
             this.Mail.HeaderText = "Mail";
             this.Mail.Name = "Mail";
             this.Mail.ReadOnly = true;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(431, 118);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.TabIndex = 14;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(250, 124);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(26, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "DNI";
+            // 
+            // numDNI
+            // 
+            this.numDNI.Location = new System.Drawing.Point(282, 122);
+            this.numDNI.Name = "numDNI";
+            this.numDNI.Size = new System.Drawing.Size(120, 20);
+            this.numDNI.TabIndex = 17;
             // 
             // BuscarUsuario
             // 

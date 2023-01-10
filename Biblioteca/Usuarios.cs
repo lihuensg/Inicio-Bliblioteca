@@ -35,7 +35,7 @@ namespace Inicio_Bliblioteca
             if (buscarUsuario.EncontroUsuario())
             {
                 var usuario = buscarUsuario.ObtenerUsuarioSeleccionado();
-                EditarUsuario editarUsuario = new EditarUsuario();
+                EditarUsuario editarUsuario = new EditarUsuario(usuario);
                 editarUsuario.ShowDialog();
             }
            

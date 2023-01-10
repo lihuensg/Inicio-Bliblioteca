@@ -45,9 +45,9 @@ namespace Inicio_Bliblioteca
             this.FechaPrestamos,
             this.ID,
             this.Nombre});
-            this.dataGridView1.Location = new System.Drawing.Point(95, 135);
+            this.dataGridView1.Location = new System.Drawing.Point(95, 110);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(437, 121);
+            this.dataGridView1.Size = new System.Drawing.Size(437, 174);
             this.dataGridView1.TabIndex = 0;
             // 
             // FechaVencimiento
@@ -70,7 +70,7 @@ namespace Inicio_Bliblioteca
             // 
             // Nombre
             // 
-            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.HeaderText = "DNI";
             this.Nombre.Name = "Nombre";
             this.Nombre.ReadOnly = true;
             // 
@@ -81,6 +81,7 @@ namespace Inicio_Bliblioteca
             this.Controls.Add(this.dataGridView1);
             this.Name = "PrestamosProxVencer";
             this.Size = new System.Drawing.Size(623, 395);
+            this.Load += new System.EventHandler(this.PrestamosProxVencer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 

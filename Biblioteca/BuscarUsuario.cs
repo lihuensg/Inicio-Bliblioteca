@@ -39,7 +39,7 @@ namespace Inicio_Bliblioteca
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            
+            this.dgvUsuarios.Rows.Clear();
             try
             {
                 usuarioObtenido = fachada.ObtenerUsuario((int)numDNI.Value);

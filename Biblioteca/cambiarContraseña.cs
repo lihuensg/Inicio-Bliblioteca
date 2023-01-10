@@ -14,10 +14,12 @@ namespace Inicio_Bliblioteca
     public partial class cambiarContraseña : Form
     {
         Fachada fachada;
-        public cambiarContraseña()
+        DTOUsuario usuario;
+        public cambiarContraseña(DTOUsuario pUsuario = null)
         {
             InitializeComponent();
             fachada = new Fachada();
+            usuario = pUsuario;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -27,10 +29,11 @@ namespace Inicio_Bliblioteca
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            var usuarioObtenido = fachada.ObtenerUsuario(InformacionDelLogin.DNI.Value);
+            var DNI = usuario == null ? InformacionDelLogin.DNI.Value : usuario.Dni;
+            var usuarioObtenido = fachada.ObtenerUsuario(DNI);
             if (fachada.LoguearUsuario(usuarioObtenido.Nombre, textContraseñaActual.Text))
             {
-                fachada.ModificarDatosUsuario(InformacionDelLogin.DNI.Value, new DTOUsuario { Password = textContraseñaNueva.Text });
+                fachada.ModificarDatosUsuario(DNI, new DTOUsuario { Password = textContraseñaNueva.Text });
                 MessageBox.Show("Contraseña modificada correctamente");
                 this.Close();
             }
