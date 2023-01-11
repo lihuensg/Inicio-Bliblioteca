@@ -22,11 +22,15 @@ namespace Inicio_Bliblioteca
 
         private void PrestamosProxVencer_Load(object sender, EventArgs e)
         {
-           var prestamosAVencer = fachada.PrestamosProximosAVencer();
-            foreach (var prestamo in prestamosAVencer)
+            //esto lo realizamos para esperar a que este logeado es decir que no se ejecute en el diseñador
+            if (InformacionDelLogin.DNI != null )   
             {
-                this.dataGridView1.Rows.Add(prestamo.FechaVencimiento, prestamo.FechaPrestamo, prestamo.Id,prestamo.SolicitanteDNI);
-            } 
+                var prestamosAVencer = fachada.PrestamosProximosAVencer();
+                foreach (var prestamo in prestamosAVencer)
+                {
+                    this.dataGridView1.Rows.Add(prestamo.FechaVencimiento, prestamo.FechaPrestamo, prestamo.Id, prestamo.SolicitanteDNI);
+                }
+            }            
         }
     }
 }

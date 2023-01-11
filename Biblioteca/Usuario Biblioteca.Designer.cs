@@ -45,15 +45,19 @@ namespace Inicio_Bliblioteca
             this.prestamosProxVencer1 = new Inicio_Bliblioteca.PrestamosProxVencer();
             this.prestamosYDevoluciones1 = new Inicio_Bliblioteca.PrestamosYDevoluciones();
             this.usuarios1 = new Inicio_Bliblioteca.Usuarios();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panel6);
             this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel3);
@@ -71,7 +75,7 @@ namespace Inicio_Bliblioteca
             this.panel5.BackColor = System.Drawing.Color.Gainsboro;
             this.panel5.Controls.Add(this.label1);
             this.panel5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel5.Location = new System.Drawing.Point(35, 371);
+            this.panel5.Location = new System.Drawing.Point(35, 385);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(100, 32);
             this.panel5.TabIndex = 6;
@@ -91,7 +95,7 @@ namespace Inicio_Bliblioteca
             this.panel4.BackColor = System.Drawing.Color.Gainsboro;
             this.panel4.Controls.Add(this.PrestamosVencimiento);
             this.panel4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel4.Location = new System.Drawing.Point(12, 264);
+            this.panel4.Location = new System.Drawing.Point(12, 293);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(155, 32);
             this.panel4.TabIndex = 5;
@@ -111,7 +115,7 @@ namespace Inicio_Bliblioteca
             this.panel3.BackColor = System.Drawing.Color.Gainsboro;
             this.panel3.Controls.Add(this.label2);
             this.panel3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel3.Location = new System.Drawing.Point(12, 155);
+            this.panel3.Location = new System.Drawing.Point(12, 113);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(149, 32);
             this.panel3.TabIndex = 5;
@@ -131,7 +135,7 @@ namespace Inicio_Bliblioteca
             this.panel2.BackColor = System.Drawing.Color.Gainsboro;
             this.panel2.Controls.Add(this.lUsuarios);
             this.panel2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel2.Location = new System.Drawing.Point(35, 49);
+            this.panel2.Location = new System.Drawing.Point(35, 34);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(100, 32);
             this.panel2.TabIndex = 5;
@@ -190,6 +194,26 @@ namespace Inicio_Bliblioteca
             this.usuarios1.Size = new System.Drawing.Size(711, 395);
             this.usuarios1.TabIndex = 2;
             // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel6.Controls.Add(this.label3);
+            this.panel6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panel6.Location = new System.Drawing.Point(19, 201);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(132, 34);
+            this.panel6.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 11);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(109, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Alta de obra y edición";
+            this.label3.Click += new System.EventHandler(this.label3_Click_1);
+            // 
             // Usuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -217,6 +241,8 @@ namespace Inicio_Bliblioteca
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -237,5 +263,7 @@ namespace Inicio_Bliblioteca
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label1;
         private Ejemplares ejemplares1;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label label3;
     }
 }

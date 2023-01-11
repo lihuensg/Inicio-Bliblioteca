@@ -14,9 +14,22 @@ using Aplication.LOG;
 
 namespace Aplication
 {
-    public class ServiceEdicionesOpenLibrary
+    public class ServiceEdicionesOpenLibrary : IServicesEdicion
     {
-        public static DTOEdicion Buscar(Dictionary<string, string> pFiltros)
+        private readonly static ServiceEdicionesOpenLibrary _instance = new ServiceEdicionesOpenLibrary();
+
+        private ServiceEdicionesOpenLibrary()
+        {
+        }
+
+        public static ServiceEdicionesOpenLibrary Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+        public DTOEdicion Buscar(Dictionary<string, string> pFiltros)
         {
             // Establecimiento del protocolo ssl de transporte
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;

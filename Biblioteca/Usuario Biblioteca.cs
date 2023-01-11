@@ -44,5 +44,11 @@ namespace Inicio_Bliblioteca
         {
             ejemplares1.BringToFront();
         }
+
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+            BuscarObraAPI buscarObraAPI = new BuscarObraAPI();
+            buscarObraAPI.ShowDialog();
+        }
     }
 }

@@ -12,10 +12,22 @@ using Aplication.LOG;
 
 namespace Aplication
 {
-    public class ServicesObrasOpenLibrary
+    public class ServicesObrasOpenLibrary:IServicesObras
     {
+        private readonly static ServicesObrasOpenLibrary _instance = new ServicesObrasOpenLibrary();
 
-        public static List<DTOObra> Buscar(Dictionary<string, string> pFiltros)
+        private ServicesObrasOpenLibrary()
+        {
+        }
+
+        public static ServicesObrasOpenLibrary Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+        public List<DTOObra> Buscar(Dictionary<string, string> pFiltros)
         {
             if (pFiltros.Count == 0)
             {
@@ -24,8 +36,16 @@ namespace Aplication
             // Url de ejemplo
             string mUrl = "";
 
-            mUrl = String.Format("https://openlibrary.org/search.json?author={0}&title={1}&limit=1", HttpUtility.HtmlEncode(pFiltros["Autor"]), HttpUtility.HtmlEncode(pFiltros["Titulo"]));
+            mUrl = "https://openlibrary.org/search.json?limit=5&";
 
+            if (pFiltros.ContainsKey("Autor") && pFiltros["Autor"].Length > 0)
+            {
+                mUrl += "author=" + HttpUtility.HtmlEncode(pFiltros["Autor"]) + "&";
+            }
+            if (pFiltros.ContainsKey("Titulo") && pFiltros["Titulo"].Length > 0)
+            {
+                mUrl += "title=" + HttpUtility.HtmlEncode(pFiltros["Titulo"]);
+            }
 
             List<DTOObra> obras = new List<DTOObra>();
             try
@@ -34,16 +54,22 @@ namespace Aplication
 
                 LogManager.GetLogger().Error("numFound: {0}", mResponseJSON.numFound);
 
+                int contador = 0;
                 // Se iteran cada uno de los resultados
                 foreach (var bResponseItem in mResponseJSON.docs)
                 {
+                    if (contador > 5)
+                    {
+                        break;
+                    }
+
                     DTOObra obra = new DTOObra();
                     var listaAutores = new List<string>();
 
                     foreach (var autorkey in bResponseItem.author_key)
                     {
                         // como lo buscamos por el id que nos da openlibrary sabemos que existe
-                        var autores = ServiceAutoresOpenLibrary.Buscar(new Dictionary<string, string>() { { "Id", autorkey.Value } });
+                        var autores = ServiceAutoresOpenLibrary.Instance.Buscar(new Dictionary<string, string>() { { "Id", autorkey.Value } });
                         listaAutores.Add(autores[0].Nombre);
                     }
                      
@@ -68,7 +94,7 @@ namespace Aplication
                         foreach (var edicionkey in bResponseItem.edition_key)
                         {
                             // TODO: Ediciones -> Buscar devuelve un DTOEdicion, no una lista.
-                            DTOEdicion edicion = ServiceEdicionesOpenLibrary.Buscar(new Dictionary<string, string>() { { "Id", edicionkey.Value } });
+                            DTOEdicion edicion = ServiceEdicionesOpenLibrary.Instance.Buscar(new Dictionary<string, string>() { { "Id", edicionkey.Value } });
                             if (edicion != null)
                             {
                                 obra.Ediciones.Add(edicion);
@@ -77,6 +103,7 @@ namespace Aplication
                     }
 
                     obras.Add(obra);
+                    contador++;
                 }
             }
             catch (ExcepcionConsultaWeb ex)
