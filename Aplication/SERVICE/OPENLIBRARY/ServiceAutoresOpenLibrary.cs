@@ -13,9 +13,23 @@ using Aplication.LOG;
 
 namespace Aplication
 {
-    public class ServiceAutoresOpenLibrary
+    
+    public class ServiceAutoresOpenLibrary:IServicesAutores
     {
-        public static List<DTOAutor> Buscar(Dictionary<string, string> pFiltros)
+        private readonly static ServiceAutoresOpenLibrary _instance = new ServiceAutoresOpenLibrary();
+
+        private ServiceAutoresOpenLibrary()
+        {
+        }
+
+        public static ServiceAutoresOpenLibrary Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+        public  List<DTOAutor> Buscar(Dictionary<string, string> pFiltros)
         {
 
             if (pFiltros.Count == 0)

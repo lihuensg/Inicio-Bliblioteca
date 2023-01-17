@@ -7,14 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Aplication;
 
 namespace Inicio_Bliblioteca
 {
     public partial class Usuarios : UserControl
     {
+
+        Aplication.Fachada fachada;
+
         public Usuarios()
         {
             InitializeComponent();
+            fachada = new Fachada();
         }
 
         private void btnEditarUsuario_Click(object sender, EventArgs e)
@@ -30,7 +35,7 @@ namespace Inicio_Bliblioteca
             if (buscarUsuario.EncontroUsuario())
             {
                 var usuario = buscarUsuario.ObtenerUsuarioSeleccionado();
-                EditarUsuario editarUsuario = new EditarUsuario();
+                EditarUsuario editarUsuario = new EditarUsuario(usuario);
                 editarUsuario.ShowDialog();
             }
            
@@ -42,7 +47,9 @@ namespace Inicio_Bliblioteca
             buscarUsuario.ShowDialog();
             if (buscarUsuario.EncontroUsuario())
             {
-                throw new NotImplementedException();
+                var usuarioEncontrado = buscarUsuario.ObtenerUsuarioSeleccionado();
+                fachada.BajaUsuario(usuarioEncontrado.Dni);
+                MessageBox.Show("Usuario eliminado correctamente");
             }
 
         }
@@ -51,6 +58,20 @@ namespace Inicio_Bliblioteca
         {
             RegistrarUsuario registroUsuario = new RegistrarUsuario();
             registroUsuario.ShowDialog();
+        }
+
+        private void Usuarios_Load(object sender, EventArgs e)
+        {
+            if(InformacionDelLogin.DNI != null)
+            {
+                DTOUsuario infoUsuario = fachada.ObtenerUsuario(InformacionDelLogin.DNI.Value);
+                lNombre.Text = infoUsuario.Nombre;
+                //lUltimoInicio.Text = infoUsuario.
+                lPuntaje.Text = infoUsuario.Puntaje.ToString();
+                lMail.Text = infoUsuario.Mail;
+                lFechaRegistro.Text = infoUsuario.FechaRegistro.ToString();
+            }
+            
         }
     }
 }

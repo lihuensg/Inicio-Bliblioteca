@@ -45,7 +45,7 @@ namespace Inicio_Bliblioteca
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(106, 84);
+            this.label1.Location = new System.Drawing.Point(49, 64);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 13);
             this.label1.TabIndex = 0;
@@ -53,14 +53,14 @@ namespace Inicio_Bliblioteca
             // 
             // txtAutor
             // 
-            this.txtAutor.Location = new System.Drawing.Point(269, 123);
+            this.txtAutor.Location = new System.Drawing.Point(212, 103);
             this.txtAutor.Name = "txtAutor";
             this.txtAutor.Size = new System.Drawing.Size(100, 20);
             this.txtAutor.TabIndex = 1;
             // 
             // txtTitulo
             // 
-            this.txtTitulo.Location = new System.Drawing.Point(269, 81);
+            this.txtTitulo.Location = new System.Drawing.Point(212, 61);
             this.txtTitulo.Name = "txtTitulo";
             this.txtTitulo.Size = new System.Drawing.Size(100, 20);
             this.txtTitulo.TabIndex = 3;
@@ -68,7 +68,7 @@ namespace Inicio_Bliblioteca
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(106, 126);
+            this.label2.Location = new System.Drawing.Point(49, 106);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(112, 13);
             this.label2.TabIndex = 2;
@@ -76,7 +76,7 @@ namespace Inicio_Bliblioteca
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(269, 167);
+            this.txtDescripcion.Location = new System.Drawing.Point(212, 147);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(100, 20);
             this.txtDescripcion.TabIndex = 5;
@@ -84,7 +84,7 @@ namespace Inicio_Bliblioteca
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(106, 170);
+            this.label3.Location = new System.Drawing.Point(49, 150);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(142, 13);
             this.label3.TabIndex = 4;
@@ -93,7 +93,7 @@ namespace Inicio_Bliblioteca
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(109, 217);
+            this.btnBuscar.Location = new System.Drawing.Point(52, 197);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 6;
@@ -106,9 +106,9 @@ namespace Inicio_Bliblioteca
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.titulo,
             this.LCCN});
-            this.dataGridView1.Location = new System.Drawing.Point(300, 271);
+            this.dataGridView1.Location = new System.Drawing.Point(443, 61);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(242, 89);
+            this.dataGridView1.Size = new System.Drawing.Size(242, 209);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 

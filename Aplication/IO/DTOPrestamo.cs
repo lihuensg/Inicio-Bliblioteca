@@ -12,6 +12,7 @@ namespace Aplication
         public DateTime? FechaDevolucion { get; set; }
 
         public DateTime FechaVencimiento { get; set; }
+        public int SolicitanteDNI { get; set; }
 
     }
 }

@@ -32,6 +32,40 @@ namespace Aplication
             cMapper = mConfiguration.CreateMapper();
         }
 
+        public DTOUsuario ObtenerUsuario(string nombreUsuario)
+        {
+            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
+            {
+                Usuario usuarioObtenido = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
+                return new DTOUsuario
+                {
+                    Nombre = usuarioObtenido.NombreUsuario,
+                    Dni = usuarioObtenido.Dni,
+                    Password = usuarioObtenido.Password,
+                    Mail = usuarioObtenido.Mail,
+                    FechaRegistro = usuarioObtenido.FechaRegistro,
+                    Puntaje = usuarioObtenido.Puntaje,
+                };
+            }
+        }
+
+        public DTOUsuario ObtenerUsuario(int DNI)
+        {
+            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
+            {
+                Usuario usuarioObtenido = bUoW.RepositorioUsuarios.ObtenerPorDNI(DNI);
+                return new DTOUsuario
+                {
+                    Nombre= usuarioObtenido.NombreUsuario,
+                    Dni = usuarioObtenido.Dni,
+                    Password = usuarioObtenido.Password,
+                    Mail = usuarioObtenido.Mail,
+                    FechaRegistro = usuarioObtenido.FechaRegistro,
+                    Puntaje = usuarioObtenido.Puntaje,
+                };
+            }
+        }
+
         public void AgregarUsuario(DTOUsuario usuario, bool esAdmin)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
@@ -92,12 +126,13 @@ namespace Aplication
         }
 
 
-        public List<DTOPrestamo> PrestamosProximosAVencer(int dni)
+        public List<DTOPrestamo> PrestamosProximosAVencer()
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var listaPrestamosProxAVencer = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni && (u.FechaVencimiento - DateTime.Now).TotalDays < 7).ToList();
-                return listaPrestamosProxAVencer.Select(p => new DTOPrestamo { Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
+                var sig7Dias = DateTime.Today.AddDays(7);
+                var listaPrestamosProxAVencer = bUoW.RepositorioPrestamos.Search(u => (u.FechaVencimiento <= sig7Dias && u.FechaDevolucion == null)).ToList();
+                return listaPrestamosProxAVencer.Select(p => new DTOPrestamo { SolicitanteDNI = p.Solicitante.Dni, Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
             }
         }
 
@@ -106,7 +141,7 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaPrestamos = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni).ToList();
-                return listaPrestamos.Select(p => new DTOPrestamo { Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
+                return listaPrestamos.Select(p => new DTOPrestamo {  SolicitanteDNI = p.Solicitante.Dni, Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
             }
         }
 
@@ -115,7 +150,7 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaPrestamosEntreFechas = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni && u.FechaPrestamo <= fechaFin && u.FechaPrestamo >= fechaInicio).ToList();
-                return listaPrestamosEntreFechas.Select(p => new DTOPrestamo { Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
+                return listaPrestamosEntreFechas.Select(p => new DTOPrestamo { SolicitanteDNI = p.Solicitante.Dni, Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
             }
         }
 
@@ -203,17 +238,17 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 Usuario usuario1 = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
-                if (usuario.Nombre.Length != 0)
+                if (usuario.Nombre != null && usuario.Nombre.Length != 0)
                 {
                     usuario1.NombreUsuario = usuario.Nombre;
                 }
 
-                if (usuario.Mail.Length != 0)
+                if (usuario.Mail != null && usuario.Mail.Length != 0)
                 {
                     usuario1.Mail = usuario.Mail;
                 }
 
-                if (usuario.Password.Length != 0)
+                if (usuario.Password != null && usuario.Password.Length != 0)
                 {
                     usuario1.Password = usuario.Password;
                 }
@@ -223,12 +258,21 @@ namespace Aplication
         }
         public bool LoguearUsuario(string nombreUsuario, string password)
         {
-            bool contraCorrecta;
+            bool contraCorrecta = false;
 
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                Usuario us1 = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
-                contraCorrecta = us1.Password == password;
+                try
+                {
+                    Usuario us1 = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
+                    contraCorrecta = us1.Password == password;
+                }
+                catch (Exception)
+                {
+
+                   
+                }
+                
                 bUoW.Complete();
 
             }

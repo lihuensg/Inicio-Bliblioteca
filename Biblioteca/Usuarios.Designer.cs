@@ -79,14 +79,16 @@ namespace Inicio_Bliblioteca
             // lNombre
             // 
             this.lNombre.AutoSize = true;
-            this.lNombre.Location = new System.Drawing.Point(470, 30);
+            this.lNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lNombre.Location = new System.Drawing.Point(442, 35);
             this.lNombre.Name = "lNombre";
-            this.lNombre.Size = new System.Drawing.Size(35, 13);
+            this.lNombre.Size = new System.Drawing.Size(57, 20);
             this.lNombre.TabIndex = 4;
             this.lNombre.Text = "label1";
             // 
             // panel1
             // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.lFechaRegistro);
             this.panel1.Controls.Add(this.lPuntaje);
             this.panel1.Controls.Add(this.lMail);
@@ -95,86 +97,90 @@ namespace Inicio_Bliblioteca
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(376, 51);
+            this.panel1.Location = new System.Drawing.Point(281, 70);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(217, 285);
+            this.panel1.Size = new System.Drawing.Size(352, 236);
             this.panel1.TabIndex = 6;
             // 
             // lFechaRegistro
             // 
             this.lFechaRegistro.AutoSize = true;
-            this.lFechaRegistro.Location = new System.Drawing.Point(123, 230);
+            this.lFechaRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lFechaRegistro.Location = new System.Drawing.Point(166, 173);
             this.lFechaRegistro.Name = "lFechaRegistro";
-            this.lFechaRegistro.Size = new System.Drawing.Size(35, 13);
+            this.lFechaRegistro.Size = new System.Drawing.Size(51, 20);
             this.lFechaRegistro.TabIndex = 7;
             this.lFechaRegistro.Text = "label1";
             // 
             // lPuntaje
             // 
             this.lPuntaje.AutoSize = true;
-            this.lPuntaje.Location = new System.Drawing.Point(123, 162);
+            this.lPuntaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lPuntaje.Location = new System.Drawing.Point(86, 99);
             this.lPuntaje.Name = "lPuntaje";
-            this.lPuntaje.Size = new System.Drawing.Size(35, 13);
+            this.lPuntaje.Size = new System.Drawing.Size(51, 20);
             this.lPuntaje.TabIndex = 6;
             this.lPuntaje.Text = "label1";
             // 
             // lMail
             // 
             this.lMail.AutoSize = true;
-            this.lMail.Location = new System.Drawing.Point(123, 95);
+            this.lMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lMail.Location = new System.Drawing.Point(61, 30);
             this.lMail.Name = "lMail";
-            this.lMail.Size = new System.Drawing.Size(35, 13);
+            this.lMail.Size = new System.Drawing.Size(51, 20);
             this.lMail.TabIndex = 5;
             this.lMail.Text = "label1";
             // 
             // lUltimoInicio
             // 
             this.lUltimoInicio.AutoSize = true;
-            this.lUltimoInicio.Location = new System.Drawing.Point(123, 26);
+            this.lUltimoInicio.Location = new System.Drawing.Point(130, 41);
             this.lUltimoInicio.Name = "lUltimoInicio";
-            this.lUltimoInicio.Size = new System.Drawing.Size(35, 13);
+            this.lUltimoInicio.Size = new System.Drawing.Size(0, 13);
             this.lUltimoInicio.TabIndex = 4;
-            this.lUltimoInicio.Text = "label1";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 230);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(13, 173);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(97, 13);
+            this.label6.Size = new System.Drawing.Size(144, 20);
             this.label6.TabIndex = 3;
             this.label6.Text = "Fecha de Registro:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 162);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(10, 99);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(46, 13);
+            this.label5.Size = new System.Drawing.Size(67, 20);
             this.label5.TabIndex = 2;
             this.label5.Text = "Puntaje:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 95);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(11, 30);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 13);
+            this.label4.Size = new System.Drawing.Size(41, 20);
             this.label4.TabIndex = 1;
             this.label4.Text = "Mail:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 26);
+            this.label3.Location = new System.Drawing.Point(17, 41);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 13);
+            this.label3.Size = new System.Drawing.Size(0, 13);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Ultimo inicio:";
             // 
             // btnEditarUsuario
             // 
-            this.btnEditarUsuario.Location = new System.Drawing.Point(482, 352);
+            this.btnEditarUsuario.Location = new System.Drawing.Point(522, 314);
             this.btnEditarUsuario.Name = "btnEditarUsuario";
             this.btnEditarUsuario.Size = new System.Drawing.Size(111, 25);
             this.btnEditarUsuario.TabIndex = 7;
@@ -193,7 +199,8 @@ namespace Inicio_Bliblioteca
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnRegistrar);
             this.Name = "Usuarios";
-            this.Size = new System.Drawing.Size(623, 395);
+            this.Size = new System.Drawing.Size(764, 401);
+            this.Load += new System.EventHandler(this.Usuarios_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

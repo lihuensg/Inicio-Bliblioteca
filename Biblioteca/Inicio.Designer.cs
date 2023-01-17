@@ -40,6 +40,7 @@ namespace Inicio_Bliblioteca
             this.botAceptar = new System.Windows.Forms.Button();
             this.botCancelar = new System.Windows.Forms.Button();
             this.botSalir = new System.Windows.Forms.Button();
+            this.btnRegistrar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,7 +117,7 @@ namespace Inicio_Bliblioteca
             // 
             this.botAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botAceptar.ForeColor = System.Drawing.Color.DarkRed;
-            this.botAceptar.Location = new System.Drawing.Point(140, 146);
+            this.botAceptar.Location = new System.Drawing.Point(124, 141);
             this.botAceptar.Name = "botAceptar";
             this.botAceptar.Size = new System.Drawing.Size(75, 23);
             this.botAceptar.TabIndex = 9;
@@ -128,7 +129,7 @@ namespace Inicio_Bliblioteca
             // 
             this.botCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botCancelar.ForeColor = System.Drawing.Color.DarkRed;
-            this.botCancelar.Location = new System.Drawing.Point(235, 146);
+            this.botCancelar.Location = new System.Drawing.Point(237, 141);
             this.botCancelar.Name = "botCancelar";
             this.botCancelar.Size = new System.Drawing.Size(75, 23);
             this.botCancelar.TabIndex = 10;
@@ -148,12 +149,25 @@ namespace Inicio_Bliblioteca
             this.botSalir.UseVisualStyleBackColor = true;
             this.botSalir.Click += new System.EventHandler(this.botSalir_Click_1);
             // 
+            // btnRegistrar
+            // 
+            this.btnRegistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegistrar.ForeColor = System.Drawing.Color.DarkRed;
+            this.btnRegistrar.Location = new System.Drawing.Point(288, 182);
+            this.btnRegistrar.Name = "btnRegistrar";
+            this.btnRegistrar.Size = new System.Drawing.Size(83, 23);
+            this.btnRegistrar.TabIndex = 12;
+            this.btnRegistrar.Text = "Registrarse";
+            this.btnRegistrar.UseVisualStyleBackColor = true;
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
+            // 
             // Inicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(430, 207);
+            this.Controls.Add(this.btnRegistrar);
             this.Controls.Add(this.botSalir);
             this.Controls.Add(this.botCancelar);
             this.Controls.Add(this.botAceptar);
@@ -186,6 +200,7 @@ namespace Inicio_Bliblioteca
         private System.Windows.Forms.Button botAceptar;
         private System.Windows.Forms.Button botCancelar;
         private System.Windows.Forms.Button botSalir;
+        private System.Windows.Forms.Button btnRegistrar;
     }
 }
 

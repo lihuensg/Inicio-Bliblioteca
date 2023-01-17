@@ -13,6 +13,9 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,11 +28,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -66,6 +66,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.5.1.0\lib\net46\NLog.dll</HintPath>
     </Reference>
@@ -97,6 +100,12 @@
     <Compile Include="BuscarEjemplar.Designer.cs">
       <DependentUpon>BuscarEjemplar.cs</DependentUpon>
     </Compile>
+    <Compile Include="BuscarObraAPI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuscarObraAPI.Designer.cs">
+      <DependentUpon>BuscarObraAPI.cs</DependentUpon>
+    </Compile>
     <Compile Include="BuscarOSeleccionarObra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +123,12 @@
     </Compile>
     <Compile Include="BuscarUsuario.Designer.cs">
       <DependentUpon>BuscarUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="cambiarContraseña.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="cambiarContraseña.Designer.cs">
+      <DependentUpon>cambiarContraseña.cs</DependentUpon>
     </Compile>
     <Compile Include="CrearEdicion.cs">
       <SubType>Form</SubType>
@@ -145,6 +160,7 @@
     <Compile Include="Ejemplares.Designer.cs">
       <DependentUpon>Ejemplares.cs</DependentUpon>
     </Compile>
+    <Compile Include="InformacionDelLogin.cs" />
     <Compile Include="PrestamosProxVencer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -168,6 +184,12 @@
     </Compile>
     <Compile Include="RegistrarUsuario.Designer.cs">
       <DependentUpon>RegistrarUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Usuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Usuario.Designer.cs">
+      <DependentUpon>Registro Usuario.cs</DependentUpon>
     </Compile>
     <Compile Include="SeleccionarEdicion.cs">
       <SubType>Form</SubType>
@@ -201,6 +223,9 @@
     <EmbeddedResource Include="BuscarEjemplar.resx">
       <DependentUpon>BuscarEjemplar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BuscarObraAPI.resx">
+      <DependentUpon>BuscarObraAPI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BuscarOSeleccionarObra.resx">
       <DependentUpon>BuscarOSeleccionarObra.cs</DependentUpon>
     </EmbeddedResource>
@@ -209,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BuscarUsuario.resx">
       <DependentUpon>BuscarUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cambiarContraseña.resx">
+      <DependentUpon>cambiarContraseña.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CrearEdicion.resx">
       <DependentUpon>CrearEdicion.cs</DependentUpon>
@@ -249,6 +277,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RegistrarUsuario.resx">
       <DependentUpon>RegistrarUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Usuario.resx">
+      <DependentUpon>Registro Usuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SeleccionarEdicion.resx">
       <DependentUpon>SeleccionarEdicion.cs</DependentUpon>
