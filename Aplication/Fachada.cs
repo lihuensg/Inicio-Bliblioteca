@@ -98,6 +98,7 @@ namespace Aplication
                     Titulo = obra.Titulo,
                     Lccn = obra.Lccn,
                     Descripcion = obra.Descripcion,
+                    autores = obra.Autores
                 };
 
                 bUoW.RepositorioObras.Agregar(obra1);
@@ -186,13 +187,19 @@ namespace Aplication
 
         public void AgregarEdicion(DTOEdicion edicion)
         {
-            if (edicion.Obra.Lccn.Length == 0)
-            {
-                AgregarObra(edicion.Obra);
-            }
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                Obra obraNueva = bUoW.RepositorioObras.ObtenerPorLccn(edicion.Obra.Lccn);
+                Obra obra = null;
+                
+                try {
+                    obra = bUoW.RepositorioObras.ObtenerPorLccn(edicion.Obra.Lccn);
+                } catch (Exception) {}
+
+                if (obra == null) {
+                    AgregarObra(edicion.Obra);
+                    obra = bUoW.RepositorioObras.ObtenerPorLccn(edicion.Obra.Lccn);
+                }
+
                 Edicion edition = new Edicion
                 {
                     Isbn = edicion.Isbn,
@@ -200,7 +207,7 @@ namespace Aplication
                     NumeroPaginas = edicion.NumeroPaginas,
                     Portada = edicion.Portada,
                     FechaPublicacion = edicion.FechaPublicacion,
-                    Obra = obraNueva,
+                    Obra = obra,
                 };
                 bUoW.RepositorioEdiciones.Agregar(edition);
                 bUoW.Complete();

@@ -47,7 +47,7 @@ namespace Inicio_Bliblioteca
 
         private void label3_Click_1(object sender, EventArgs e)
         {
-            BuscarObraAPI buscarObraAPI = new BuscarObraAPI();
+            AgregarEdicionRemota buscarObraAPI = new AgregarEdicionRemota();
             buscarObraAPI.ShowDialog();
         }
     }

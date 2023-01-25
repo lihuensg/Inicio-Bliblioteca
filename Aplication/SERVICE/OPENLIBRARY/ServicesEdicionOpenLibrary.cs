@@ -40,11 +40,11 @@ namespace Aplication
             string mUrl = "";
             if (pFiltros.ContainsKey("Id"))
             {
-                mUrl = String.Format("https://openlibrary.org/books/{0}.json", pFiltros["Id"]);
+                throw new NotImplementedException();
             }
             else if (pFiltros.ContainsKey("ISBN"))
             {
-                mUrl = String.Format("https://openlibrary.org/isbn/{0}.json", pFiltros["ISBN"]);
+                mUrl = String.Format("https://openlibrary.org/api/books?bibkeys=ISBN:{0}&format=json&jscmd=data", pFiltros["ISBN"]);
             }
 
             try
@@ -52,17 +52,28 @@ namespace Aplication
                 dynamic mResponseJson = HttpJsonRequest.Obtener(mUrl);
                 DTOEdicion edicion = new DTOEdicion();
                 string isbn = null;
+                string lccn = null;
 
-                if (mResponseJson.ContainsKey("isbn_13"))
-                {
-                    isbn = (string)mResponseJson["isbn_13"][0];
-                }
-                else if (mResponseJson.ContainsKey("isbn_10"))
-                {
-                    isbn = (string)mResponseJson["isbn_10"][0];
+                if (mResponseJson != null) {
+                    var llave = String.Format("ISBN:{0}", pFiltros["ISBN"]);
+                    mResponseJson = mResponseJson[llave];
+                } else {
+                    return null;
                 }
 
-                if (isbn == null) { return null; }
+                if (mResponseJson.ContainsKey("identifiers")) {
+                    if (mResponseJson["identifiers"].ContainsKey("isbn_13")) {
+                        isbn = (string)mResponseJson["identifiers"]["isbn_13"][0];
+                    } else if (mResponseJson["identifiers"].ContainsKey("isbn_10")) {
+                        isbn = (string)mResponseJson["identifiers"]["isbn_10"][0];
+                    }
+
+                    if (mResponseJson["identifiers"].ContainsKey("lccn")) {
+                        lccn = (string)mResponseJson["identifiers"]["lccn"][0];
+                    }
+                }
+
+                if (isbn == null || lccn == null) { return null; }
 
                 edicion.Isbn = isbn;
                 edicion.Portada = String.Format("https://covers.openlibrary.org/b/isbn/{0}-L.jpg", isbn);
@@ -72,14 +83,14 @@ namespace Aplication
                     edicion.NumeroPaginas = mResponseJson["number_of_pages"];
                 }
 
-                edicion.AnioEdicion = mResponseJson["revision"];
-
                 if (mResponseJson.ContainsKey("publish_date"))
                 {
                     string fechaString = (string)mResponseJson["publish_date"];
                     try
                     {
                         edicion.FechaPublicacion = PasarFecha(fechaString, new CultureInfo("en-US"));
+
+                        edicion.AnioEdicion = edicion.FechaPublicacion.Year;
                     }
                     catch (FormatException ex)
                     {
@@ -87,6 +98,28 @@ namespace Aplication
                         LogManager.GetLogger().Error(ex,"Error: Fecha invalida '{0}'. {1}", fechaString, ex.Message);
                     }
                 }
+
+                // seteamos los datos de la obra
+                edicion.Obra = new DTOObra();
+                edicion.Obra.Generos = new List<string>();
+                if (mResponseJson.ContainsKey("subjects")) {
+                    foreach (var genero in mResponseJson.subjects) {
+                        edicion.Obra.Generos.Add((string)genero.name);
+                    }
+                }
+
+                for(int i = 0; i < mResponseJson.authors.Count; i++) {
+                    edicion.Obra.Autores = (string)mResponseJson.authors[i].name;
+                    if (i != mResponseJson.authors.Count - 1) {
+                        edicion.Obra.Autores += ", ";
+                    }
+                }
+
+                edicion.Obra.Titulo = mResponseJson.title;
+                edicion.Obra.Descripcion = mResponseJson.subtitle;
+                edicion.Obra.Lccn = lccn;
+
+                edicion.Obra.Ediciones = new List<DTOEdicion>();
 
                 return edicion;
             }

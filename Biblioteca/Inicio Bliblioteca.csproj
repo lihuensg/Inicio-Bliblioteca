@@ -100,11 +100,11 @@
     <Compile Include="BuscarEjemplar.Designer.cs">
       <DependentUpon>BuscarEjemplar.cs</DependentUpon>
     </Compile>
-    <Compile Include="BuscarObraAPI.cs">
+    <Compile Include="AgregarEdicionRemota.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BuscarObraAPI.Designer.cs">
-      <DependentUpon>BuscarObraAPI.cs</DependentUpon>
+    <Compile Include="AgregarEdicionRemota.Designer.cs">
+      <DependentUpon>AgregarEdicionRemota.cs</DependentUpon>
     </Compile>
     <Compile Include="BuscarOSeleccionarObra.cs">
       <SubType>Form</SubType>
@@ -223,8 +223,8 @@
     <EmbeddedResource Include="BuscarEjemplar.resx">
       <DependentUpon>BuscarEjemplar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BuscarObraAPI.resx">
-      <DependentUpon>BuscarObraAPI.cs</DependentUpon>
+    <EmbeddedResource Include="AgregarEdicionRemota.resx">
+      <DependentUpon>AgregarEdicionRemota.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BuscarOSeleccionarObra.resx">
       <DependentUpon>BuscarOSeleccionarObra.cs</DependentUpon>
