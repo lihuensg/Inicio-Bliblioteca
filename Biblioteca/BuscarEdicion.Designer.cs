@@ -32,16 +32,16 @@ namespace Inicio_Bliblioteca
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblObra = new System.Windows.Forms.Label();
-            this.textObra = new System.Windows.Forms.TextBox();
-            this.btnBuscarObra = new System.Windows.Forms.Button();
-            this.dgvUsuarios = new System.Windows.Forms.DataGridView();
+            this.lblISBN = new System.Windows.Forms.Label();
+            this.textISBN = new System.Windows.Forms.TextBox();
+            this.btnBuscarISBN = new System.Windows.Forms.Button();
+            this.dgvEdicion = new System.Windows.Forms.DataGridView();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaDeRegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Puntaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaPublicacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEdicion)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -52,6 +52,7 @@ namespace Inicio_Bliblioteca
             this.btnAceptar.TabIndex = 0;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // btnCancelar
             // 
@@ -72,46 +73,45 @@ namespace Inicio_Bliblioteca
             this.label1.TabIndex = 2;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // lblObra
+            // lblISBN
             // 
-            this.lblObra.AutoSize = true;
-            this.lblObra.Location = new System.Drawing.Point(222, 26);
-            this.lblObra.Name = "lblObra";
-            this.lblObra.Size = new System.Drawing.Size(37, 13);
-            this.lblObra.TabIndex = 3;
-            this.lblObra.Text = "OBRA";
+            this.lblISBN.AutoSize = true;
+            this.lblISBN.Location = new System.Drawing.Point(222, 26);
+            this.lblISBN.Name = "lblISBN";
+            this.lblISBN.Size = new System.Drawing.Size(32, 13);
+            this.lblISBN.TabIndex = 3;
+            this.lblISBN.Text = "ISBN";
             // 
-            // textObra
+            // textISBN
             // 
-            this.textObra.Location = new System.Drawing.Point(265, 23);
-            this.textObra.Name = "textObra";
-            this.textObra.ReadOnly = true;
-            this.textObra.Size = new System.Drawing.Size(100, 20);
-            this.textObra.TabIndex = 4;
+            this.textISBN.Location = new System.Drawing.Point(265, 23);
+            this.textISBN.Name = "textISBN";
+            this.textISBN.Size = new System.Drawing.Size(100, 20);
+            this.textISBN.TabIndex = 4;
             // 
-            // btnBuscarObra
+            // btnBuscarISBN
             // 
-            this.btnBuscarObra.Location = new System.Drawing.Point(276, 61);
-            this.btnBuscarObra.Name = "btnBuscarObra";
-            this.btnBuscarObra.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscarObra.TabIndex = 5;
-            this.btnBuscarObra.Text = "Buscar Obra";
-            this.btnBuscarObra.UseVisualStyleBackColor = true;
-            this.btnBuscarObra.Click += new System.EventHandler(this.btnBuscarObra_Click);
+            this.btnBuscarISBN.Location = new System.Drawing.Point(276, 61);
+            this.btnBuscarISBN.Name = "btnBuscarISBN";
+            this.btnBuscarISBN.Size = new System.Drawing.Size(71, 23);
+            this.btnBuscarISBN.TabIndex = 5;
+            this.btnBuscarISBN.Text = "Buscar ";
+            this.btnBuscarISBN.UseVisualStyleBackColor = true;
+            this.btnBuscarISBN.Click += new System.EventHandler(this.btnBuscarISBN_Click);
             // 
-            // dgvUsuarios
+            // dgvEdicion
             // 
-            this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsuarios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvEdicion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEdicion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Nombre,
             this.DNI,
             this.FechaDeRegistro,
             this.Puntaje,
             this.FechaPublicacion});
-            this.dgvUsuarios.Location = new System.Drawing.Point(37, 106);
-            this.dgvUsuarios.Name = "dgvUsuarios";
-            this.dgvUsuarios.Size = new System.Drawing.Size(539, 128);
-            this.dgvUsuarios.TabIndex = 9;
+            this.dgvEdicion.Location = new System.Drawing.Point(37, 106);
+            this.dgvEdicion.Name = "dgvEdicion";
+            this.dgvEdicion.Size = new System.Drawing.Size(539, 128);
+            this.dgvEdicion.TabIndex = 9;
             // 
             // Nombre
             // 
@@ -148,16 +148,16 @@ namespace Inicio_Bliblioteca
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 356);
-            this.Controls.Add(this.dgvUsuarios);
-            this.Controls.Add(this.btnBuscarObra);
-            this.Controls.Add(this.textObra);
-            this.Controls.Add(this.lblObra);
+            this.Controls.Add(this.dgvEdicion);
+            this.Controls.Add(this.btnBuscarISBN);
+            this.Controls.Add(this.textISBN);
+            this.Controls.Add(this.lblISBN);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Name = "BuscarEdicion";
             this.Text = "BuscarEdicion";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEdicion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,10 +168,10 @@ namespace Inicio_Bliblioteca
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblObra;
-        private System.Windows.Forms.TextBox textObra;
-        private System.Windows.Forms.Button btnBuscarObra;
-        private System.Windows.Forms.DataGridView dgvUsuarios;
+        private System.Windows.Forms.Label lblISBN;
+        private System.Windows.Forms.TextBox textISBN;
+        private System.Windows.Forms.Button btnBuscarISBN;
+        private System.Windows.Forms.DataGridView dgvEdicion;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
         private System.Windows.Forms.DataGridViewTextBoxColumn FechaDeRegistro;

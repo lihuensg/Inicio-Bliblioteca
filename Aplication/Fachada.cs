@@ -185,6 +185,16 @@ namespace Aplication
             };
         }
 
+        public DTOEdicion BuscarEdicion(string ISBN)
+        {
+            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
+            {
+                var buscarEdicion = bUoW.RepositorioEdiciones.Search(u => u.Isbn == ISBN).ToList().First();
+                var ediciones = cMapper.Map<DTOEdicion>(buscarEdicion);
+                return ediciones;
+            };
+        }
+
         public void AgregarEdicion(DTOEdicion edicion)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
