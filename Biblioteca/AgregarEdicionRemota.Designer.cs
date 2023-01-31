@@ -120,6 +120,7 @@ namespace Inicio_Bliblioteca
             // 
             // btnAgregarTodos
             // 
+            this.btnAgregarTodos.Enabled = false;
             this.btnAgregarTodos.Location = new System.Drawing.Point(634, 334);
             this.btnAgregarTodos.Name = "btnAgregarTodos";
             this.btnAgregarTodos.Size = new System.Drawing.Size(111, 23);

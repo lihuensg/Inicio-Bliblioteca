@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Aplication;
 
 namespace Inicio_Bliblioteca
 {
     public partial class Ejemplares : UserControl
     {
+        Fachada fachada;
         public Ejemplares()
         {
             InitializeComponent();
+            fachada = new Fachada();
         }
 
         private void btnAltaEjemplar_Click(object sender, EventArgs e)
@@ -25,7 +28,7 @@ namespace Inicio_Bliblioteca
 
         private void btnEliminarEjemplar_Click(object sender, EventArgs e)
         {
-            BuscarEjemplar buscarEjemplar = new BuscarEjemplar();
+            EliminarEjemplares buscarEjemplar = new EliminarEjemplares();
             buscarEjemplar.ShowDialog();
 
             if (buscarEjemplar.SeleccionoEjemplar())

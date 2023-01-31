@@ -32,6 +32,11 @@ namespace Inicio_Bliblioteca
             ediciones.Add(item);
 
             dataGridView1.Rows.Add(item.Isbn, item.AnioEdicion, item.NumeroPaginas, item.FechaPublicacion, item.Obra.Titulo, item.Portada);
+
+            if (dataGridView1.Rows.Count > 0)
+            {
+                btnAgregarTodos.Enabled = true;
+            }
         }
 
         private void label2_Click(object sender, EventArgs e) {

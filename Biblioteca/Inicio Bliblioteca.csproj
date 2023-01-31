@@ -100,6 +100,12 @@
     <Compile Include="BuscarEjemplar.Designer.cs">
       <DependentUpon>BuscarEjemplar.cs</DependentUpon>
     </Compile>
+    <Compile Include="EliminarEjemplares.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EliminarEjemplares.Designer.cs">
+      <DependentUpon>EliminarEjemplares.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgregarEdicionRemota.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BuscarEjemplar.resx">
       <DependentUpon>BuscarEjemplar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EliminarEjemplares.resx">
+      <DependentUpon>EliminarEjemplares.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarEdicionRemota.resx">
       <DependentUpon>AgregarEdicionRemota.cs</DependentUpon>

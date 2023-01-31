@@ -38,6 +38,7 @@ namespace Inicio_Bliblioteca
             {
                 edicion1 = fachada.BuscarEdicion(txtISBN.Text);
                 MessageBox.Show("ISBN encontrado");
+                btnAceptar.Enabled = true;
             }
             catch (Exception)
             {
