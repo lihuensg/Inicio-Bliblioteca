@@ -148,12 +148,12 @@ namespace Aplication
             }
         }
 
-        public List<DTOPrestamo> PrestamosEntreFechas(int dni, DateTime fechaInicio, DateTime fechaFin)
+        public List<DTOPrestamoConUsuarioYEjemplar> PrestamosEntreFechas(int dni, DateTime fechaInicio, DateTime fechaFin)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaPrestamosEntreFechas = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni && u.FechaPrestamo <= fechaFin && u.FechaPrestamo >= fechaInicio).ToList();
-                return listaPrestamosEntreFechas.Select(p => new DTOPrestamo { SolicitanteDNI = p.Solicitante.Dni, Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
+                return listaPrestamosEntreFechas.Select(p => new DTOPrestamoConUsuarioYEjemplar {Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento , Nombre = p.Solicitante.NombreUsuario , CodigoInventario = p.Ejemplar.CodigoInventario}).ToList();
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aplication;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,6 +38,12 @@ namespace Inicio_Bliblioteca
         {
             EliminarEjemplares buscarEjemplar = new EliminarEjemplares();
             buscarEjemplar.ShowDialog();
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            Fachada fachada = new Fachada();
+            var listaPrestamos = fachada.PrestamosEntreFechas((int)numericUpDown1.Value, dtFecha1.Value, dtFecha2.Value);
         }
     }
 }
