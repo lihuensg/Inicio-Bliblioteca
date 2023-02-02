@@ -29,76 +29,78 @@ namespace Inicio_Bliblioteca
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnBuscarObra = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtTitulo = new System.Windows.Forms.TextBox();
+            this.btnBuscarEdicion = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtISBN = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textCantidad = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // label1
+            // btnBuscarEdicion
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 98);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Codigo inventario:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(114, 95);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
-            // 
-            // btnBuscarObra
-            // 
-            this.btnBuscarObra.Location = new System.Drawing.Point(238, 33);
-            this.btnBuscarObra.Name = "btnBuscarObra";
-            this.btnBuscarObra.Size = new System.Drawing.Size(87, 26);
-            this.btnBuscarObra.TabIndex = 2;
-            this.btnBuscarObra.Text = "Buscar obra";
-            this.btnBuscarObra.UseVisualStyleBackColor = true;
-            this.btnBuscarObra.Click += new System.EventHandler(this.btnBuscarObra_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(62, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "TITULO:";
-            // 
-            // txtTitulo
-            // 
-            this.txtTitulo.Location = new System.Drawing.Point(114, 37);
-            this.txtTitulo.Name = "txtTitulo";
-            this.txtTitulo.ReadOnly = true;
-            this.txtTitulo.Size = new System.Drawing.Size(100, 20);
-            this.txtTitulo.TabIndex = 4;
+            this.btnBuscarEdicion.Location = new System.Drawing.Point(238, 33);
+            this.btnBuscarEdicion.Name = "btnBuscarEdicion";
+            this.btnBuscarEdicion.Size = new System.Drawing.Size(87, 26);
+            this.btnBuscarEdicion.TabIndex = 2;
+            this.btnBuscarEdicion.Text = "Buscar edición";
+            this.btnBuscarEdicion.UseVisualStyleBackColor = true;
+            this.btnBuscarEdicion.Click += new System.EventHandler(this.btnBuscarEdicion_Click);
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(65, 169);
+            this.btnAceptar.Enabled = false;
+            this.btnAceptar.Location = new System.Drawing.Point(114, 146);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 5;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(238, 169);
+            this.btnCancelar.Location = new System.Drawing.Point(238, 146);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(73, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "ISBN:";
+            // 
+            // txtISBN
+            // 
+            this.txtISBN.Location = new System.Drawing.Point(114, 37);
+            this.txtISBN.Name = "txtISBN";
+            this.txtISBN.Size = new System.Drawing.Size(100, 20);
+            this.txtISBN.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(56, 91);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Cantidad:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // textCantidad
+            // 
+            this.textCantidad.Location = new System.Drawing.Point(114, 88);
+            this.textCantidad.Name = "textCantidad";
+            this.textCantidad.Size = new System.Drawing.Size(100, 20);
+            this.textCantidad.TabIndex = 1;
             // 
             // DarDeAltaEjemplar
             // 
@@ -107,10 +109,10 @@ namespace Inicio_Bliblioteca
             this.ClientSize = new System.Drawing.Size(441, 262);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
-            this.Controls.Add(this.txtTitulo);
+            this.Controls.Add(this.txtISBN);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnBuscarObra);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnBuscarEdicion);
+            this.Controls.Add(this.textCantidad);
             this.Controls.Add(this.label1);
             this.Name = "DarDeAltaEjemplar";
             this.Text = "DarDeAltaEjemplar";
@@ -120,13 +122,12 @@ namespace Inicio_Bliblioteca
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button btnBuscarObra;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtTitulo;
+        private System.Windows.Forms.Button btnBuscarEdicion;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtISBN;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textCantidad;
     }
 }

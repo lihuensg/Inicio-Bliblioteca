@@ -9,8 +9,8 @@ namespace Aplication.DAL.EntityFramework
     {
         public RepositorioObras (BibliotecaDbContext pDbContext) : base(pDbContext)
         {
-
         }
+
         public Obra ObtenerPorLccn (string Lccn)
         {
             return iDbContext.Obras.Where(u => u.Lccn == Lccn).First();

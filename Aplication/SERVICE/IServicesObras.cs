@@ -8,5 +8,6 @@ namespace Aplication
     public interface IServicesObras
     {
         List<DTOObra> Buscar(Dictionary<string,string> pFiltros);
+        DTOObra BuscarUnaObra(string pIdRemoto);
     }
 }

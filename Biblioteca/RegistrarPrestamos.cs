@@ -36,7 +36,7 @@ namespace Inicio_Bliblioteca
 
         private void btnBuscarEjemplar_Click(object sender, EventArgs e)
         {
-            BuscarEjemplar buscarEjemplar = new BuscarEjemplar();
+            EliminarEjemplares buscarEjemplar = new EliminarEjemplares();
             buscarEjemplar.ShowDialog();
         }
     }

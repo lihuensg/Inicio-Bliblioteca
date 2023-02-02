@@ -14,7 +14,7 @@ namespace Aplication.DAL.EntityFramework
 
         public Ejemplar ObtenerPorCodInv(string codigoInventario)
         {
-            return iDbContext.Ejemplares.Where(u => u.CodigoInventario == codigoInventario).First();
+            return iDbContext.Ejemplares.Where(u => u.CodigoInventario == codigoInventario).FirstOrDefault();
         }
     }
 }

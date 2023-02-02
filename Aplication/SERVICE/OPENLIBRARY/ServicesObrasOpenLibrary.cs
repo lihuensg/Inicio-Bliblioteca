@@ -117,5 +117,51 @@ namespace Aplication
             return obras;
 
         }
+
+        /// <summary>
+        /// Busca una obra en OpenLibrary
+        /// </summary>
+        /// <param name="pIdRemoto">Un ID de obra de OpenLibrary</param>
+        /// <returns></returns>
+        public DTOObra BuscarUnaObra(string pIdRemoto) {
+            /**
+             * Nueva funcion para buscar a una sola obra, ya que cuando se carga una nueva edicion se busca cual es la obra
+             * a la cual pertenece. Ademas es necesaria esta funcion ya que la API response con un esquema diferente al anterior.
+            **/
+            string apiUrl = String.Format("https://openlibrary.org/works/{0}.json", pIdRemoto);
+
+            DTOObra obra = new DTOObra();
+            var listaAutores = new List<string>();
+            try {
+                dynamic respuesta = HttpJsonRequest.Obtener(apiUrl);
+
+                obra.Generos = new List<string>();
+                if (respuesta.ContainsKey("subject")) {
+                    foreach (var genero in respuesta.subject) {
+                        obra.Generos.Add(genero.Value);
+                    }
+                }
+
+                foreach (var autorkey in respuesta.authors) {
+                    // como lo buscamos por el id que nos da openlibrary sabemos que existe
+                    var id = ((string)autorkey.author.key).Replace("/authors/", "");
+                    var autores = ServiceAutoresOpenLibrary.Instance.Buscar(new Dictionary<string, string>() { { "Id", id} });
+                    listaAutores.Add(autores[0].Nombre);
+                }
+
+                // obra.Autores = String.Join(",", listaAutores)
+                foreach (var author in listaAutores) {
+                    obra.Autores += author + ",";
+                }
+
+                obra.Titulo = HttpUtility.HtmlDecode(respuesta.title.ToString());
+            } catch (ExcepcionConsultaWeb ex) {
+                LogManager.GetLogger().Error(ex, "No se puede realizar la consulta en el servidor");
+            } catch (ExcepcionRespuestaInvalida ex1) {
+                LogManager.GetLogger().Error("Error {0}", ex1.Message);
+            }
+
+            return obra;
+        }
     }
 }

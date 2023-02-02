@@ -27,6 +27,8 @@ namespace Aplication
             {
                 pConfiguration.CreateMap<Edicion, DTOEdicion>();
                 pConfiguration.CreateMap<Obra, DTOObra>();
+                pConfiguration.CreateMap<Ejemplar, DTOEjemplar>().ForMember(dest => dest.codigoInventario, act => act.MapFrom(src => src.Id));
+                pConfiguration.CreateMap<Ejemplar, DTOEjemplarPrestamo>().ForMember(dest => dest.codigoInventario, act => act.MapFrom(src => src.Id));
             });
 
             cMapper = mConfiguration.CreateMapper();
@@ -98,6 +100,7 @@ namespace Aplication
                     Titulo = obra.Titulo,
                     Lccn = obra.Lccn,
                     Descripcion = obra.Descripcion,
+                    autores = obra.Autores
                 };
 
                 bUoW.RepositorioObras.Agregar(obra1);
@@ -163,12 +166,35 @@ namespace Aplication
             }
         }
 
+        public List<DTOEjemplarPrestamo> ListarEjemplaresConPrestamos(string isbn)
+        {
+            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
+            {
+                var listaEjemplares = bUoW.RepositorioEjemplares.Search(u => u.Edicion.Isbn == isbn).ToList();
+                List<DTOEjemplarPrestamo> prestamosEjemplares = new List<DTOEjemplarPrestamo>();               
+                foreach (var item in listaEjemplares)
+                {
+                   var prestamo = bUoW.RepositorioPrestamos.Search(u => u.FechaDevolucion == null && u.Ejemplar.Id == item.Id).ToList();
+                   var ejemplarPrestamo = cMapper.Map<DTOEjemplarPrestamo>(item);
+                    if (prestamo.Count == 0)
+                    {
+                        ejemplarPrestamo.Prestado = false;
+                    }
+                    else
+                    {
+                        ejemplarPrestamo.Prestado = true;
+                    }
+                    prestamosEjemplares.Add(ejemplarPrestamo);
+                }
+                return prestamosEjemplares;
+            };
+        }
         public List<DTOEjemplar> ListarEjemplares(string isbn)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaEjemplares = bUoW.RepositorioEjemplares.Search(u => u.Edicion.Isbn == isbn).ToList();
-                var edicion = bUoW.RepositorioEdiciones.ObtenerPorISBN(isbn);
+               // var edicion = bUoW.RepositorioEdiciones.ObtenerPorISBN(isbn);
                 var ejemplar = cMapper.Map<IList<DTOEjemplar>>(listaEjemplares);
                 return ejemplar.ToList();
             };
@@ -184,15 +210,31 @@ namespace Aplication
             };
         }
 
-        public void AgregarEdicion(DTOEdicion edicion)
+        public DTOEdicion BuscarEdicion(string ISBN)
         {
-            if (edicion.Obra.Lccn.Length == 0)
-            {
-                AgregarObra(edicion.Obra);
-            }
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                Obra obraNueva = bUoW.RepositorioObras.ObtenerPorLccn(edicion.Obra.Lccn);
+                var buscarEdicion = bUoW.RepositorioEdiciones.Search(u => u.Isbn == ISBN).ToList().First();
+                var ediciones = cMapper.Map<DTOEdicion>(buscarEdicion);
+                return ediciones;
+            };
+        }
+
+        public void AgregarEdicion(DTOEdicion edicion)
+        {
+            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
+            {
+                Obra obra = null;
+                
+                try {
+                    obra = bUoW.RepositorioObras.ObtenerPorLccn(edicion.Obra.Lccn);
+                } catch (Exception) {}
+
+                if (obra == null) {
+                    AgregarObra(edicion.Obra);
+                    obra = bUoW.RepositorioObras.ObtenerPorLccn(edicion.Obra.Lccn);
+                }
+
                 Edicion edition = new Edicion
                 {
                     Isbn = edicion.Isbn,
@@ -200,7 +242,7 @@ namespace Aplication
                     NumeroPaginas = edicion.NumeroPaginas,
                     Portada = edicion.Portada,
                     FechaPublicacion = edicion.FechaPublicacion,
-                    Obra = obraNueva,
+                    Obra = obra,
                 };
                 bUoW.RepositorioEdiciones.Agregar(edition);
                 bUoW.Complete();
@@ -285,7 +327,7 @@ namespace Aplication
             {
                 int dias = 5;
                 Usuario usuario = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
-                Ejemplar ejemplar = bUoW.RepositorioEjemplares.ObtenerPorCodInv(codigoInventario);
+                Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(Int32.Parse(codigoInventario));
 
                 dias += usuario.Puntaje / 5;
 
@@ -336,7 +378,7 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                Ejemplar ejemplar = bUoW.RepositorioEjemplares.ObtenerPorCodInv(codigoInventario);
+                Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(Int32.Parse(codigoInventario));
 
                 ejemplar.FechaBaja = DateTime.Now;
                 bUoW.Complete();

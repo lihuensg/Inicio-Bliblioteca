@@ -30,14 +30,13 @@ namespace Inicio_Bliblioteca
         private void InitializeComponent()
         {
             this.btnAltaEjemplar = new System.Windows.Forms.Button();
-            this.btnEditarEjemplar = new System.Windows.Forms.Button();
             this.btnEliminarEjemplar = new System.Windows.Forms.Button();
             this.btnBuscarEjemplar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAltaEjemplar
             // 
-            this.btnAltaEjemplar.Location = new System.Drawing.Point(78, 119);
+            this.btnAltaEjemplar.Location = new System.Drawing.Point(233, 70);
             this.btnAltaEjemplar.Name = "btnAltaEjemplar";
             this.btnAltaEjemplar.Size = new System.Drawing.Size(150, 41);
             this.btnAltaEjemplar.TabIndex = 0;
@@ -45,29 +44,19 @@ namespace Inicio_Bliblioteca
             this.btnAltaEjemplar.UseVisualStyleBackColor = true;
             this.btnAltaEjemplar.Click += new System.EventHandler(this.btnAltaEjemplar_Click);
             // 
-            // btnEditarEjemplar
-            // 
-            this.btnEditarEjemplar.Location = new System.Drawing.Point(376, 119);
-            this.btnEditarEjemplar.Name = "btnEditarEjemplar";
-            this.btnEditarEjemplar.Size = new System.Drawing.Size(150, 41);
-            this.btnEditarEjemplar.TabIndex = 1;
-            this.btnEditarEjemplar.Text = "Editar ejemplar";
-            this.btnEditarEjemplar.UseVisualStyleBackColor = true;
-            this.btnEditarEjemplar.Click += new System.EventHandler(this.btnEditarEjemplar_Click);
-            // 
             // btnEliminarEjemplar
             // 
-            this.btnEliminarEjemplar.Location = new System.Drawing.Point(78, 219);
+            this.btnEliminarEjemplar.Location = new System.Drawing.Point(233, 172);
             this.btnEliminarEjemplar.Name = "btnEliminarEjemplar";
             this.btnEliminarEjemplar.Size = new System.Drawing.Size(150, 41);
             this.btnEliminarEjemplar.TabIndex = 2;
-            this.btnEliminarEjemplar.Text = "Eliminar ejemplar";
+            this.btnEliminarEjemplar.Text = "Dar de baja ejemplar";
             this.btnEliminarEjemplar.UseVisualStyleBackColor = true;
             this.btnEliminarEjemplar.Click += new System.EventHandler(this.btnEliminarEjemplar_Click);
             // 
             // btnBuscarEjemplar
             // 
-            this.btnBuscarEjemplar.Location = new System.Drawing.Point(376, 219);
+            this.btnBuscarEjemplar.Location = new System.Drawing.Point(233, 290);
             this.btnBuscarEjemplar.Name = "btnBuscarEjemplar";
             this.btnBuscarEjemplar.Size = new System.Drawing.Size(150, 41);
             this.btnBuscarEjemplar.TabIndex = 3;
@@ -81,7 +70,6 @@ namespace Inicio_Bliblioteca
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnBuscarEjemplar);
             this.Controls.Add(this.btnEliminarEjemplar);
-            this.Controls.Add(this.btnEditarEjemplar);
             this.Controls.Add(this.btnAltaEjemplar);
             this.Name = "Ejemplares";
             this.Size = new System.Drawing.Size(623, 395);
@@ -92,7 +80,6 @@ namespace Inicio_Bliblioteca
         #endregion
 
         private System.Windows.Forms.Button btnAltaEjemplar;
-        private System.Windows.Forms.Button btnEditarEjemplar;
         private System.Windows.Forms.Button btnEliminarEjemplar;
         private System.Windows.Forms.Button btnBuscarEjemplar;
     }
