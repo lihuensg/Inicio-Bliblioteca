@@ -50,5 +50,31 @@ namespace Inicio_Bliblioteca
             AgregarEdicionRemota buscarObraAPI = new AgregarEdicionRemota();
             buscarObraAPI.ShowDialog();
         }
+
+        private void botonUsuario_Click(object sender, EventArgs e)
+        {
+            usuarios1.BringToFront();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            prestamosYDevoluciones1.BringToFront();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AgregarEdicionRemota buscarObraAPI = new AgregarEdicionRemota();
+            buscarObraAPI.ShowDialog(); 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            prestamosProxVencer1.BringToFront();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ejemplares1.BringToFront();
+        }
     }
 }

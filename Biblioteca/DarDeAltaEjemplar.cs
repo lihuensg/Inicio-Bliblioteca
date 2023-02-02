@@ -54,8 +54,17 @@ namespace Inicio_Bliblioteca
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            fachada.AgregarEjemplar(new DTOEjemplar { Edicion = edicion1, FechaAlta = DateTime.Now, codigoInventario = "2" });
+            for (int i = 0; i <  numericCantidad.Value; i++)
+            {
+                fachada.AgregarEjemplar(new DTOEjemplar { Edicion = edicion1, FechaAlta = DateTime.Now, codigoInventario = "2" });
+            }
             MessageBox.Show("Guardado correctamente");
+
+        }
+
+        private void DarDeAltaEjemplar_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
