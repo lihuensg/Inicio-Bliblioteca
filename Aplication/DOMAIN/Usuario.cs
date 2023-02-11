@@ -43,7 +43,7 @@ namespace Aplication
             get; set;
         }
 
-        public List<Prestamo> Prestamos
+        public virtual List<Prestamo> Prestamos
         {
             get; set;
         }

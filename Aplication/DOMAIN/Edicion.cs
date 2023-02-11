@@ -12,7 +12,7 @@ namespace Aplication
         public int AñoEdicion { get; set; }
         public int NumeroPaginas { get; set; }
         public string Portada { get; set; }
-        public Obra Obra { get; set; }
+        public virtual Obra Obra { get; set; }
         public DateTime FechaPublicacion { get; set; }
     }
 }

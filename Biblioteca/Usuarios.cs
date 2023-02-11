@@ -60,9 +60,9 @@ namespace Inicio_Bliblioteca
             registroUsuario.ShowDialog();
         }
 
-        private void Usuarios_Load(object sender, EventArgs e)
+        void RefrescarDatos()
         {
-            if(InformacionDelLogin.DNI != null)
+            if (InformacionDelLogin.DNI != null)
             {
                 DTOUsuario infoUsuario = fachada.ObtenerUsuario(InformacionDelLogin.DNI.Value);
                 lNombre.Text = infoUsuario.Nombre;
@@ -71,7 +71,17 @@ namespace Inicio_Bliblioteca
                 lMail.Text = infoUsuario.Mail;
                 lFechaRegistro.Text = infoUsuario.FechaRegistro.ToString();
             }
-            
+        }
+        private void Usuarios_Load(object sender, EventArgs e)
+        {
+
+            RefrescarDatos();    
+
+        }
+
+        private void btnRefrescar_Click(object sender, EventArgs e)
+        {
+            RefrescarDatos();
         }
     }
 }

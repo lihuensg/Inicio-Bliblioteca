@@ -153,7 +153,7 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaPrestamosEntreFechas = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni && u.FechaPrestamo <= fechaFin && u.FechaPrestamo >= fechaInicio).ToList();
-                return listaPrestamosEntreFechas.Select(p => new DTOPrestamoConUsuarioYEjemplar {Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento , Nombre = p.Solicitante.NombreUsuario , CodigoInventario = p.Ejemplar.CodigoInventario}).ToList();
+                return listaPrestamosEntreFechas.Select(p => new DTOPrestamoConUsuarioYEjemplar {Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento , Nombre = p.Solicitante.NombreUsuario , CodigoInventario = p.Ejemplar.Id.ToString()}).ToList();
             }
         }
 
@@ -343,15 +343,18 @@ namespace Aplication
                 bUoW.Complete();
             }
         }
-        public void DevolverEjemplar(int dni, int idPrestamo, bool buenEstado)
+
+        public void DevolverEjemplar(string codigoEjemplar, bool buenEstado)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                Usuario usuario = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
-                Prestamo prestamo = bUoW.RepositorioPrestamos.Obtener(idPrestamo);
+                var codigoEjemplarInt = Int32.Parse(codigoEjemplar); 
+                Prestamo prestamo = bUoW.RepositorioPrestamos.Search(u=> u.Ejemplar.Id == codigoEjemplarInt && u.FechaDevolucion == null).First();
+                Usuario usuario = prestamo.Solicitante;
 
                 prestamo.FechaDevolucion = DateTime.Now;
 
+                //TODO: mover a el tema del negocio a Usuario
                 if (!buenEstado)
                 {
                     usuario.Puntaje -= 10;
@@ -399,6 +402,16 @@ namespace Aplication
                 return usuario.Count() > 0;
             }    
 
+        }
+
+        public bool EstaPrestadoEjemplar (string codigoInventario)
+        {
+            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
+            {
+                int codigoInvInt = Int32.Parse(codigoInventario);
+                var ejemplar = bUoW.RepositorioPrestamos.Search(u => u.Ejemplar.Id == codigoInvInt && u.FechaDevolucion == null).ToList();
+                return ejemplar.Count() > 0;
+            }
         }
 
     }

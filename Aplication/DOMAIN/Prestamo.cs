@@ -27,8 +27,8 @@ namespace Aplication
 
         public DateTime FechaVencimiento { get; set; }
 
-        public Usuario Solicitante { get; set; }
+        public virtual Usuario Solicitante { get; set; }
 
-        public Ejemplar Ejemplar { get; set; }
+        public virtual Ejemplar Ejemplar { get; set; }
     }
 }
