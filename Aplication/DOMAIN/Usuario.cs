@@ -47,5 +47,13 @@ namespace Aplication
         {
             get; set;
         }
+
+        public int MaximoDiasHabilesPrestamos()
+        {
+            int dias = 5;
+            dias += this.Puntaje / 5;
+            dias = Math.Min(dias, 15);
+            return dias;
+        }
     }
 }

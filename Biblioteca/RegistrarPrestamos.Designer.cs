@@ -43,9 +43,9 @@ namespace Inicio_Bliblioteca
             // 
             // btnBusUsuario
             // 
-            this.btnBusUsuario.Location = new System.Drawing.Point(96, 74);
+            this.btnBusUsuario.Location = new System.Drawing.Point(212, 55);
             this.btnBusUsuario.Name = "btnBusUsuario";
-            this.btnBusUsuario.Size = new System.Drawing.Size(210, 44);
+            this.btnBusUsuario.Size = new System.Drawing.Size(91, 21);
             this.btnBusUsuario.TabIndex = 0;
             this.btnBusUsuario.Text = "Buscar Usuario";
             this.btnBusUsuario.UseVisualStyleBackColor = true;
@@ -54,7 +54,7 @@ namespace Inicio_Bliblioteca
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(110, 138);
+            this.label1.Location = new System.Drawing.Point(59, 58);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 13);
             this.label1.TabIndex = 1;
@@ -63,17 +63,16 @@ namespace Inicio_Bliblioteca
             // 
             // txtDNI
             // 
-            this.txtDNI.Location = new System.Drawing.Point(154, 138);
+            this.txtDNI.Location = new System.Drawing.Point(94, 55);
             this.txtDNI.Name = "txtDNI";
-            this.txtDNI.ReadOnly = true;
             this.txtDNI.Size = new System.Drawing.Size(100, 20);
             this.txtDNI.TabIndex = 2;
             // 
             // btnEjemplar
             // 
-            this.btnEjemplar.Location = new System.Drawing.Point(475, 74);
+            this.btnEjemplar.Location = new System.Drawing.Point(274, 188);
             this.btnEjemplar.Name = "btnEjemplar";
-            this.btnEjemplar.Size = new System.Drawing.Size(210, 44);
+            this.btnEjemplar.Size = new System.Drawing.Size(94, 21);
             this.btnEjemplar.TabIndex = 3;
             this.btnEjemplar.Text = "Buscar Ejemplar";
             this.btnEjemplar.UseVisualStyleBackColor = true;
@@ -82,7 +81,7 @@ namespace Inicio_Bliblioteca
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(478, 145);
+            this.label2.Location = new System.Drawing.Point(60, 192);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 13);
             this.label2.TabIndex = 4;
@@ -90,41 +89,43 @@ namespace Inicio_Bliblioteca
             // 
             // txtCodigoInventario
             // 
-            this.txtCodigoInventario.Location = new System.Drawing.Point(585, 142);
+            this.txtCodigoInventario.Location = new System.Drawing.Point(158, 189);
             this.txtCodigoInventario.Name = "txtCodigoInventario";
-            this.txtCodigoInventario.ReadOnly = true;
             this.txtCodigoInventario.Size = new System.Drawing.Size(100, 20);
             this.txtCodigoInventario.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(221, 229);
+            this.label3.Location = new System.Drawing.Point(108, 99);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(150, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Fecha de vencimiento maxima";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // txtFechaVencimiento
             // 
-            this.txtFechaVencimiento.Location = new System.Drawing.Point(407, 226);
+            this.txtFechaVencimiento.Location = new System.Drawing.Point(79, 115);
             this.txtFechaVencimiento.Name = "txtFechaVencimiento";
             this.txtFechaVencimiento.ReadOnly = true;
-            this.txtFechaVencimiento.Size = new System.Drawing.Size(112, 20);
+            this.txtFechaVencimiento.Size = new System.Drawing.Size(211, 20);
             this.txtFechaVencimiento.TabIndex = 7;
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(154, 329);
+            this.btnAceptar.Enabled = false;
+            this.btnAceptar.Location = new System.Drawing.Point(63, 270);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 8;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(536, 329);
+            this.btnCancelar.Location = new System.Drawing.Point(274, 270);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 9;
@@ -136,7 +137,7 @@ namespace Inicio_Bliblioteca
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(460, 409);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.txtFechaVencimiento);

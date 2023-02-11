@@ -325,15 +325,11 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                int dias = 5;
+                
                 Usuario usuario = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
                 Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(Int32.Parse(codigoInventario));
-
-                dias += usuario.Puntaje / 5;
-
-                dias = Math.Min(dias, 15);
-
-                var fechaVencimiento = DateTime.Now.AddDays(dias);
+               
+                var fechaVencimiento = DateTime.Now.AddDays(usuario.MaximoDiasHabilesPrestamos());
 
                 Prestamo prestamo = new Prestamo
                 {
@@ -384,5 +380,26 @@ namespace Aplication
                 bUoW.Complete();
             }
         }
+
+        public int CantidadDiaMaximoHabilesDeUsuario(int dni)
+        {
+            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
+            {
+                Usuario usuario = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
+                return usuario.MaximoDiasHabilesPrestamos();
+            }
+        }
+
+        public bool ExisteEjemplar (string codigoInventario)
+        {
+            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
+            {
+                int codigoInvInt = Int32.Parse(codigoInventario);
+                var usuario = bUoW.RepositorioEjemplares.Search(u => u.Id == codigoInvInt).ToList();
+                return usuario.Count() > 0;
+            }    
+
+        }
+
     }
 }

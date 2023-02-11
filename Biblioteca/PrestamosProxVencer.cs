@@ -25,11 +25,13 @@ namespace Inicio_Bliblioteca
             //esto lo realizamos para esperar a que este logeado es decir que no se ejecute en el diseñador
             if (InformacionDelLogin.DNI != null )   
             {
-                var prestamosAVencer = fachada.PrestamosProximosAVencer();
-                foreach (var prestamo in prestamosAVencer)
-                {
-                    this.dataGridView1.Rows.Add(prestamo.FechaVencimiento, prestamo.FechaPrestamo, prestamo.Id, prestamo.SolicitanteDNI);
-                }
+               // TODO: nos tira error a la hora de iniciar
+        
+              // var prestamosAVencer = fachada.PrestamosProximosAVencer();
+              //  foreach (var prestamo in prestamosAVencer)
+              //  {
+              //      this.dataGridView1.Rows.Add(prestamo.FechaVencimiento, prestamo.FechaPrestamo, prestamo.Id, prestamo.SolicitanteDNI);
+                // }
             }            
         }
     }
