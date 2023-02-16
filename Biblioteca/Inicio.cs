@@ -42,7 +42,7 @@ namespace Inicio_Bliblioteca
         {
 
             if (fachada.LoguearUsuario(txtUsuario.Text, txtContraseña.Text)) {
-                MessageBox.Show("Logueado correctamente");
+                    //MessageBox.Show("Logueado correctamente");
             
                     string nombre = txtUsuario.Text;
                     InformacionDelLogin.DNI = fachada.ObtenerUsuario(txtUsuario.Text).Dni;

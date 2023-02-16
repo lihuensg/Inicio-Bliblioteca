@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
+using Inicio_Bliblioteca.Utils;
 
 namespace Inicio_Bliblioteca
 {
@@ -25,13 +26,18 @@ namespace Inicio_Bliblioteca
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            var filtorPorISBN = txtISBN.Text;
+            var filtorPorISBN = FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text);
             var pFiltros = new Dictionary<string, string>();
             pFiltros.Add("ISBN", filtorPorISBN);
             DTOEdicion item = ServiceEdicionesOpenLibrary.Instance.Buscar(pFiltros);
-            ediciones.Add(item);
+            
+            if (item != null) {
+                ediciones.Add(item);
 
-            dataGridView1.Rows.Add(item.Isbn, item.AnioEdicion, item.NumeroPaginas, item.FechaPublicacion, item.Obra.Titulo, item.Portada);
+                dataGridView1.Rows.Add(item.Isbn, item.AnioEdicion, item.NumeroPaginas, item.FechaPublicacion, item.Obra.Titulo, item.Portada);
+            } else {
+                MessageBox.Show("No hubo resultados");
+            }
 
             if (dataGridView1.Rows.Count > 0)
             {
@@ -48,6 +54,7 @@ namespace Inicio_Bliblioteca
         }
         private void btnAgregarTodos_Click(object sender, EventArgs e) {
             foreach(var edicion in ediciones) {
+                edicion.Isbn = FormateoUtiles.LimpiarGuionesISBN(edicion.Isbn);
                 fachada.AgregarEdicion(edicion);
             }
             MessageBox.Show("Agregados correctamente");

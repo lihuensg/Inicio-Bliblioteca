@@ -35,8 +35,8 @@ namespace Inicio_Bliblioteca
             this.CodigoInv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Prestado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaDeAlta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnSelecISBN = new System.Windows.Forms.Button();
             this.FechaBaja = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSelecISBN = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,6 +87,12 @@ namespace Inicio_Bliblioteca
             this.FechaDeAlta.Name = "FechaDeAlta";
             this.FechaDeAlta.ReadOnly = true;
             // 
+            // FechaBaja
+            // 
+            this.FechaBaja.HeaderText = "Fecha de baja";
+            this.FechaBaja.Name = "FechaBaja";
+            this.FechaBaja.ReadOnly = true;
+            // 
             // btnSelecISBN
             // 
             this.btnSelecISBN.Location = new System.Drawing.Point(428, 104);
@@ -96,12 +102,6 @@ namespace Inicio_Bliblioteca
             this.btnSelecISBN.Text = "Buscar";
             this.btnSelecISBN.UseVisualStyleBackColor = true;
             this.btnSelecISBN.Click += new System.EventHandler(this.btnSelecISBN_Click);
-            // 
-            // FechaBaja
-            // 
-            this.FechaBaja.HeaderText = "Fecha de baja";
-            this.FechaBaja.Name = "FechaBaja";
-            this.FechaBaja.ReadOnly = true;
             // 
             // BuscarEjemplar
             // 

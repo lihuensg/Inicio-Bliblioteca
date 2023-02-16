@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
+using Inicio_Bliblioteca.Utils;
 
 namespace Inicio_Bliblioteca
 {
@@ -53,7 +54,7 @@ namespace Inicio_Bliblioteca
         private void btnSelecISBN_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-            actualizarListaEjemplares(txtISBN.Text);
+            actualizarListaEjemplares(FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text));
         }
 
         private void actualizarListaEjemplares (string isbn)
@@ -79,15 +80,13 @@ namespace Inicio_Bliblioteca
             Int32 selectedCellCount = dataGridView1.GetCellCount(DataGridViewElementStates.Selected);
             if (selectedCellCount > 0)
             {
-                for (int i = 0;
-                i < selectedCellCount; i++)
+                for (int i = 0; i < selectedCellCount; i++)
                 {
                     var ejemplar = ejemplar1[dataGridView1.SelectedCells[i].RowIndex];
                     fachada.BajaEjemplar(ejemplar.codigoInventario);
                 }
 
-                actualizarListaEjemplares(txtISBN.Text);
-                
+                actualizarListaEjemplares(FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text));
             }
             else
             {

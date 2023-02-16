@@ -255,6 +255,7 @@
     <Compile Include="Usuarios.Designer.cs">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\FormateoUtiles.cs" />
     <EmbeddedResource Include="BuscarEdicion.resx">
       <DependentUpon>BuscarEdicion.cs</DependentUpon>
     </EmbeddedResource>

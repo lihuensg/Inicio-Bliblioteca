@@ -57,9 +57,14 @@ namespace Aplication
                 if (mResponseJson != null) {
                     var llave = String.Format("ISBN:{0}", pFiltros["ISBN"]);
                     mResponseJson = mResponseJson[llave];
+
+                    if (mResponseJson == null) {
+                        return null;
+                    }
                 } else {
                     return null;
                 }
+
 
                 if (mResponseJson.ContainsKey("identifiers")) {
                     if (mResponseJson["identifiers"].ContainsKey("isbn_13")) {
@@ -73,6 +78,9 @@ namespace Aplication
                     }
                 }
 
+
+                // FIX: El lccn es obligatorio ya que se usa como identificador para la obra,
+                // pero la api a veces no tiene lccn en la respuesta
                 if (isbn == null || lccn == null) { return null; }
 
                 edicion.Isbn = isbn;

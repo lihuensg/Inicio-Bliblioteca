@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
+using Inicio_Bliblioteca.Utils;
 
 namespace Inicio_Bliblioteca
 {
@@ -40,7 +41,7 @@ namespace Inicio_Bliblioteca
         {
             try
             {
-                var edicion = fachada.BuscarEdicion(textISBN.Text);
+                var edicion = fachada.BuscarEdicion(FormateoUtiles.LimpiarGuionesISBN(textISBN.Text));
                 dgvEdicion.Rows.Add(edicion.Isbn, edicion.AnioEdicion, edicion.NumeroPaginas, edicion.Portada, edicion.FechaPublicacion);
             }
             catch (Exception)
