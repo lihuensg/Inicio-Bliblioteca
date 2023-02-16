@@ -150,6 +150,14 @@ namespace Aplication
 
         public List<DTOPrestamoConUsuarioYEjemplar> PrestamosEntreFechas(int dni, DateTime fechaInicio, DateTime fechaFin)
         {
+            // 15/02/2023 xx:yy:zz -> 15/02/2023 23:59:59
+            fechaFin = fechaFin.AddHours(23 - fechaFin.Hour)
+                                .AddMinutes(59 - fechaFin.Minute)
+                                .AddSeconds(59 - fechaFin.Second);
+
+            // 15/02/2023 xx:yy:zz -> 15/02/2023 00:00:00
+            fechaInicio = new DateTime(fechaInicio.Year, fechaInicio.Month, fechaInicio.Day);
+
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaPrestamosEntreFechas = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni && u.FechaPrestamo <= fechaFin && u.FechaPrestamo >= fechaInicio).ToList();
