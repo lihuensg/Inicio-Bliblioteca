@@ -15,10 +15,15 @@ namespace Inicio_Bliblioteca
         [STAThread]
         static void Main()
         {
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-           // NotificadorMail notificadorMail = new NotificadorMail("bibliotecautnfrcu@gmail.com","Bibliotecautnfrcu01",465,true,"Biblioteca UTN FRCU");
-           // notificadorMail.Enviar("bibliotecautnfrcu@gmail.com","Confirmacion de prestamo","Hola esto es una confirmacion de que pediste prestado 123345 libros y no devolviste ninguno");
+            NotificadorMail notificadorMail = new NotificadorMail(Properties.Settings.Default.CorreoAvisosMail, Properties.Settings.Default.CorreoAvisosServer, Properties.Settings.Default.CorreoAvisosPuerto, Properties.Settings.Default.CorreoAvisosUsaSSL, Properties.Settings.Default.CorreoAvisosUsuario, Properties.Settings.Default.CorreoAvisosContraseña);
+            if (notificadorMail.Enviar("u.enzoaguirre@gmail.com", "Prueba", "Confirmacion de prestamo", "Hola esto es una confirmacion de que pediste prestado 123345 libros y no devolviste ninguno")) {
+                MessageBox.Show("Enviado");
+            } else {
+                MessageBox.Show("No se pudo enviar");
+            }
             Application.Run(new Inicio());
         }
     }

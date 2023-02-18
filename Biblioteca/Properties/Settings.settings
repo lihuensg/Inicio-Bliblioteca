@@ -1,7 +1,24 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Inicio_Bliblioteca.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CorreoAvisosMail" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">bibliotecafrcu@hotmail.com</Value>
+    </Setting>
+    <Setting Name="CorreoAvisosServer" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">smtp.office365.com</Value>
+    </Setting>
+    <Setting Name="CorreoAvisosPuerto" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">587</Value>
+    </Setting>
+    <Setting Name="CorreoAvisosUsaSSL" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CorreoAvisosContraseña" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">&lt;contraseña&gt;</Value>
+    </Setting>
+    <Setting Name="CorreoAvisosUsuario" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">bibliotecafrcu@hotmail.com</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
