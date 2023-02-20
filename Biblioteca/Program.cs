@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
+using Aplication.LOG;
+using Aplication.TAREAS;
 
 namespace Inicio_Bliblioteca
 {
@@ -15,7 +17,8 @@ namespace Inicio_Bliblioteca
         [STAThread]
         static void Main()
         {
-            
+            LogManager.initialize();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             NotificadorMail notificadorMail = new NotificadorMail(Properties.Settings.Default.CorreoAvisosMail, Properties.Settings.Default.CorreoAvisosServer, Properties.Settings.Default.CorreoAvisosPuerto, Properties.Settings.Default.CorreoAvisosUsaSSL, Properties.Settings.Default.CorreoAvisosUsuario, Properties.Settings.Default.CorreoAvisosContraseña);
@@ -24,6 +27,11 @@ namespace Inicio_Bliblioteca
             } else {
                 MessageBox.Show("No se pudo enviar");
             }
+
+            // TODO: Hacer una lista que tengas estas tareas y las detenga cuando se cierra la app
+            var tarea = new TareaEnviarAvisoADosDiasVencimiento();
+            tarea.Iniciar();
+
             Application.Run(new Inicio());
         }
     }
