@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 !Aplication/TAREAS/*.cs
+
+Aplication/*.mdf
+Aplication/*.ldf
