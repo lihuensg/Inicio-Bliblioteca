@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constantes.cs" />
+    <Compile Include="DAL\EntityFramework\Mapping\NotificacionVencimientoPrestamosConfiguration.cs" />
     <Compile Include="DAL\EntityFramework\BibliotecaDbContext.cs" />
     <Compile Include="DAL\EntityFramework\Mapping\EdicionConfiguration.cs" />
     <Compile Include="DAL\EntityFramework\Mapping\EjemplarConfiguration.cs" />
@@ -123,12 +124,14 @@
     <Compile Include="DAL\EntityFramework\UnitOfWork.cs" />
     <Compile Include="DAL\IRepositorio.cs" />
     <Compile Include="DAL\IRepositorioEdiciones.cs" />
+    <Compile Include="DAL\IRepositorioNotificacionVencimientoPrestamo.cs" />
     <Compile Include="DAL\IRepositorioEjemplares.cs" />
     <Compile Include="DAL\IRepositorioObras.cs" />
     <Compile Include="DAL\IRepositorioPrestamos.cs" />
     <Compile Include="DAL\IRepositorioUsuarios.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DOMAIN\AdminPrestamos.cs" />
+    <Compile Include="DOMAIN\NotificacionVencimientoPrestamo.cs" />
     <Compile Include="DOMAIN\Edicion.cs" />
     <Compile Include="DOMAIN\Ejemplar.cs" />
     <Compile Include="DOMAIN\Obra.cs" />

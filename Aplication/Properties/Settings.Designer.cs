@@ -44,5 +44,77 @@ namespace Aplication.Properties {
                 return ((string)(this["bdBiblioConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CorreoAvisosMail {
+            get {
+                return ((string)(this["CorreoAvisosMail"]));
+            }
+            set {
+                this["CorreoAvisosMail"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CorreoAvisosServer {
+            get {
+                return ((string)(this["CorreoAvisosServer"]));
+            }
+            set {
+                this["CorreoAvisosServer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int CorreoAvisosPuerto {
+            get {
+                return ((int)(this["CorreoAvisosPuerto"]));
+            }
+            set {
+                this["CorreoAvisosPuerto"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CorreoAvisosUsaSSL {
+            get {
+                return ((bool)(this["CorreoAvisosUsaSSL"]));
+            }
+            set {
+                this["CorreoAvisosUsaSSL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CorreoAvisosContraseña {
+            get {
+                return ((string)(this["CorreoAvisosContraseña"]));
+            }
+            set {
+                this["CorreoAvisosContraseña"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CorreoAvisosUsuario {
+            get {
+                return ((string)(this["CorreoAvisosUsuario"]));
+            }
+            set {
+                this["CorreoAvisosUsuario"] = value;
+            }
+        }
     }
 }
