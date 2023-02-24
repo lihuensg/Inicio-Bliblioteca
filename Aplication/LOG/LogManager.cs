@@ -20,7 +20,7 @@ namespace Aplication.LOG
             var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
 
             // Rules for mapping loggers to targets            
-            config.AddRule(NLog.LogLevel.Info, NLog.LogLevel.Fatal, logconsole);
+            config.AddRule(NLog.LogLevel.Debug, NLog.LogLevel.Fatal, logconsole);
             config.AddRule(NLog.LogLevel.Debug, NLog.LogLevel.Fatal, logfile);
 
             // Apply config           

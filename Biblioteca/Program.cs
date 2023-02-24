@@ -21,15 +21,9 @@ namespace Inicio_Bliblioteca
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            NotificadorMail notificadorMail = new NotificadorMail(Properties.Settings.Default.CorreoAvisosMail, Properties.Settings.Default.CorreoAvisosServer, Properties.Settings.Default.CorreoAvisosPuerto, Properties.Settings.Default.CorreoAvisosUsaSSL, Properties.Settings.Default.CorreoAvisosUsuario, Properties.Settings.Default.CorreoAvisosContraseña);
-            if (notificadorMail.Enviar("u.enzoaguirre@gmail.com", "Prueba", "Confirmacion de prestamo", "Hola esto es una confirmacion de que pediste prestado 123345 libros y no devolviste ninguno")) {
-                MessageBox.Show("Enviado");
-            } else {
-                MessageBox.Show("No se pudo enviar");
-            }
 
             // TODO: Hacer una lista que tengas estas tareas y las detenga cuando se cierra la app
-            var tarea = new TareaEnviarAvisoADosDiasVencimiento();
+            var tarea = new TareaEnviarAvisoADosDiasVencimiento(TimeSpan.FromSeconds(5));
             tarea.Iniciar();
 
             Application.Run(new Inicio());

@@ -14,8 +14,8 @@ namespace Aplication.DAL.EntityFramework
         public DbSet<Prestamo> Prestamos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Edicion> Ediciones { get; set; }
-
         public DbSet<NotificacionVencimientoPrestamo> NotificacionVencimientoPrestamos { get; set; }
+
         public BibliotecaDbContext() : base("Aplication.Properties.Settings.bdBiblioConnectionString")
         {
             //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

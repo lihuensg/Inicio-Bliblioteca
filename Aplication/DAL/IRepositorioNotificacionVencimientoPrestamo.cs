@@ -7,6 +7,12 @@ namespace Aplication
 {
     public interface IRepositorioNotificacionVencimientoPrestamo : IRepositorio<NotificacionVencimientoPrestamo>
     {
-        NotificacionVencimientoPrestamo ObtenerConDiasAntelacion(Prestamo prestamo, int diasAntelacion);
+        /// <summary>
+        /// Obtiene aquellos prestamos a los cuales no se les han enviado una notificacion
+        /// de por lo menos `diasAntelacion` dias y este a `diasAntelacion` dias de vencer.
+        /// </summary>
+        /// <param name="diasAntelacion"></param>
+        /// <returns></returns>
+        IList<Prestamo> ObtenerPrestamosQueEstenPorVencerYNoSeNotifico(int diasAntelacion);
     }
 }
