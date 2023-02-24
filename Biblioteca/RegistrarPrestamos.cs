@@ -32,13 +32,12 @@ namespace Inicio_Bliblioteca
 
         private void btnBusUsuario_Click(object sender, EventArgs e)
         {
-            if (fachada.ExisteUsuario(Int32.Parse (txtDNI.Text)))
+            if (Int32.TryParse(txtDNI.Text, out int dni) && fachada.ExisteUsuario(dni))
             {
                 fachada.CantidadDiaMaximoHabilesDeUsuario(Int32.Parse(txtDNI.Text));
                 var fechaVencimiento = DateTime.Now.AddDays(fachada.CantidadDiaMaximoHabilesDeUsuario(Int32.Parse(txtDNI.Text)));
                 txtFechaVencimiento.Text = fechaVencimiento.ToString();
             }
-
             else
             {
                 MessageBox.Show("DNI no encontrado");
