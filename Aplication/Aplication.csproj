@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constantes.cs" />
+    <Compile Include="DAL\EntityFramework\RepositorioNotificacionVencimientoPrestamo.cs" />
     <Compile Include="DAL\EntityFramework\Mapping\NotificacionVencimientoPrestamosConfiguration.cs" />
     <Compile Include="DAL\EntityFramework\BibliotecaDbContext.cs" />
     <Compile Include="DAL\EntityFramework\Mapping\EdicionConfiguration.cs" />
@@ -150,9 +151,9 @@
     <Compile Include="IO\DTOPrestamo.cs" />
     <Compile Include="IO\DTOUsuario.cs" />
     <Compile Include="LOG\LogManager.cs" />
-    <Compile Include="Migrations\202212071158180_InitialMigration.cs" />
-    <Compile Include="Migrations\202212071158180_InitialMigration.designer.cs">
-      <DependentUpon>202212071158180_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202302242049241_BibliotecaV2.cs" />
+    <Compile Include="Migrations\202302242049241_BibliotecaV2.designer.cs">
+      <DependentUpon>202302242049241_BibliotecaV2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NotificadorMail.cs" />
@@ -198,18 +199,18 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202212071158180_InitialMigration.resx">
-      <DependentUpon>202212071158180_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="bdBiblio.mdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="bdBiblio_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>bdBiblio.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202302242049241_BibliotecaV2.resx">
+      <DependentUpon>202302242049241_BibliotecaV2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

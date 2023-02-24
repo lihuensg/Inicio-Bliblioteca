@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigration : DbMigration
+    public partial class BibliotecaV2 : DbMigration
     {
         public override void Up()
         {
@@ -50,6 +50,18 @@
                 .Index(t => t.Edicion_Id);
             
             CreateTable(
+                "dbo.NotificacionVencimientoPrestamoes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        DiasAnteracion = c.Int(nullable: false),
+                        Prestamo_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Prestamoes", t => t.Prestamo_Id)
+                .Index(t => t.Prestamo_Id);
+            
+            CreateTable(
                 "dbo.Prestamoes",
                 c => new
                     {
@@ -86,16 +98,19 @@
         
         public override void Down()
         {
+            DropForeignKey("dbo.NotificacionVencimientoPrestamoes", "Prestamo_Id", "dbo.Prestamoes");
             DropForeignKey("dbo.Prestamoes", "Solicitante_Id", "dbo.Usuarios");
             DropForeignKey("dbo.Prestamoes", "Ejemplar_Id", "dbo.Ejemplars");
             DropForeignKey("dbo.Ejemplars", "Edicion_Id", "dbo.Edicions");
             DropForeignKey("dbo.Edicions", "Obra_Id", "dbo.Obras");
             DropIndex("dbo.Prestamoes", new[] { "Solicitante_Id" });
             DropIndex("dbo.Prestamoes", new[] { "Ejemplar_Id" });
+            DropIndex("dbo.NotificacionVencimientoPrestamoes", new[] { "Prestamo_Id" });
             DropIndex("dbo.Ejemplars", new[] { "Edicion_Id" });
             DropIndex("dbo.Edicions", new[] { "Obra_Id" });
             DropTable("dbo.Usuarios");
             DropTable("dbo.Prestamoes");
+            DropTable("dbo.NotificacionVencimientoPrestamoes");
             DropTable("dbo.Ejemplars");
             DropTable("dbo.Obras");
             DropTable("dbo.Edicions");
