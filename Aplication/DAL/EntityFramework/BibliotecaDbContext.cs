@@ -31,7 +31,9 @@ namespace Aplication.DAL.EntityFramework
             modelBuilder.Configurations.Add(new ObraConfiguration());
             modelBuilder.Configurations.Add(new PrestamoConfiguration());
             modelBuilder.Configurations.Add(new UsuarioConfiguration());
+
         }
+
 
     }
 }

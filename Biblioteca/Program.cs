@@ -26,7 +26,12 @@ namespace Inicio_Bliblioteca
             var tarea = new TareaEnviarAvisoADosDiasVencimiento(TimeSpan.FromSeconds(5));
             tarea.Iniciar();
 
+            Fachada fachada = new Fachada();
+            fachada.Inicializar();
+
             Application.Run(new Inicio());
+
+           
         }
     }
 }

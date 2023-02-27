@@ -34,6 +34,28 @@ namespace Aplication
             cMapper = mConfiguration.CreateMapper();
         }
 
+        public void Inicializar()
+        {
+            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
+            {
+                var admin = new Usuario
+                {
+                    Dni = 0,
+                    NombreUsuario = "admin",
+                    Mail = "email@cambiar.com",
+                    Password = "admin",
+                    FechaRegistro = DateTime.Now,
+                    Puntaje = 0,
+                    EsAdministrador = true
+                };
+                if (bUoW.RepositorioUsuarios.ObtenerPorDNI(0) == null )
+                {
+                    bUoW.RepositorioUsuarios.Agregar(admin);
+                }
+                bUoW.Complete();
+            }
+        }
+
         public DTOUsuario ObtenerUsuario(string nombreUsuario)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))

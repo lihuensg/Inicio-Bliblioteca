@@ -24,7 +24,7 @@ namespace Aplication.DAL.EntityFramework
 
         public Usuario ObtenerPorDNI(int dni)
         {
-            var usuariosEncontrados = this.iDbContext.Usuarios.Where(u => u.Dni == dni).First();
+            var usuariosEncontrados = this.iDbContext.Usuarios.Where(u => u.Dni == dni).FirstOrDefault();
             return usuariosEncontrados; 
         }
     }

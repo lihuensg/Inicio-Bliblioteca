@@ -100,9 +100,19 @@ namespace Inicio_Bliblioteca
             0,
             0,
             0});
+            this.numDNI.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numDNI.Name = "numDNI";
             this.numDNI.Size = new System.Drawing.Size(120, 20);
             this.numDNI.TabIndex = 10;
+            this.numDNI.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label5
             // 

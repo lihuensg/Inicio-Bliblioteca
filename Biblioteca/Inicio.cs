@@ -40,17 +40,25 @@ namespace Inicio_Bliblioteca
 
         private void botAceptar_Click_1(object sender, EventArgs e)
         {
-
+            
             if (fachada.LoguearUsuario(txtUsuario.Text, txtContraseña.Text)) {
                     //MessageBox.Show("Logueado correctamente");
             
                     string nombre = txtUsuario.Text;
+                   
+                if (fachada.EsUsuarioAdmin(nombre))
+                {
                     InformacionDelLogin.DNI = fachada.ObtenerUsuario(txtUsuario.Text).Dni;
                     txtUsuario.Clear();
                     txtContraseña.Clear();
                     this.Hide();
                     using (Usuario ventanaUsuario = new Usuario(nombre))
-                    ventanaUsuario.ShowDialog();
+                        ventanaUsuario.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("No pudo acceder porque no es administrador");
+                }
             }
             else
             {

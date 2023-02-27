@@ -14,18 +14,19 @@
 
         protected override void Seed(Aplication.DAL.EntityFramework.BibliotecaDbContext context)
         {
-            var admin = new Usuario
-            {
-                Dni = 0,
-                NombreUsuario = "Administrador",
-                Mail = "email@cambiar.com",
-                Password = "administrador",
-                FechaRegistro = DateTime.Now,
-                Puntaje = 0,
-            };
             
-            context.Usuarios.AddOrUpdate(u => u.NombreUsuario, admin);
-            context.SaveChanges();
+            //var admin = new Usuario
+            //{
+            //    Dni = 0,
+            //    NombreUsuario = "Administrador",
+            //    Mail = "email@cambiar.com",
+            //    Password = "administrador",
+            //    FechaRegistro = DateTime.Now,
+            //    Puntaje = 0,
+            //};
+            
+            //context.Usuarios.AddOrUpdate(u => u.NombreUsuario, admin);
+            //context.SaveChanges();
         }
     }
 }
