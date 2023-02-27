@@ -34,14 +34,13 @@ namespace Aplication
 
 
             };
-            DTOUsuario dTOUsuario1 = new DTOUsuario
+            CrearUsuario dTOUsuario1 = new CrearUsuario
             {
                 Nombre = "Enzo",
                 Dni = 425,
                 Password = "Enzo123", 
                 Mail = "Enzo@gmail.com",
-                FechaRegistro = DateTime.Now , 
-                Puntaje = 0, 
+            
 
 
             };

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
+using Aplication.Excepciones;
 
 namespace Inicio_Bliblioteca
 {
@@ -27,19 +28,26 @@ namespace Inicio_Bliblioteca
 
         private void botAceptar_Click(object sender, EventArgs e)
         {
-            DTOUsuario usuario = new DTOUsuario
+            CrearUsuario usuario = new CrearUsuario
             {
                 Dni = (int)numDNI.Value,
                 Nombre = txtUsuario.Text,
                 Password = txtContraseña.Text,
                 Mail = texEmail.Text,
-                FechaRegistro = DateTime.Now,
-                Puntaje = 0,
             };
 
-            fachada.AgregarUsuario(usuario,false);
-            MessageBox.Show("Usuario registrado correctamente");
-            this.Close();
+            try
+            {
+                fachada.AgregarUsuario(usuario, false);
+                MessageBox.Show("Usuario registrado correctamente");
+                this.Close();
+            }
+            catch (ExcepcionEmailInvalido)
+            {
+
+                MessageBox.Show("Email invalido");
+            }
+           
         }
 
         private void botCancelar_Click(object sender, EventArgs e)

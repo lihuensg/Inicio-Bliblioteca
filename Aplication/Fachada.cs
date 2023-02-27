@@ -90,23 +90,12 @@ namespace Aplication
             }
         }
 
-        public void AgregarUsuario(DTOUsuario usuario, bool esAdmin)
+        public void AgregarUsuario(CrearUsuario solicitud, bool esAdmin)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                Usuario usuario1 = new Usuario
-                {
-                    NombreUsuario = usuario.Nombre,
-                    Dni = usuario.Dni,
-                    Password = usuario.Password,
-                    Mail = usuario.Mail,
-                    FechaRegistro = usuario.FechaRegistro,
-                    Puntaje = usuario.Puntaje,
-                    EsAdministrador = esAdmin
-
-
-
-                };
+                var usuario1 =  Usuario.Crear(solicitud);
+                
                 bUoW.RepositorioUsuarios.Agregar(usuario1);
                 bUoW.Complete();
             }
@@ -305,25 +294,12 @@ namespace Aplication
                 return usuario.Count() > 0;
             }
         }
-        public void ModificarDatosUsuario(int dni, DTOUsuario usuario)
+        public void ModificarDatosUsuario(int dni, ActualizarUsuario solicitud)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 Usuario usuario1 = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
-                if (usuario.Nombre != null && usuario.Nombre.Length != 0)
-                {
-                    usuario1.NombreUsuario = usuario.Nombre;
-                }
-
-                if (usuario.Mail != null && usuario.Mail.Length != 0)
-                {
-                    usuario1.Mail = usuario.Mail;
-                }
-
-                if (usuario.Password != null && usuario.Password.Length != 0)
-                {
-                    usuario1.Password = usuario.Password;
-                }
+                usuario1.Actualizar(solicitud);
 
                 bUoW.Complete();
             }

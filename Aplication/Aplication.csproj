@@ -107,6 +107,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constantes.cs" />
+    <Compile Include="Contratos\Usuarios\CrearUsuario.cs" />
+    <Compile Include="Contratos\Usuarios\ActualizarUsuario.cs" />
     <Compile Include="DAL\EntityFramework\InicializarDeContexto.cs" />
     <Compile Include="DAL\EntityFramework\RepositorioNotificacionVencimientoPrestamo.cs" />
     <Compile Include="DAL\EntityFramework\Mapping\NotificacionVencimientoPrestamosConfiguration.cs" />
@@ -141,6 +143,7 @@
     <Compile Include="DOMAIN\Usuario.cs" />
     <Compile Include="DOMAIN\UsuarioAdministrador.cs" />
     <Compile Include="DOMAIN\UsuarioSimple.cs" />
+    <Compile Include="Excepciones\ExcepcionEmailInvalido.cs" />
     <Compile Include="Fachada.cs" />
     <Compile Include="Inotificador.cs" />
     <Compile Include="IO\DTOAutor.cs" />
@@ -178,6 +181,7 @@
     <Compile Include="TAREAS\ITarea.cs" />
     <Compile Include="TAREAS\TareaBase.cs" />
     <Compile Include="TAREAS\TareaEnviarAvisoADosDiasVencimiento.cs" />
+    <Compile Include="Utils\Validaciones.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -213,6 +217,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -33,7 +33,7 @@ namespace Inicio_Bliblioteca
             var usuarioObtenido = fachada.ObtenerUsuario(DNI);
             if (fachada.LoguearUsuario(usuarioObtenido.Nombre, textContraseñaActual.Text))
             {
-                fachada.ModificarDatosUsuario(DNI, new DTOUsuario { Password = textContraseñaNueva.Text });
+                fachada.ModificarDatosUsuario(DNI, new ActualizarUsuario { Password = textContraseñaNueva.Text });
                 MessageBox.Show("Contraseña modificada correctamente");
                 this.Close();
             }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
+using Aplication.Excepciones;
 
 namespace Inicio_Bliblioteca
 {
@@ -51,16 +52,25 @@ namespace Inicio_Bliblioteca
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            DTOUsuario usuarioEditado = new DTOUsuario { Nombre = textBox1.Text, Mail = textBox2.Text };
-            if (usuario == null)
+            ActualizarUsuario usuarioEditado = new ActualizarUsuario { Nombre = textBox1.Text, Mail = textBox2.Text };
+            try
             {
-                fachada.ModificarDatosUsuario(InformacionDelLogin.DNI.Value, usuarioEditado);
+                if (usuario == null)
+                {
+                    fachada.ModificarDatosUsuario(InformacionDelLogin.DNI.Value, usuarioEditado);
+                }
+                else
+                {
+                    fachada.ModificarDatosUsuario(usuario.Dni, usuarioEditado);
+                }
+                MessageBox.Show("Modificado correctamente");
             }
-            else
+            catch (ExcepcionEmailInvalido)
             {
-                fachada.ModificarDatosUsuario(usuario.Dni, usuarioEditado);
+                MessageBox.Show("Email invalido");
             }
-            MessageBox.Show("Modificado correctamente");
+
+           
         }
 
         private void btnCambioContraseña_Click(object sender, EventArgs e)
