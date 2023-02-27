@@ -383,22 +383,7 @@ namespace Aplication
                 Usuario usuario = prestamo.Solicitante;
 
                 prestamo.FechaDevolucion = DateTime.Now;
-
-                //TODO: mover a el tema del negocio a Usuario
-                if (!buenEstado)
-                {
-                    usuario.Puntaje -= 10;
-                }
-
-                if (DateTime.Now > prestamo.FechaVencimiento)
-                {
-                    usuario.Puntaje -= 2 * (int)(DateTime.Now - prestamo.FechaVencimiento).TotalDays;
-                }
-
-                if (buenEstado && prestamo.FechaVencimiento > DateTime.Now)
-                {
-                    usuario.Puntaje += 5;
-                }
+                prestamo.DevolverEjemplar(buenEstado);
 
                 bUoW.Complete();
             }

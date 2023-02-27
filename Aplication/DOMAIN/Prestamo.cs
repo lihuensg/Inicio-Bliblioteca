@@ -19,6 +19,24 @@ namespace Aplication
         {
             
         }
+
+        public void DevolverEjemplar(bool buenEstado)
+        {
+             if (!buenEstado)
+                {
+                    Solicitante.Puntaje -= 10;
+                }
+
+             if (DateTime.Now > this.FechaVencimiento)
+                {
+                    Solicitante.Puntaje -= 2 * (int)(DateTime.Now - this.FechaVencimiento).TotalDays;
+                }
+
+             if (buenEstado && this.FechaVencimiento > DateTime.Now)
+                {
+                    Solicitante.Puntaje += 5;
+                }
+        }
     
         public int Id { get; set; }
         public DateTime FechaPrestamo { get; set; }
