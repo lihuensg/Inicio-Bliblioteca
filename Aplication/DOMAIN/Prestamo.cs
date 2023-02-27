@@ -37,6 +37,20 @@ namespace Aplication
                     Solicitante.Puntaje += 5;
                 }
         }
+
+        public static Prestamo Crear(DateTime pFechaPrestamo, Usuario pSolicitante, Ejemplar pEjemplar)
+        {
+            var fechaVencimiento = DateTime.Now.AddDays(pSolicitante.MaximoDiasHabilesPrestamos());
+
+            Prestamo prestamo = new Prestamo
+            {
+                FechaPrestamo = pFechaPrestamo,
+                FechaVencimiento = fechaVencimiento,
+                Solicitante = pSolicitante,
+                Ejemplar = pEjemplar,
+            };
+            return prestamo;
+        }
     
         public int Id { get; set; }
         public DateTime FechaPrestamo { get; set; }

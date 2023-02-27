@@ -358,17 +358,8 @@ namespace Aplication
                 
                 Usuario usuario = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
                 Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(Int32.Parse(codigoInventario));
-               
-                var fechaVencimiento = DateTime.Now.AddDays(usuario.MaximoDiasHabilesPrestamos());
 
-                Prestamo prestamo = new Prestamo
-                {
-                    FechaPrestamo = DateTime.Now,
-                    FechaVencimiento = fechaVencimiento,
-                    Solicitante = usuario,
-                    Ejemplar = ejemplar,
-                };
-
+                var prestamo = Prestamo.Crear(DateTime.Now, usuario, ejemplar); 
                 bUoW.RepositorioPrestamos.Agregar(prestamo);
                 bUoW.Complete();
             }
