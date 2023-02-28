@@ -12,13 +12,6 @@ namespace Aplication
     public class Fachada 
 
     {
-        IServicesObras obras;
-        IServicesAutores autores;
-        IRepositorioPrestamos repoPrestamo;
-        IRepositorioUsuarios repoUsuarios;
-        IRepositorioEjemplares repoEjemplares;
-        IRepositorioObras repoObras;
-
         private static readonly IMapper cMapper;
 
         static Fachada()

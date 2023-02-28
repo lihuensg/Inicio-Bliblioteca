@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
 using Inicio_Bliblioteca.Utils;
+using Aplication.Servicios.LibrosRemotos.OpenLibrary;
 
 namespace Inicio_Bliblioteca
 {

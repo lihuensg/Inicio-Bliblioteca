@@ -10,7 +10,7 @@ using System.Web;
 using Aplication.SERVICE.Http;
 using Aplication.LOG;
 
-namespace Aplication
+namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
 {
     public class ServicesObrasOpenLibrary:IServicesObras
     {

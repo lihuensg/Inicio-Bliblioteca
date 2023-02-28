@@ -168,16 +168,15 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SERVICE\Http\Excepciones\ExcepcionConsultaWeb.cs" />
-    <Compile Include="SERVICE\Http\Excepciones\ExcepcionRespuestaInvalida.cs" />
-    <Compile Include="SERVICE\Http\HttpJsonRequest.cs" />
-    <Compile Include="SERVICE\IServicesAutores.cs" />
-    <Compile Include="SERVICE\IServicesEdicion.cs" />
-    <Compile Include="SERVICE\IServicesObras.cs" />
-    <Compile Include="SERVICE\OPENLIBRARY\ServiceAutoresOpenLibrary.cs" />
-    <Compile Include="SERVICE\OPENLIBRARY\ServicesEdicionOpenLibrary.cs" />
-    <Compile Include="SERVICE\OPENLIBRARY\ServicesObrasOpenLibrary.cs" />
-    <Compile Include="SERVICE\SolicitudWeb.cs" />
+    <Compile Include="Servicios\Http\Excepciones\ExcepcionConsultaWeb.cs" />
+    <Compile Include="Servicios\Http\Excepciones\ExcepcionRespuestaInvalida.cs" />
+    <Compile Include="Servicios\Http\HttpJsonRequest.cs" />
+    <Compile Include="Servicios\LibrosRemotos\IServicesAutores.cs" />
+    <Compile Include="Servicios\LibrosRemotos\IServicesEdicion.cs" />
+    <Compile Include="Servicios\LibrosRemotos\IServicesObras.cs" />
+    <Compile Include="Servicios\LibrosRemotos\OpenLibrary\ServiceAutoresOpenLibrary.cs" />
+    <Compile Include="Servicios\LibrosRemotos\OpenLibrary\ServicesEdicionOpenLibrary.cs" />
+    <Compile Include="Servicios\LibrosRemotos\OpenLibrary\ServicesObrasOpenLibrary.cs" />
     <Compile Include="TAREAS\ITarea.cs" />
     <Compile Include="TAREAS\TareaBase.cs" />
     <Compile Include="TAREAS\TareaEnviarAvisoADosDiasVencimiento.cs" />
