@@ -366,27 +366,23 @@ namespace Aplication
 
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                try
-                {
-                    Usuario us1 = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
+                Usuario us1 = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
 
-                    if (!cHashingManager.IsHashSupported(us1.Password))
-                    {
-                        LogManager.GetLogger().Warn("Una contraseña almacenada no soporta el hasher!");
-                        return false;
-                    }
-
-                    contraCorrecta = cHashingManager.Verify(password, us1.Password);
+                if (us1 == null) {
+                    return false;
                 }
-                catch (Exception)
+
+                if (!cHashingManager.IsHashSupported(us1.Password))
                 {
-
-
+                    LogManager.GetLogger().Warn("Una contraseña almacenada no soporta el hasher!");
+                    return false;
                 }
+
+                contraCorrecta = cHashingManager.Verify(password, us1.Password);
 
                 bUoW.Complete();
-
             }
+
             return contraCorrecta;
         }
 
