@@ -29,9 +29,7 @@ namespace Inicio_Bliblioteca
             Fachada fachada = new Fachada();
             fachada.Inicializar();
 
-            Application.Run(new Inicio());
-
-           
+            Application.Run(new Inicio());           
         }
     }
 }

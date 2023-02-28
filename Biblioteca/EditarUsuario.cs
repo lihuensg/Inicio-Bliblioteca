@@ -76,6 +76,20 @@ namespace Inicio_Bliblioteca
             {
                 MessageBox.Show("Email invalido");
             }
+            catch (ExcepcionUsuarioConMailYaExiste)
+            {
+                MessageBox.Show("Ya existe un usuario con ese mail");
+            }
+            catch (ExcepcionUsuarioConNombreDeUsuarioYaExiste)
+            {
+                MessageBox.Show("Ya existe un usuario con ese nombre de usuario");
+            }
+            catch (Exception error)
+            {
+                LogManager.GetLogger().Error(error);
+
+                MessageBox.Show("Error inesperado. Intentalo nuevamente");
+            }
 
            
         }

@@ -11,7 +11,7 @@ using Aplication.Excepciones;
 namespace Aplication
 {
 
-    public class Fachada 
+    public class Fachada
 
     {
         private static readonly IMapper cMapper;
@@ -36,9 +36,10 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                if (bUoW.RepositorioUsuarios.ObtenerPorDNI(0) == null )
+                if (bUoW.RepositorioUsuarios.ObtenerPorDNI(0) == null)
                 {
-                    var admin = new Usuario {
+                    var admin = new Usuario
+                    {
                         Dni = 0,
                         NombreUsuario = "admin",
                         Mail = "email@cambiar.com",
@@ -90,7 +91,7 @@ namespace Aplication
 
                 return new DTOUsuario
                 {
-                    Nombre= usuarioObtenido.NombreUsuario,
+                    Nombre = usuarioObtenido.NombreUsuario,
                     Dni = usuarioObtenido.Dni,
                     Password = usuarioObtenido.Password,
                     Mail = usuarioObtenido.Mail,
@@ -120,8 +121,8 @@ namespace Aplication
                 }
 
                 solicitud.Password = cHashingManager.Hash(solicitud.Password);
-                var usuario1 =  Usuario.Crear(solicitud);
-                
+                var usuario1 = Usuario.Crear(solicitud);
+
                 bUoW.RepositorioUsuarios.Agregar(usuario1);
                 bUoW.Complete();
             }
@@ -181,7 +182,7 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaPrestamos = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni).ToList();
-                return listaPrestamos.Select(p => new DTOPrestamo {  SolicitanteDNI = p.Solicitante.Dni, Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
+                return listaPrestamos.Select(p => new DTOPrestamo { SolicitanteDNI = p.Solicitante.Dni, Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
             }
         }
 
@@ -198,7 +199,7 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaPrestamosEntreFechas = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni && u.FechaPrestamo <= fechaFin && u.FechaPrestamo >= fechaInicio).ToList();
-                return listaPrestamosEntreFechas.Select(p => new DTOPrestamoConUsuarioYEjemplar {Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento , Nombre = p.Solicitante.NombreUsuario , CodigoInventario = p.Ejemplar.Id.ToString()}).ToList();
+                return listaPrestamosEntreFechas.Select(p => new DTOPrestamoConUsuarioYEjemplar { Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento, Nombre = p.Solicitante.NombreUsuario, CodigoInventario = p.Ejemplar.Id.ToString() }).ToList();
             }
         }
 
@@ -216,11 +217,11 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaEjemplares = bUoW.RepositorioEjemplares.Search(u => u.Edicion.Isbn == isbn).ToList();
-                List<DTOEjemplarPrestamo> prestamosEjemplares = new List<DTOEjemplarPrestamo>();               
+                List<DTOEjemplarPrestamo> prestamosEjemplares = new List<DTOEjemplarPrestamo>();
                 foreach (var item in listaEjemplares)
                 {
-                   var prestamo = bUoW.RepositorioPrestamos.Search(u => u.FechaDevolucion == null && u.Ejemplar.Id == item.Id).ToList();
-                   var ejemplarPrestamo = cMapper.Map<DTOEjemplarPrestamo>(item);
+                    var prestamo = bUoW.RepositorioPrestamos.Search(u => u.FechaDevolucion == null && u.Ejemplar.Id == item.Id).ToList();
+                    var ejemplarPrestamo = cMapper.Map<DTOEjemplarPrestamo>(item);
                     if (prestamo.Count == 0)
                     {
                         ejemplarPrestamo.Prestado = false;
@@ -239,7 +240,7 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaEjemplares = bUoW.RepositorioEjemplares.Search(u => u.Edicion.Isbn == isbn).ToList();
-               // var edicion = bUoW.RepositorioEdiciones.ObtenerPorISBN(isbn);
+                // var edicion = bUoW.RepositorioEdiciones.ObtenerPorISBN(isbn);
                 var ejemplar = cMapper.Map<IList<DTOEjemplar>>(listaEjemplares);
                 return ejemplar.ToList();
             };
@@ -270,12 +271,15 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 Obra obra = null;
-                
-                try {
-                    obra = bUoW.RepositorioObras.ObtenerPorLccn(edicion.Obra.Lccn);
-                } catch (Exception) {}
 
-                if (obra == null) {
+                try
+                {
+                    obra = bUoW.RepositorioObras.ObtenerPorLccn(edicion.Obra.Lccn);
+                }
+                catch (Exception) { }
+
+                if (obra == null)
+                {
                     AgregarObra(edicion.Obra);
                     obra = bUoW.RepositorioObras.ObtenerPorLccn(edicion.Obra.Lccn);
                 }
@@ -325,14 +329,32 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 Usuario usuario1 = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
-                
+
                 if (usuario1 == null)
                 {
                     throw new Exception("No existe el usuario");
                 }
-                
-                solicitud.Password = cHashingManager.Hash(solicitud.Password);
-                
+
+                if (solicitud.Nombre != null
+                    && solicitud.Nombre != usuario1.NombreUsuario
+                    && bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(solicitud.Nombre) != null)
+                {
+                    throw new ExcepcionUsuarioConNombreDeUsuarioYaExiste();
+                }
+
+                if (solicitud.Mail != null
+                    && solicitud.Mail != usuario1.Mail
+                    && bUoW.RepositorioUsuarios.ObtenerPorMail(solicitud.Mail) != null)
+                {
+                    throw new ExcepcionUsuarioConMailYaExiste();
+                }
+
+                if (solicitud.Password != null)
+                {
+                    // hashear contraseña
+                    solicitud.Password = cHashingManager.Hash(solicitud.Password);
+                }
+
                 usuario1.Actualizar(solicitud);
 
                 bUoW.Complete();
@@ -348,7 +370,8 @@ namespace Aplication
                 {
                     Usuario us1 = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
 
-                    if (!cHashingManager.IsHashSupported(us1.Password)) {
+                    if (!cHashingManager.IsHashSupported(us1.Password))
+                    {
                         LogManager.GetLogger().Warn("Una contraseña almacenada no soporta el hasher!");
                         return false;
                     }
@@ -358,9 +381,9 @@ namespace Aplication
                 catch (Exception)
                 {
 
-                   
+
                 }
-                
+
                 bUoW.Complete();
 
             }
@@ -371,11 +394,11 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                
+
                 Usuario usuario = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
                 Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(Int32.Parse(codigoInventario));
 
-                var prestamo = Prestamo.Crear(DateTime.Now, usuario, ejemplar); 
+                var prestamo = Prestamo.Crear(DateTime.Now, usuario, ejemplar);
                 bUoW.RepositorioPrestamos.Agregar(prestamo);
                 bUoW.Complete();
             }
@@ -385,8 +408,8 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var codigoEjemplarInt = Int32.Parse(codigoEjemplar); 
-                Prestamo prestamo = bUoW.RepositorioPrestamos.Search(u=> u.Ejemplar.Id == codigoEjemplarInt && u.FechaDevolucion == null).First();
+                var codigoEjemplarInt = Int32.Parse(codigoEjemplar);
+                Prestamo prestamo = bUoW.RepositorioPrestamos.Search(u => u.Ejemplar.Id == codigoEjemplarInt && u.FechaDevolucion == null).First();
                 Usuario usuario = prestamo.Solicitante;
 
                 prestamo.FechaDevolucion = DateTime.Now;
@@ -415,18 +438,18 @@ namespace Aplication
             }
         }
 
-        public bool ExisteEjemplar (string codigoInventario)
+        public bool ExisteEjemplar(string codigoInventario)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 int codigoInvInt = Int32.Parse(codigoInventario);
                 var usuario = bUoW.RepositorioEjemplares.Search(u => u.Id == codigoInvInt).ToList();
                 return usuario.Count() > 0;
-            }    
+            }
 
         }
 
-        public bool EstaPrestadoEjemplar (string codigoInventario)
+        public bool EstaPrestadoEjemplar(string codigoInventario)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
