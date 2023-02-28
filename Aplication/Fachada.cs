@@ -394,12 +394,24 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
+                if (!Int32.TryParse(codigoInventario, out int codigoEjemplar))
+                {
+                    throw new ExcepcionCodigoInventarioInvalido();
+                }
+
+                if (this.EstaPrestadoEjemplar(codigoInventario))
+                {
+                    throw new ExcepcionEjemplarYaPrestado();
+                }
+
+                Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(codigoEjemplar);
 
                 Usuario usuario = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
-                Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(Int32.Parse(codigoInventario));
 
                 var prestamo = Prestamo.Crear(DateTime.Now, usuario, ejemplar);
+
                 bUoW.RepositorioPrestamos.Agregar(prestamo);
+
                 bUoW.Complete();
             }
         }
@@ -408,8 +420,18 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var codigoEjemplarInt = Int32.Parse(codigoEjemplar);
-                Prestamo prestamo = bUoW.RepositorioPrestamos.Search(u => u.Ejemplar.Id == codigoEjemplarInt && u.FechaDevolucion == null).First();
+                if (!Int32.TryParse(codigoEjemplar, out int codigoEjemplarInt))
+                {
+                    throw new ExcepcionCodigoInventarioInvalido();
+                }
+
+                Prestamo prestamo = bUoW.RepositorioPrestamos.Search(u => u.Ejemplar.Id == codigoEjemplarInt && u.FechaDevolucion == null).FirstOrDefault();
+
+                if (prestamo == null)
+                {
+                    throw new ExcepcionEjemplarNoEstaPrestado();
+                }
+
                 Usuario usuario = prestamo.Solicitante;
 
                 prestamo.FechaDevolucion = DateTime.Now;
@@ -422,7 +444,12 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(Int32.Parse(codigoInventario));
+                if (!Int32.TryParse(codigoInventario, out int codigoEjemplar))
+                {
+                    throw new ExcepcionCodigoInventarioInvalido();
+                }
+
+                Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(codigoEjemplar);
 
                 ejemplar.FechaBaja = DateTime.Now;
                 bUoW.Complete();
@@ -442,18 +469,25 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                int codigoInvInt = Int32.Parse(codigoInventario);
-                var usuario = bUoW.RepositorioEjemplares.Search(u => u.Id == codigoInvInt).ToList();
+                if (!Int32.TryParse(codigoInventario, out int codigoEjemplar))
+                {
+                    return false;
+                }
+
+                var usuario = bUoW.RepositorioEjemplares.Search(u => u.Id == codigoEjemplar).ToList();
                 return usuario.Count() > 0;
             }
-
         }
 
         public bool EstaPrestadoEjemplar(string codigoInventario)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                int codigoInvInt = Int32.Parse(codigoInventario);
+                if (!Int32.TryParse(codigoInventario, out int codigoInvInt))
+                {
+                    throw new ExcepcionCodigoInventarioInvalido();
+                }
+
                 var ejemplar = bUoW.RepositorioPrestamos.Search(u => u.Ejemplar.Id == codigoInvInt && u.FechaDevolucion == null).ToList();
                 return ejemplar.Count() > 0;
             }

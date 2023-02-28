@@ -143,6 +143,9 @@
     <Compile Include="DOMAIN\Usuario.cs" />
     <Compile Include="DOMAIN\UsuarioAdministrador.cs" />
     <Compile Include="DOMAIN\UsuarioSimple.cs" />
+    <Compile Include="Excepciones\Ejemplar\ExcepcionEjemplarYaPrestado.cs" />
+    <Compile Include="Excepciones\ExcepcionCodigoInventarioInvalido.cs" />
+    <Compile Include="Excepciones\Ejemplar\ExcepcionEjemplarNoEstaPrestado.cs" />
     <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioConNombreDeUsuarioYaExiste.cs" />
     <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioConMailYaExiste.cs" />
     <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioConDniYaExiste.cs" />

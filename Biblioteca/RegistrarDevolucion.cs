@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
+using Aplication.Excepciones;
 
 namespace Inicio_Bliblioteca
 {
@@ -40,13 +41,24 @@ namespace Inicio_Bliblioteca
                 btnDevolver.Enabled = false;
                 MessageBox.Show("Ejemplar no existe");
             }
-            
+
         }
 
         private void btnDevolver_Click(object sender, EventArgs e)
         {
-            fachada.DevolverEjemplar(textCodigoInventario.Text, !checkBoxMalEstado.Checked);
-            MessageBox.Show("Devuelto exitosamente");
+            try
+            {
+                fachada.DevolverEjemplar(textCodigoInventario.Text, !checkBoxMalEstado.Checked);
+                MessageBox.Show("Devuelto exitosamente");
+            }
+            catch (ExcepcionCodigoInventarioInvalido)
+            {
+                MessageBox.Show("Codigo de inventario invalido");
+            }
+            catch (ExcepcionEjemplarNoEstaPrestado)
+            {
+                MessageBox.Show("Ejemplar no esta prestado");
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

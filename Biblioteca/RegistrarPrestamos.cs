@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
+using Aplication.Excepciones;
 
 namespace Inicio_Bliblioteca
 {
@@ -42,7 +43,7 @@ namespace Inicio_Bliblioteca
             {
                 MessageBox.Show("DNI no encontrado");
             }
-    
+
         }
 
         private void btnBuscarEjemplar_Click(object sender, EventArgs e)
@@ -51,7 +52,6 @@ namespace Inicio_Bliblioteca
             {
                 btnAceptar.Enabled = true;
             }
-
             else
             {
                 MessageBox.Show("Codigo Inventario no encontrado");
@@ -61,8 +61,25 @@ namespace Inicio_Bliblioteca
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            fachada.PrestarEjemplar(Int32.Parse(txtDNI.Text), txtCodigoInventario.Text);
-            MessageBox.Show("Prestamo registrado exitosamente");
+            if (!Int32.TryParse(txtDNI.Text, out int dni))
+            {
+                MessageBox.Show("DNI no encontrado");
+            }
+
+            try
+            {
+                fachada.PrestarEjemplar(dni, txtCodigoInventario.Text);
+                MessageBox.Show("Prestamo registrado exitosamente");
+            }
+            catch (ExcepcionCodigoInventarioInvalido)
+            {
+                MessageBox.Show("Codigo Inventario no encontrado");
+            }
+            catch (ExcepcionEjemplarYaPrestado)
+            {
+                MessageBox.Show("El ejemplar ya esta prestado");
+            }
+
         }
 
         private void label3_Click(object sender, EventArgs e)
