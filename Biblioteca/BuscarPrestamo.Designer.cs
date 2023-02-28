@@ -68,6 +68,11 @@ namespace Inicio_Bliblioteca
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.FechaVencimiento,
@@ -75,10 +80,11 @@ namespace Inicio_Bliblioteca
             this.ID,
             this.Nombre,
             this.CodigoEjemplar});
-            this.dataGridView1.Location = new System.Drawing.Point(52, 169);
+            this.dataGridView1.Location = new System.Drawing.Point(4, 168);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.Size = new System.Drawing.Size(811, 121);
+            this.dataGridView1.Size = new System.Drawing.Size(878, 121);
             this.dataGridView1.TabIndex = 12;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -88,7 +94,6 @@ namespace Inicio_Bliblioteca
             this.FechaVencimiento.MinimumWidth = 8;
             this.FechaVencimiento.Name = "FechaVencimiento";
             this.FechaVencimiento.ReadOnly = true;
-            this.FechaVencimiento.Width = 150;
             // 
             // FechaPrestamos
             // 
@@ -96,7 +101,6 @@ namespace Inicio_Bliblioteca
             this.FechaPrestamos.MinimumWidth = 8;
             this.FechaPrestamos.Name = "FechaPrestamos";
             this.FechaPrestamos.ReadOnly = true;
-            this.FechaPrestamos.Width = 150;
             // 
             // ID
             // 
@@ -104,7 +108,6 @@ namespace Inicio_Bliblioteca
             this.ID.MinimumWidth = 8;
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
-            this.ID.Width = 150;
             // 
             // Nombre
             // 
@@ -112,7 +115,6 @@ namespace Inicio_Bliblioteca
             this.Nombre.MinimumWidth = 8;
             this.Nombre.Name = "Nombre";
             this.Nombre.ReadOnly = true;
-            this.Nombre.Width = 150;
             // 
             // CodigoEjemplar
             // 
@@ -120,7 +122,6 @@ namespace Inicio_Bliblioteca
             this.CodigoEjemplar.MinimumWidth = 8;
             this.CodigoEjemplar.Name = "CodigoEjemplar";
             this.CodigoEjemplar.ReadOnly = true;
-            this.CodigoEjemplar.Width = 150;
             // 
             // label3
             // 
@@ -187,7 +188,7 @@ namespace Inicio_Bliblioteca
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(85, 36);
-            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(2);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             100000000,
             0,

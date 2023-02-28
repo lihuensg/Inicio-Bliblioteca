@@ -46,7 +46,7 @@ namespace Inicio_Bliblioteca
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(475, 268);
+            this.btnCancelar.Location = new System.Drawing.Point(475, 327);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 16;
@@ -56,7 +56,7 @@ namespace Inicio_Bliblioteca
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(199, 268);
+            this.btnAceptar.Location = new System.Drawing.Point(201, 327);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 15;
@@ -66,6 +66,8 @@ namespace Inicio_Bliblioteca
             // 
             // dgvUsuarios
             // 
+            this.dgvUsuarios.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvUsuarios.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsuarios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Nombre,
@@ -73,10 +75,10 @@ namespace Inicio_Bliblioteca
             this.FechaDeRegistro,
             this.Puntaje,
             this.Mail});
-            this.dgvUsuarios.Location = new System.Drawing.Point(108, 181);
+            this.dgvUsuarios.Location = new System.Drawing.Point(46, 181);
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.dgvUsuarios.Size = new System.Drawing.Size(543, 59);
+            this.dgvUsuarios.Size = new System.Drawing.Size(684, 110);
             this.dgvUsuarios.TabIndex = 8;
             this.dgvUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellContentClick);
             // 

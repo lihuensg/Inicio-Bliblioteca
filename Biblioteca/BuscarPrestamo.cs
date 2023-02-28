@@ -19,7 +19,7 @@ namespace Inicio_Bliblioteca
             if (!esBuscar)
             {
                 btnAceptar.Visible = true;
-            } 
+            }
         }
 
         private void BuscarPrestamo_Load(object sender, EventArgs e)
@@ -46,6 +46,8 @@ namespace Inicio_Bliblioteca
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear();
+
             Fachada fachada = new Fachada();
             var listaPrestamos = fachada.PrestamosEntreFechas((int)numericUpDown1.Value, dtFecha1.Value, dtFecha2.Value);
             foreach (var item in listaPrestamos)
