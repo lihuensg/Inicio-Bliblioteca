@@ -12,6 +12,8 @@ namespace Aplication
         public static Usuario Crear(CrearUsuario solicitud)
         {
             Usuario usuario = new Usuario();
+
+            usuario.Dni = solicitud.Dni;
             usuario.EsAdministrador = solicitud.EsAdminitrador;
             usuario.FechaRegistro = DateTime.Now;
             usuario.Puntaje = 0;

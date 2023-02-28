@@ -143,6 +143,9 @@
     <Compile Include="DOMAIN\Usuario.cs" />
     <Compile Include="DOMAIN\UsuarioAdministrador.cs" />
     <Compile Include="DOMAIN\UsuarioSimple.cs" />
+    <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioConNombreDeUsuarioYaExiste.cs" />
+    <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioConMailYaExiste.cs" />
+    <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioConDniYaExiste.cs" />
     <Compile Include="Excepciones\ExcepcionEmailInvalido.cs" />
     <Compile Include="Fachada.cs" />
     <Compile Include="Inotificador.cs" />

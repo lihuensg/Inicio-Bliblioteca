@@ -12,20 +12,20 @@ namespace Aplication.DAL.EntityFramework
             
 
         }
+        
         public Usuario ObtenerPorNombreDeUsuario(string NombreUsuario)
         {
-            var usuariosEncontrados = this.iDbContext.Usuarios.Where(u => u.NombreUsuario == NombreUsuario).ToList();
-            if (usuariosEncontrados.Count == 0)
-            {
-                throw new Exception();
-            }
-            return usuariosEncontrados[0]; 
+            return this.iDbContext.Usuarios.Where(u => u.NombreUsuario == NombreUsuario).FirstOrDefault();
         }
 
         public Usuario ObtenerPorDNI(int dni)
         {
-            var usuariosEncontrados = this.iDbContext.Usuarios.Where(u => u.Dni == dni).FirstOrDefault();
-            return usuariosEncontrados; 
+            return this.iDbContext.Usuarios.Where(u => u.Dni == dni).FirstOrDefault();
+        }
+
+        public Usuario ObtenerPorMail(string mail)
+        {
+            return this.iDbContext.Usuarios.Where(u => u.Mail == mail).FirstOrDefault();
         }
     }
 }

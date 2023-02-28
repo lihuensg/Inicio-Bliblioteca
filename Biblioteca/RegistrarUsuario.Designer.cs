@@ -51,7 +51,7 @@ namespace Inicio_Bliblioteca
             this.btnCancelar.Location = new System.Drawing.Point(425, 375);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 5;
+            this.btnCancelar.TabIndex = 16;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -61,7 +61,7 @@ namespace Inicio_Bliblioteca
             this.btnAceptar.Location = new System.Drawing.Point(274, 375);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
-            this.btnAceptar.TabIndex = 4;
+            this.btnAceptar.TabIndex = 15;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -107,7 +107,7 @@ namespace Inicio_Bliblioteca
             0});
             this.numDNI.Name = "numDNI";
             this.numDNI.Size = new System.Drawing.Size(120, 20);
-            this.numDNI.TabIndex = 10;
+            this.numDNI.TabIndex = 3;
             this.numDNI.Value = new decimal(new int[] {
             1,
             0,

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
 using Aplication.Excepciones;
+using Aplication.LOG;
 
 namespace Inicio_Bliblioteca
 {
@@ -34,7 +35,6 @@ namespace Inicio_Bliblioteca
                 Nombre = txtNombre.Text,
                 Password = txtContraseña.Text,
                 Mail = txtMail.Text,
-              
             };
 
             try
@@ -45,10 +45,25 @@ namespace Inicio_Bliblioteca
             }
             catch (ExcepcionEmailInvalido)
             {
-
                 MessageBox.Show("Email invalido");
+            } catch (ExcepcionUsuarioConDniYaExiste)
+            {
+                MessageBox.Show("Ya existe un usuario con ese DNI");
             }
-           
+            catch (ExcepcionUsuarioConMailYaExiste)
+            {
+                MessageBox.Show("Ya existe un usuario con ese mail");
+            }
+            catch (ExcepcionUsuarioConNombreDeUsuarioYaExiste)
+            {
+                MessageBox.Show("Ya existe un usuario con ese nombre de usuario");
+            }
+            catch (Exception error)
+            {
+                LogManager.GetLogger().Error(error);
+
+                MessageBox.Show("Error inesperado. Intentalo nuevamente");
+            }
         }
     }
 }

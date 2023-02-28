@@ -6,6 +6,7 @@ using Aplication.DAL.EntityFramework;
 using AutoMapper;
 using Aplication.Servicios.Seguridad;
 using Aplication.LOG;
+using Aplication.Excepciones;
 
 namespace Aplication
 {
@@ -91,6 +92,21 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
+                if (bUoW.RepositorioUsuarios.ObtenerPorDNI(solicitud.Dni) != null)
+                {
+                    throw new ExcepcionUsuarioConDniYaExiste();
+                }
+
+                if (bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(solicitud.Nombre) != null)
+                {
+                    throw new ExcepcionUsuarioConNombreDeUsuarioYaExiste();
+                }
+
+                if (bUoW.RepositorioUsuarios.ObtenerPorMail(solicitud.Mail) != null)
+                {
+                    throw new ExcepcionUsuarioConMailYaExiste();
+                }
+
                 solicitud.Password = cHashingManager.Hash(solicitud.Password);
                 var usuario1 =  Usuario.Crear(solicitud);
                 
