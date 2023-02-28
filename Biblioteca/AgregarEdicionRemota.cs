@@ -25,18 +25,37 @@ namespace Inicio_Bliblioteca
             ediciones = new List<DTOEdicion>();
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private async void btnBuscar_Click(object sender, EventArgs e)
         {
-            var filtorPorISBN = FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text);
-            var pFiltros = new Dictionary<string, string>();
-            pFiltros.Add("ISBN", filtorPorISBN);
-            DTOEdicion item = ServiceEdicionesOpenLibrary.Instance.Buscar(pFiltros);
+            btnBuscar.Enabled = false;
+
+            string isbn = FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text);
+
+            if (ediciones.Exists(x => x.Isbn == isbn))
+            {
+                btnBuscar.Enabled = true;
+                MessageBox.Show("Ya existe una edicion con ese ISBN en la lista");
+                return;
+            }
+
+            var pFiltros = new Dictionary<string, string>() {{"ISBN", isbn}};
             
-            if (item != null) {
+            DTOEdicion item = await Task.Run(() => ServiceEdicionesOpenLibrary.Instance.Buscar(pFiltros));
+            AgregarItem(item);
+
+            btnBuscar.Enabled = true;
+        }
+
+        private void AgregarItem(DTOEdicion item)
+        {
+            if (item != null)
+            {
                 ediciones.Add(item);
 
                 dataGridView1.Rows.Add(item.Isbn, item.AnioEdicion, item.NumeroPaginas, item.FechaPublicacion, item.Obra.Titulo, item.Portada);
-            } else {
+            }
+            else
+            {
                 MessageBox.Show("No hubo resultados");
             }
 
