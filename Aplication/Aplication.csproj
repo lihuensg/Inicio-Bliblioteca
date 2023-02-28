@@ -177,6 +177,8 @@
     <Compile Include="Servicios\LibrosRemotos\OpenLibrary\ServiceAutoresOpenLibrary.cs" />
     <Compile Include="Servicios\LibrosRemotos\OpenLibrary\ServicesEdicionOpenLibrary.cs" />
     <Compile Include="Servicios\LibrosRemotos\OpenLibrary\ServicesObrasOpenLibrary.cs" />
+    <Compile Include="Servicios\Seguridad\HashingManager.cs" />
+    <Compile Include="Servicios\Seguridad\IHashingManager.cs" />
     <Compile Include="TAREAS\ITarea.cs" />
     <Compile Include="TAREAS\TareaBase.cs" />
     <Compile Include="TAREAS\TareaEnviarAvisoADosDiasVencimiento.cs" />

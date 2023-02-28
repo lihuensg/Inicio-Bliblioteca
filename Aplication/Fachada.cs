@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Aplication.DAL;
 using Aplication.DAL.EntityFramework;
 using AutoMapper;
+using Aplication.Servicios.Seguridad;
+using Aplication.LOG;
 
 namespace Aplication
 {
@@ -13,6 +14,7 @@ namespace Aplication
 
     {
         private static readonly IMapper cMapper;
+        private static readonly IHashingManager cHashingManager;
 
         static Fachada()
         {
@@ -25,24 +27,26 @@ namespace Aplication
             });
 
             cMapper = mConfiguration.CreateMapper();
+
+            cHashingManager = new HashingManager();
         }
 
         public void Inicializar()
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var admin = new Usuario
-                {
-                    Dni = 0,
-                    NombreUsuario = "admin",
-                    Mail = "email@cambiar.com",
-                    Password = "admin",
-                    FechaRegistro = DateTime.Now,
-                    Puntaje = 0,
-                    EsAdministrador = true
-                };
                 if (bUoW.RepositorioUsuarios.ObtenerPorDNI(0) == null )
                 {
+                    var admin = new Usuario {
+                        Dni = 0,
+                        NombreUsuario = "admin",
+                        Mail = "email@cambiar.com",
+                        Password = cHashingManager.Hash("admin"),
+                        FechaRegistro = DateTime.Now,
+                        Puntaje = 0,
+                        EsAdministrador = true
+                    };
+
                     bUoW.RepositorioUsuarios.Agregar(admin);
                 }
                 bUoW.Complete();
@@ -87,6 +91,7 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
+                solicitud.Password = cHashingManager.Hash(solicitud.Password);
                 var usuario1 =  Usuario.Crear(solicitud);
                 
                 bUoW.RepositorioUsuarios.Agregar(usuario1);
@@ -306,7 +311,13 @@ namespace Aplication
                 try
                 {
                     Usuario us1 = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
-                    contraCorrecta = us1.Password == password;
+
+                    if (!cHashingManager.IsHashSupported(us1.Password)) {
+                        LogManager.GetLogger().Warn("Una contraseña almacenada no soporta el hasher!");
+                        return false;
+                    }
+
+                    contraCorrecta = cHashingManager.Verify(password, us1.Password);
                 }
                 catch (Exception)
                 {
