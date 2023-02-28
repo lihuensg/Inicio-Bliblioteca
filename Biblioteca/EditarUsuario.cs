@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
 using Aplication.Excepciones;
+using Aplication.LOG;
 
 namespace Inicio_Bliblioteca
 {
@@ -35,8 +36,14 @@ namespace Inicio_Bliblioteca
             if (InformacionDelLogin.DNI != null && usuario == null)
             {
                 DTOUsuario usuarioObtenido = fachada.ObtenerUsuario(InformacionDelLogin.DNI.Value);
-                textBox1.Text = usuarioObtenido.Nombre;
-                textBox2.Text = usuarioObtenido.Mail;
+
+                if (usuarioObtenido != null)
+                {
+                    textBox1.Text = usuarioObtenido.Nombre;
+                    textBox2.Text = usuarioObtenido.Mail;
+                } else {
+                    LogManager.GetLogger().Error("Error lógico: El usuario logeado deberia exisitir");
+                }
             }
             else if (usuario != null)
             {

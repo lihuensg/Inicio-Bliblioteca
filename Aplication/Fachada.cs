@@ -59,6 +59,12 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 Usuario usuarioObtenido = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
+
+                if (usuarioObtenido == null)
+                {
+                    return null;
+                }
+
                 return new DTOUsuario
                 {
                     Nombre = usuarioObtenido.NombreUsuario,
@@ -76,6 +82,12 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 Usuario usuarioObtenido = bUoW.RepositorioUsuarios.ObtenerPorDNI(DNI);
+
+                if (usuarioObtenido == null)
+                {
+                    return null;
+                }
+
                 return new DTOUsuario
                 {
                     Nombre= usuarioObtenido.NombreUsuario,
@@ -313,6 +325,14 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 Usuario usuario1 = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
+                
+                if (usuario1 == null)
+                {
+                    throw new Exception("No existe el usuario");
+                }
+                
+                solicitud.Password = cHashingManager.Hash(solicitud.Password);
+                
                 usuario1.Actualizar(solicitud);
 
                 bUoW.Complete();
