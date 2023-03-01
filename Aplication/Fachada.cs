@@ -126,7 +126,6 @@ namespace Aplication
                 bUoW.RepositorioUsuarios.Agregar(usuario1);
                 bUoW.Complete();
             }
-
         }
 
         public void AgregarObra(DTOObra obra)
@@ -368,7 +367,8 @@ namespace Aplication
             {
                 Usuario us1 = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
 
-                if (us1 == null) {
+                if (us1 == null)
+                {
                     return false;
                 }
 
