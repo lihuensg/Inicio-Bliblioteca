@@ -126,6 +126,7 @@
     <Compile Include="DAL\EntityFramework\RepositorioUsuarios.cs" />
     <Compile Include="DAL\EntityFramework\Repository.cs" />
     <Compile Include="DAL\EntityFramework\UnitOfWork.cs" />
+    <Compile Include="DAL\EntityFramework\UnitOfWorkFactory.cs" />
     <Compile Include="DAL\IRepositorio.cs" />
     <Compile Include="DAL\IRepositorioEdiciones.cs" />
     <Compile Include="DAL\IRepositorioNotificacionVencimientoPrestamo.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="DAL\IRepositorioPrestamos.cs" />
     <Compile Include="DAL\IRepositorioUsuarios.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
+    <Compile Include="DAL\IUnitOfWorkFactory.cs" />
     <Compile Include="DOMAIN\AdminPrestamos.cs" />
     <Compile Include="DOMAIN\NotificacionVencimientoPrestamo.cs" />
     <Compile Include="DOMAIN\Edicion.cs" />

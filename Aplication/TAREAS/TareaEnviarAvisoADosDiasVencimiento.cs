@@ -9,17 +9,19 @@ using Aplication.LOG;
 
 namespace Aplication.TAREAS {
     public class TareaEnviarAvisoADosDiasVencimiento :  TareaBase {
-        NotificadorMail notificadorMail;
+        INotificador notificadorMail;
+        IUnitOfWorkFactory unitOfWorkFactory;
 
-        public TareaEnviarAvisoADosDiasVencimiento(TimeSpan intervaloDeVerificacion) {
+        public TareaEnviarAvisoADosDiasVencimiento(TimeSpan intervaloDeVerificacion, INotificador notificador, IUnitOfWorkFactory pUnitOfWorkFactory) {
             this.nombreTarea = "TareaEnviarAvisoADosDiasVencimiento";
             this.intervalo = intervaloDeVerificacion;
 
-            notificadorMail = new NotificadorMail(Properties.Settings.Default.CorreoAvisosMail, Properties.Settings.Default.CorreoAvisosServer, Properties.Settings.Default.CorreoAvisosPuerto, Properties.Settings.Default.CorreoAvisosUsaSSL, Properties.Settings.Default.CorreoAvisosUsuario, Properties.Settings.Default.CorreoAvisosContraseña);
+            notificadorMail = notificador;
+            unitOfWorkFactory = pUnitOfWorkFactory;
         }
         
         protected override void Tarea() {
-            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext())) {
+            using (IUnitOfWork bUoW = unitOfWorkFactory.Crear()) {
                 //  1. Obtener los prestamos que esten a 2 dias a vencer (definido en una cte)
                 //     y que no se les haya enviado el mail de aviso de vencimiento
                 var resultado = bUoW.RepositorioNotificacionVencimientoPrestamo.ObtenerPrestamosQueEstenPorVencerYNoSeNotifico(2);

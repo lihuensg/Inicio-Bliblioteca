@@ -14,12 +14,22 @@ namespace Aplication.TAREAS {
         protected string nombreTarea;
         protected TimeSpan intervalo;
         private CancellationTokenSource tokenSource;
+        private Task tarea;
 
         public void Detener() {
             LogManager.GetLogger().Info("Deteniendo tarea {tarea}", nombreTarea);
             tokenSource.Cancel();
         }
-
+        public async Task DetenerAsync()
+        {
+            LogManager.GetLogger().Info("Deteniendo tarea {tarea}", nombreTarea);
+            tokenSource.Cancel();
+            try
+            {
+                await tarea;
+            }
+            catch (TaskCanceledException) { }
+        }
         public void Iniciar() {
             if (string.IsNullOrEmpty(nombreTarea)) {
                 throw new ArgumentNullException(nameof(nombreTarea), "Se debe especificar un nombre a la tarea");
@@ -32,11 +42,16 @@ namespace Aplication.TAREAS {
             LogManager.GetLogger().Info("Iniciando tarea {tarea}", nombreTarea);
             tokenSource = new CancellationTokenSource();
             var token = tokenSource.Token;
-            Task.Run(async () => {
+            this.tarea = Task.Run(async () => {
                 while (!token.IsCancellationRequested) {
                     LogManager.GetLogger().Info("Ejecutando tarea {tarea}", nombreTarea);
                     this.Tarea();
-                    await Task.Delay(this.intervalo, token);
+                    try
+                    {
+                        await Task.Delay(this.intervalo, token);
+                    }
+                    catch (TaskCanceledException) { }
+                    
                 }
             }, token);
         }

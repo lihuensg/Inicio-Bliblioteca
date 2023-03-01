@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Aplication
 {
-     interface INotificador
+    public interface INotificador
     {
          bool Enviar(string destinoMail, string destinoNombre, string asunto, string texto );
     }
