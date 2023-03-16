@@ -16,6 +16,8 @@ namespace Aplication.DAL
 
         IRepositorioEdiciones RepositorioEdiciones { get; }
 
+        IRepositorioNotificacionVencimientoPrestamo RepositorioNotificacionVencimientoPrestamo { get; }
+
         void Complete();
     }
 }

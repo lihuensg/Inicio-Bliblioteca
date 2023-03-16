@@ -77,6 +77,7 @@ namespace Inicio_Bliblioteca
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(571, 242);
             this.panel1.TabIndex = 4;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label1
             // 

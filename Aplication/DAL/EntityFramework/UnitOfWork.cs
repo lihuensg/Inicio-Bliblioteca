@@ -24,6 +24,7 @@ namespace Aplication.DAL.EntityFramework
             this.RepositorioPrestamos = new RepositorioPrestamos(pDbContext);
             this.RepositorioUsuarios = new RepositorioUsuarios(pDbContext);
             this.RepositorioEdiciones = new RepositorioEdiciones(pDbContext);
+            this.RepositorioNotificacionVencimientoPrestamo = new RepositorioNotificacionVencimientoPrestamo(pDbContext);
         }
 
         public IRepositorioEjemplares RepositorioEjemplares { get; private set; }
@@ -33,6 +34,7 @@ namespace Aplication.DAL.EntityFramework
 
         public IRepositorioUsuarios RepositorioUsuarios { get; private set; }
         public IRepositorioEdiciones RepositorioEdiciones { get; private set; }
+        public IRepositorioNotificacionVencimientoPrestamo RepositorioNotificacionVencimientoPrestamo { get; private set; }
 
         public void Complete()
         {

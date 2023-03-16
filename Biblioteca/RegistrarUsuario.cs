@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
-
+using Aplication.Excepciones;
+using Aplication.LOG;
 
 namespace Inicio_Bliblioteca
 {
@@ -28,19 +29,41 @@ namespace Inicio_Bliblioteca
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            DTOUsuario usuario = new DTOUsuario
+            CrearUsuario usuario = new CrearUsuario
             {
                 Dni = (int)numDNI.Value,
                 Nombre = txtNombre.Text,
                 Password = txtContraseña.Text,
                 Mail = txtMail.Text,
-                FechaRegistro = DateTime.Now,
-                Puntaje = 0,
             };
 
-            fachada.AgregarUsuario(usuario, checkAdmin.Checked);
-            MessageBox.Show("Usuario registrado correctamente");
-            this.Close();
+            try
+            {
+                fachada.AgregarUsuario(usuario, checkAdmin.Checked);
+                MessageBox.Show("Usuario registrado correctamente");
+                this.Close();
+            }
+            catch (ExcepcionEmailInvalido)
+            {
+                MessageBox.Show("Email invalido");
+            } catch (ExcepcionUsuarioConDniYaExiste)
+            {
+                MessageBox.Show("Ya existe un usuario con ese DNI");
+            }
+            catch (ExcepcionUsuarioConMailYaExiste)
+            {
+                MessageBox.Show("Ya existe un usuario con ese mail");
+            }
+            catch (ExcepcionUsuarioConNombreDeUsuarioYaExiste)
+            {
+                MessageBox.Show("Ya existe un usuario con ese nombre de usuario");
+            }
+            catch (Exception error)
+            {
+                LogManager.GetLogger().Error(error);
+
+                MessageBox.Show("Error inesperado. Intentalo nuevamente");
+            }
         }
     }
 }

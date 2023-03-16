@@ -14,6 +14,7 @@ namespace Aplication.DAL.EntityFramework
         public DbSet<Prestamo> Prestamos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Edicion> Ediciones { get; set; }
+        public DbSet<NotificacionVencimientoPrestamo> NotificacionVencimientoPrestamos { get; set; }
 
         public BibliotecaDbContext() : base("Aplication.Properties.Settings.bdBiblioConnectionString")
         {
@@ -22,6 +23,7 @@ namespace Aplication.DAL.EntityFramework
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //cambiamos el nombre de la tabla//
+            modelBuilder.Configurations.Add(new NotificacionVencimientoPrestamosConfiguration());
             modelBuilder.Entity<Obra>().ToTable("Obras");
             modelBuilder.Entity<Edicion>().ToTable("Ediciones");
             modelBuilder.Configurations.Add(new EjemplarConfiguration());
@@ -29,7 +31,9 @@ namespace Aplication.DAL.EntityFramework
             modelBuilder.Configurations.Add(new ObraConfiguration());
             modelBuilder.Configurations.Add(new PrestamoConfiguration());
             modelBuilder.Configurations.Add(new UsuarioConfiguration());
+
         }
+
 
     }
 }

@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace Aplication
 {
-     interface INotificador
+    public interface INotificador
     {
-         void Enviar(string destino,string asunto, string texto );
-        
-        
+         bool Enviar(string destinoMail, string destinoNombre, string asunto, string texto );
     }
 }

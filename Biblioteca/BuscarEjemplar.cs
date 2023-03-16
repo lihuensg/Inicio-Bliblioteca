@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
+using Inicio_Bliblioteca.Utils;
 
 namespace Inicio_Bliblioteca
 {
@@ -25,7 +26,7 @@ namespace Inicio_Bliblioteca
         {
             try
             {
-                ejemplar1 = fachada.ListarEjemplaresConPrestamos(txtISBN.Text);
+                ejemplar1 = fachada.ListarEjemplaresConPrestamos(FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text));
                 foreach (var item in ejemplar1)
                 {
                     dataGridView1.Rows.Add(item.codigoInventario, item.Prestado, item.FechaAlta, item.FechaBaja == DateTime.MinValue ? "-" : item.FechaBaja.ToString());

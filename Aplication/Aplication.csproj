@@ -106,12 +106,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bdBiblioDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>bdBiblioDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Constantes.cs" />
+    <Compile Include="Contratos\Usuarios\CrearUsuario.cs" />
+    <Compile Include="Contratos\Usuarios\ActualizarUsuario.cs" />
+    <Compile Include="DAL\EntityFramework\InicializarDeContexto.cs" />
+    <Compile Include="DAL\EntityFramework\RepositorioNotificacionVencimientoPrestamo.cs" />
+    <Compile Include="DAL\EntityFramework\Mapping\NotificacionVencimientoPrestamosConfiguration.cs" />
     <Compile Include="DAL\EntityFramework\BibliotecaDbContext.cs" />
     <Compile Include="DAL\EntityFramework\Mapping\EdicionConfiguration.cs" />
     <Compile Include="DAL\EntityFramework\Mapping\EjemplarConfiguration.cs" />
@@ -126,14 +126,18 @@
     <Compile Include="DAL\EntityFramework\RepositorioUsuarios.cs" />
     <Compile Include="DAL\EntityFramework\Repository.cs" />
     <Compile Include="DAL\EntityFramework\UnitOfWork.cs" />
+    <Compile Include="DAL\EntityFramework\UnitOfWorkFactory.cs" />
     <Compile Include="DAL\IRepositorio.cs" />
     <Compile Include="DAL\IRepositorioEdiciones.cs" />
+    <Compile Include="DAL\IRepositorioNotificacionVencimientoPrestamo.cs" />
     <Compile Include="DAL\IRepositorioEjemplares.cs" />
     <Compile Include="DAL\IRepositorioObras.cs" />
     <Compile Include="DAL\IRepositorioPrestamos.cs" />
     <Compile Include="DAL\IRepositorioUsuarios.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
+    <Compile Include="DAL\IUnitOfWorkFactory.cs" />
     <Compile Include="DOMAIN\AdminPrestamos.cs" />
+    <Compile Include="DOMAIN\NotificacionVencimientoPrestamo.cs" />
     <Compile Include="DOMAIN\Edicion.cs" />
     <Compile Include="DOMAIN\Ejemplar.cs" />
     <Compile Include="DOMAIN\Obra.cs" />
@@ -141,6 +145,13 @@
     <Compile Include="DOMAIN\Usuario.cs" />
     <Compile Include="DOMAIN\UsuarioAdministrador.cs" />
     <Compile Include="DOMAIN\UsuarioSimple.cs" />
+    <Compile Include="Excepciones\Ejemplar\ExcepcionEjemplarYaPrestado.cs" />
+    <Compile Include="Excepciones\ExcepcionCodigoInventarioInvalido.cs" />
+    <Compile Include="Excepciones\Ejemplar\ExcepcionEjemplarNoEstaPrestado.cs" />
+    <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioConNombreDeUsuarioYaExiste.cs" />
+    <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioConMailYaExiste.cs" />
+    <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioConDniYaExiste.cs" />
+    <Compile Include="Excepciones\ExcepcionEmailInvalido.cs" />
     <Compile Include="Fachada.cs" />
     <Compile Include="Inotificador.cs" />
     <Compile Include="IO\DTOAutor.cs" />
@@ -152,9 +163,9 @@
     <Compile Include="IO\DTOPrestamo.cs" />
     <Compile Include="IO\DTOUsuario.cs" />
     <Compile Include="LOG\LogManager.cs" />
-    <Compile Include="Migrations\202212071158180_InitialMigration.cs" />
-    <Compile Include="Migrations\202212071158180_InitialMigration.designer.cs">
-      <DependentUpon>202212071158180_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202302242049241_BibliotecaV2.cs" />
+    <Compile Include="Migrations\202302242049241_BibliotecaV2.designer.cs">
+      <DependentUpon>202302242049241_BibliotecaV2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NotificadorMail.cs" />
@@ -165,30 +176,24 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SERVICE\Http\Excepciones\ExcepcionConsultaWeb.cs" />
-    <Compile Include="SERVICE\Http\Excepciones\ExcepcionRespuestaInvalida.cs" />
-    <Compile Include="SERVICE\Http\HttpJsonRequest.cs" />
-    <Compile Include="SERVICE\IServicesAutores.cs" />
-    <Compile Include="SERVICE\IServicesEdicion.cs" />
-    <Compile Include="SERVICE\IServicesObras.cs" />
-    <Compile Include="SERVICE\OPENLIBRARY\ServiceAutoresOpenLibrary.cs" />
-    <Compile Include="SERVICE\OPENLIBRARY\ServicesEdicionOpenLibrary.cs" />
-    <Compile Include="SERVICE\OPENLIBRARY\ServicesObrasOpenLibrary.cs" />
-    <Compile Include="SERVICE\SolicitudWeb.cs" />
+    <Compile Include="Servicios\Http\Excepciones\ExcepcionConsultaWeb.cs" />
+    <Compile Include="Servicios\Http\Excepciones\ExcepcionRespuestaInvalida.cs" />
+    <Compile Include="Servicios\Http\HttpJsonRequest.cs" />
+    <Compile Include="Servicios\LibrosRemotos\IServicesAutores.cs" />
+    <Compile Include="Servicios\LibrosRemotos\IServicesEdicion.cs" />
+    <Compile Include="Servicios\LibrosRemotos\IServicesObras.cs" />
+    <Compile Include="Servicios\LibrosRemotos\OpenLibrary\ServiceAutoresOpenLibrary.cs" />
+    <Compile Include="Servicios\LibrosRemotos\OpenLibrary\ServicesEdicionOpenLibrary.cs" />
+    <Compile Include="Servicios\LibrosRemotos\OpenLibrary\ServicesObrasOpenLibrary.cs" />
+    <Compile Include="Servicios\Seguridad\HashingManager.cs" />
+    <Compile Include="Servicios\Seguridad\IHashingManager.cs" />
+    <Compile Include="TAREAS\ITarea.cs" />
+    <Compile Include="TAREAS\TareaBase.cs" />
+    <Compile Include="TAREAS\TareaEnviarAvisoADosDiasVencimiento.cs" />
+    <Compile Include="Utils\Validaciones.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="bdBiblioDataSet.xsc">
-      <DependentUpon>bdBiblioDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="bdBiblioDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>bdBiblioDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="bdBiblioDataSet.xss">
-      <DependentUpon>bdBiblioDataSet.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -208,8 +213,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202212071158180_InitialMigration.resx">
-      <DependentUpon>202212071158180_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202302242049241_BibliotecaV2.resx">
+      <DependentUpon>202302242049241_BibliotecaV2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -217,10 +222,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="bdBiblio_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>bdBiblio.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

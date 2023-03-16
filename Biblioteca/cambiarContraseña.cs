@@ -31,15 +31,16 @@ namespace Inicio_Bliblioteca
         {
             var DNI = usuario == null ? InformacionDelLogin.DNI.Value : usuario.Dni;
             var usuarioObtenido = fachada.ObtenerUsuario(DNI);
-            if (fachada.LoguearUsuario(usuarioObtenido.Nombre, textContraseñaActual.Text))
+            if (usuarioObtenido != null
+                && fachada.LoguearUsuario(usuarioObtenido.Nombre, textContraseñaActual.Text))
             {
-                fachada.ModificarDatosUsuario(DNI, new DTOUsuario { Password = textContraseñaNueva.Text });
+                fachada.ModificarDatosUsuario(DNI, new ActualizarUsuario { Password = textContraseñaNueva.Text });
                 MessageBox.Show("Contraseña modificada correctamente");
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Contraseña actual incorrecta");
+                MessageBox.Show("El usuario o contraseña es incorrecto");
             }
         }
 

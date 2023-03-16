@@ -9,6 +9,6 @@ namespace Aplication
     {
         Usuario ObtenerPorNombreDeUsuario(string NombreUsuario);
         Usuario ObtenerPorDNI(int Dni);
-
+        Usuario ObtenerPorMail(string mail);
     }
 }

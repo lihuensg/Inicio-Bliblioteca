@@ -43,6 +43,7 @@ namespace Inicio_Bliblioteca
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnEditarUsuario = new System.Windows.Forms.Button();
+            this.btnRefrescar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -180,7 +181,7 @@ namespace Inicio_Bliblioteca
             // 
             // btnEditarUsuario
             // 
-            this.btnEditarUsuario.Location = new System.Drawing.Point(522, 314);
+            this.btnEditarUsuario.Location = new System.Drawing.Point(475, 314);
             this.btnEditarUsuario.Name = "btnEditarUsuario";
             this.btnEditarUsuario.Size = new System.Drawing.Size(111, 25);
             this.btnEditarUsuario.TabIndex = 7;
@@ -188,10 +189,21 @@ namespace Inicio_Bliblioteca
             this.btnEditarUsuario.UseVisualStyleBackColor = true;
             this.btnEditarUsuario.Click += new System.EventHandler(this.btnEditarUsuario_Click);
             // 
+            // btnRefrescar
+            // 
+            this.btnRefrescar.Location = new System.Drawing.Point(318, 314);
+            this.btnRefrescar.Name = "btnRefrescar";
+            this.btnRefrescar.Size = new System.Drawing.Size(111, 25);
+            this.btnRefrescar.TabIndex = 8;
+            this.btnRefrescar.Text = "Refrescar datos";
+            this.btnRefrescar.UseVisualStyleBackColor = true;
+            this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
+            // 
             // Usuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnRefrescar);
             this.Controls.Add(this.btnEditarUsuario);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lNombre);
@@ -224,5 +236,6 @@ namespace Inicio_Bliblioteca
         private System.Windows.Forms.Label lPuntaje;
         private System.Windows.Forms.Label lMail;
         private System.Windows.Forms.Label lUltimoInicio;
+        private System.Windows.Forms.Button btnRefrescar;
     }
 }

@@ -34,6 +34,7 @@ namespace Inicio_Bliblioteca
             this.FechaPrestamos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnRefrescar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,10 +75,21 @@ namespace Inicio_Bliblioteca
             this.Nombre.Name = "Nombre";
             this.Nombre.ReadOnly = true;
             // 
+            // btnRefrescar
+            // 
+            this.btnRefrescar.Location = new System.Drawing.Point(95, 319);
+            this.btnRefrescar.Name = "btnRefrescar";
+            this.btnRefrescar.Size = new System.Drawing.Size(75, 23);
+            this.btnRefrescar.TabIndex = 1;
+            this.btnRefrescar.Text = "Refrescar";
+            this.btnRefrescar.UseVisualStyleBackColor = true;
+            this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
+            // 
             // PrestamosProxVencer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnRefrescar);
             this.Controls.Add(this.dataGridView1);
             this.Name = "PrestamosProxVencer";
             this.Size = new System.Drawing.Size(623, 395);
@@ -94,5 +106,6 @@ namespace Inicio_Bliblioteca
         private System.Windows.Forms.DataGridViewTextBoxColumn FechaPrestamos;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.Button btnRefrescar;
     }
 }

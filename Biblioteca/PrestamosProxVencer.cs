@@ -23,14 +23,21 @@ namespace Inicio_Bliblioteca
         private void PrestamosProxVencer_Load(object sender, EventArgs e)
         {
             //esto lo realizamos para esperar a que este logeado es decir que no se ejecute en el diseñador
-            if (InformacionDelLogin.DNI != null )   
-            {
-                var prestamosAVencer = fachada.PrestamosProximosAVencer();
-                foreach (var prestamo in prestamosAVencer)
-                {
-                    this.dataGridView1.Rows.Add(prestamo.FechaVencimiento, prestamo.FechaPrestamo, prestamo.Id, prestamo.SolicitanteDNI);
-                }
-            }            
+            if (InformacionDelLogin.DNI != null ) {
+                ActualizarPrestamos();
+            }
+        }
+
+        private void ActualizarPrestamos() {
+            this.dataGridView1.Rows.Clear();
+            var prestamosAVencer = fachada.PrestamosProximosAVencer();
+            foreach (var prestamo in prestamosAVencer) {
+                this.dataGridView1.Rows.Add(prestamo.FechaVencimiento, prestamo.FechaPrestamo, prestamo.Id, prestamo.SolicitanteDNI);
+            }
+        }
+
+        private void btnRefrescar_Click(object sender, EventArgs e) {
+            ActualizarPrestamos();
         }
     }
 }

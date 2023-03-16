@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
+using Aplication.Excepciones;
+using Inicio_Bliblioteca.Utils;
 
 namespace Inicio_Bliblioteca
 {
@@ -35,7 +37,7 @@ namespace Inicio_Bliblioteca
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            
+
             seleccionoEjemplar = true;
         }
 
@@ -53,10 +55,10 @@ namespace Inicio_Bliblioteca
         private void btnSelecISBN_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-            actualizarListaEjemplares(txtISBN.Text);
+            actualizarListaEjemplares(FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text));
         }
 
-        private void actualizarListaEjemplares (string isbn)
+        private void actualizarListaEjemplares(string isbn)
         {
             dataGridView1.Rows.Clear();
             try
@@ -79,15 +81,20 @@ namespace Inicio_Bliblioteca
             Int32 selectedCellCount = dataGridView1.GetCellCount(DataGridViewElementStates.Selected);
             if (selectedCellCount > 0)
             {
-                for (int i = 0;
-                i < selectedCellCount; i++)
+                for (int i = 0; i < selectedCellCount; i++)
                 {
                     var ejemplar = ejemplar1[dataGridView1.SelectedCells[i].RowIndex];
-                    fachada.BajaEjemplar(ejemplar.codigoInventario);
+                    try
+                    {
+                        fachada.BajaEjemplar(ejemplar.codigoInventario);
+                    }
+                    catch (ExcepcionCodigoInventarioInvalido)
+                    {
+                        MessageBox.Show("El codigo de inventario no es valido");
+                    }
                 }
 
-                actualizarListaEjemplares(txtISBN.Text);
-                
+                actualizarListaEjemplares(FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text));
             }
             else
             {

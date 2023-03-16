@@ -32,6 +32,9 @@ namespace Inicio_Bliblioteca
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkAdmin = new System.Windows.Forms.CheckBox();
+            this.numDNI = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,9 +42,6 @@ namespace Inicio_Bliblioteca
             this.txtMail = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numDNI = new System.Windows.Forms.NumericUpDown();
-            this.checkAdmin = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDNI)).BeginInit();
             this.SuspendLayout();
@@ -51,7 +51,7 @@ namespace Inicio_Bliblioteca
             this.btnCancelar.Location = new System.Drawing.Point(425, 375);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 5;
+            this.btnCancelar.TabIndex = 16;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -61,7 +61,7 @@ namespace Inicio_Bliblioteca
             this.btnAceptar.Location = new System.Drawing.Point(274, 375);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
-            this.btnAceptar.TabIndex = 4;
+            this.btnAceptar.TabIndex = 15;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -82,6 +82,46 @@ namespace Inicio_Bliblioteca
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(458, 299);
             this.panel1.TabIndex = 3;
+            // 
+            // checkAdmin
+            // 
+            this.checkAdmin.AutoSize = true;
+            this.checkAdmin.Location = new System.Drawing.Point(190, 248);
+            this.checkAdmin.Name = "checkAdmin";
+            this.checkAdmin.Size = new System.Drawing.Size(15, 14);
+            this.checkAdmin.TabIndex = 11;
+            this.checkAdmin.UseVisualStyleBackColor = true;
+            // 
+            // numDNI
+            // 
+            this.numDNI.Location = new System.Drawing.Point(190, 141);
+            this.numDNI.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.numDNI.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numDNI.Name = "numDNI";
+            this.numDNI.Size = new System.Drawing.Size(120, 20);
+            this.numDNI.TabIndex = 3;
+            this.numDNI.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(74, 248);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(51, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Es Admin";
             // 
             // label4
             // 
@@ -140,31 +180,6 @@ namespace Inicio_Bliblioteca
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(74, 248);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(51, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Es Admin";
-            // 
-            // numDNI
-            // 
-            this.numDNI.Location = new System.Drawing.Point(190, 141);
-            this.numDNI.Name = "numDNI";
-            this.numDNI.Size = new System.Drawing.Size(120, 20);
-            this.numDNI.TabIndex = 10;
-            // 
-            // checkAdmin
-            // 
-            this.checkAdmin.AutoSize = true;
-            this.checkAdmin.Location = new System.Drawing.Point(190, 248);
-            this.checkAdmin.Name = "checkAdmin";
-            this.checkAdmin.Size = new System.Drawing.Size(15, 14);
-            this.checkAdmin.TabIndex = 11;
-            this.checkAdmin.UseVisualStyleBackColor = true;
             // 
             // RegistrarUsuario
             // 

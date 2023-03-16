@@ -151,6 +151,7 @@ namespace Inicio_Bliblioteca
             // 
             // btnRegistrar
             // 
+            this.btnRegistrar.Enabled = false;
             this.btnRegistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegistrar.ForeColor = System.Drawing.Color.DarkRed;
             this.btnRegistrar.Location = new System.Drawing.Point(288, 182);
@@ -159,6 +160,7 @@ namespace Inicio_Bliblioteca
             this.btnRegistrar.TabIndex = 12;
             this.btnRegistrar.Text = "Registrarse";
             this.btnRegistrar.UseVisualStyleBackColor = true;
+            this.btnRegistrar.Visible = false;
             this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
             // 
             // Inicio

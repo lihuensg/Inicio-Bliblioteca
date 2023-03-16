@@ -9,15 +9,24 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(Aplication.DAL.EntityFramework.BibliotecaDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
+            
+            //var admin = new Usuario
+            //{
+            //    Dni = 0,
+            //    NombreUsuario = "Administrador",
+            //    Mail = "email@cambiar.com",
+            //    Password = "administrador",
+            //    FechaRegistro = DateTime.Now,
+            //    Puntaje = 0,
+            //};
+            
+            //context.Usuarios.AddOrUpdate(u => u.NombreUsuario, admin);
+            //context.SaveChanges();
         }
     }
 }

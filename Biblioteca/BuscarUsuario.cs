@@ -18,7 +18,7 @@ namespace Inicio_Bliblioteca
         public BuscarUsuario()
         {
             InitializeComponent();
-             fachada = new Fachada();
+            fachada = new Fachada();
         }
 
         public bool EncontroUsuario()
@@ -40,14 +40,13 @@ namespace Inicio_Bliblioteca
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             this.dgvUsuarios.Rows.Clear();
-            try
+            usuarioObtenido = fachada.ObtenerUsuario((int)numDNI.Value);
+
+            if (usuarioObtenido != null)
             {
-                usuarioObtenido = fachada.ObtenerUsuario((int)numDNI.Value);
-                this.dgvUsuarios.Rows.Insert(0, usuarioObtenido.Nombre, usuarioObtenido.Dni, usuarioObtenido.FechaRegistro, 
+                this.dgvUsuarios.Rows.Insert(0, usuarioObtenido.Nombre, usuarioObtenido.Dni, usuarioObtenido.FechaRegistro,
                     usuarioObtenido.Puntaje, usuarioObtenido.Mail);
-            }
-            catch
-            {
+            } else {
                 MessageBox.Show("No se encontro usuario con ese DNI");
             }
         }
