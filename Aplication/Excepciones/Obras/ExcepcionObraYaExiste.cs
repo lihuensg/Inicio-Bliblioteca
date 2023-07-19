@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace Aplication.Excepciones.Usuarios {
-   public class ExcepcionUsuarioConMailYaExiste : Exception
-    {
+namespace Aplication.Excepciones.Obras {
+    public class ExcepcionObraYaExiste : Exception {
     }
 }

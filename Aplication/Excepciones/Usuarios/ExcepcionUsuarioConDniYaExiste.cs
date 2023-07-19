@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Aplication.Excepciones
-{
+namespace Aplication.Excepciones.Usuarios {
    public class ExcepcionUsuarioConDniYaExiste : Exception
     {
     }

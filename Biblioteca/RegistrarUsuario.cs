@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
 using Aplication.Excepciones;
+using Aplication.Excepciones.Usuarios;
 using Aplication.LOG;
 
 namespace Inicio_Bliblioteca
@@ -46,7 +47,8 @@ namespace Inicio_Bliblioteca
             catch (ExcepcionEmailInvalido)
             {
                 MessageBox.Show("Email invalido");
-            } catch (ExcepcionUsuarioConDniYaExiste)
+            }
+            catch (ExcepcionUsuarioConDniYaExiste)
             {
                 MessageBox.Show("Ya existe un usuario con ese DNI");
             }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
 using Aplication.Excepciones;
+using Aplication.Excepciones.Usuarios;
 using Aplication.LOG;
 
 namespace Inicio_Bliblioteca
@@ -23,7 +24,7 @@ namespace Inicio_Bliblioteca
             InitializeComponent();
             fachada = new Fachada();
             usuario = pUsuario;
-            
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -41,7 +42,9 @@ namespace Inicio_Bliblioteca
                 {
                     textBox1.Text = usuarioObtenido.Nombre;
                     textBox2.Text = usuarioObtenido.Mail;
-                } else {
+                }
+                else
+                {
                     LogManager.GetLogger().Error("Error lógico: El usuario logeado deberia exisitir");
                 }
             }
@@ -91,7 +94,7 @@ namespace Inicio_Bliblioteca
                 MessageBox.Show("Error inesperado. Intentalo nuevamente");
             }
 
-           
+
         }
 
         private void btnCambioContraseña_Click(object sender, EventArgs e)

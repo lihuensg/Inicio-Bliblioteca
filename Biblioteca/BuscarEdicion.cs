@@ -14,7 +14,7 @@ namespace Inicio_Bliblioteca
 {
     public partial class BuscarEdicion : Form
     {
-        Fachada fachada; 
+        Fachada fachada;
         public BuscarEdicion()
         {
             InitializeComponent();
@@ -39,17 +39,15 @@ namespace Inicio_Bliblioteca
 
         private void btnBuscarISBN_Click(object sender, EventArgs e)
         {
-            try
+            var edicion = fachada.BuscarEdicion(FormateoUtiles.LimpiarGuionesISBN(textISBN.Text));
+            if (edicion != null)
             {
-                var edicion = fachada.BuscarEdicion(FormateoUtiles.LimpiarGuionesISBN(textISBN.Text));
                 dgvEdicion.Rows.Add(edicion.Isbn, edicion.AnioEdicion, edicion.NumeroPaginas, edicion.Portada, edicion.FechaPublicacion);
             }
-            catch (Exception)
+            else
             {
-
                 MessageBox.Show("No se encontro");
             }
-           
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

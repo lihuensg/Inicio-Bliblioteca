@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constantes.cs" />
+    <Compile Include="Contratos\Ejemplar\AgregarEjemplar.cs" />
     <Compile Include="Contratos\Usuarios\CrearUsuario.cs" />
     <Compile Include="Contratos\Usuarios\ActualizarUsuario.cs" />
     <Compile Include="DAL\EntityFramework\InicializarDeContexto.cs" />
@@ -145,19 +146,22 @@
     <Compile Include="DOMAIN\Usuario.cs" />
     <Compile Include="DOMAIN\UsuarioAdministrador.cs" />
     <Compile Include="DOMAIN\UsuarioSimple.cs" />
+    <Compile Include="Excepciones\Ediciones\ExcepcionEdicionYaExiste.cs" />
+    <Compile Include="Excepciones\Ediciones\ExcepcionEdicionNoExiste.cs" />
     <Compile Include="Excepciones\Ejemplar\ExcepcionEjemplarYaPrestado.cs" />
     <Compile Include="Excepciones\ExcepcionCodigoInventarioInvalido.cs" />
     <Compile Include="Excepciones\Ejemplar\ExcepcionEjemplarNoEstaPrestado.cs" />
+    <Compile Include="Excepciones\Obras\ExcepcionObraYaExiste.cs" />
     <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioConNombreDeUsuarioYaExiste.cs" />
     <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioConMailYaExiste.cs" />
     <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioConDniYaExiste.cs" />
     <Compile Include="Excepciones\ExcepcionEmailInvalido.cs" />
+    <Compile Include="Excepciones\Usuarios\ExcepcionUsuarioNoExiste.cs" />
     <Compile Include="Fachada.cs" />
     <Compile Include="Inotificador.cs" />
     <Compile Include="IO\DTOAutor.cs" />
     <Compile Include="IO\DTOEdicion.cs" />
     <Compile Include="IO\DTOEjemplar.cs" />
-    <Compile Include="IO\DTOEjemplarPrestamos.cs" />
     <Compile Include="IO\DTOObra.cs" />
     <Compile Include="IO\DTOPrestamosConUsuarioYEjemplar.cs" />
     <Compile Include="IO\DTOPrestamo.cs" />

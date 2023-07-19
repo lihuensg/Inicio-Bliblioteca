@@ -38,5 +38,12 @@ namespace Aplication.DAL.EntityFramework
                     .Where(u => (u.Ejemplar.Id == idEjemplar && u.FechaDevolucion == null))
                     .Any();
         }
+
+        public List<Prestamo> ObtenerPorCodigoEjemplar(int idEjemplar)
+        {
+            return iDbSet
+                    .Where(u => (u.Ejemplar.Id == idEjemplar))
+                    .ToList();
+        }
     }
 }

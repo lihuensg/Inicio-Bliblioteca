@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
+using Aplication.Excepciones.Usuarios;
 
 namespace Inicio_Bliblioteca
 {
@@ -34,7 +35,23 @@ namespace Inicio_Bliblioteca
             if (usuarioObtenido != null
                 && fachada.LoguearUsuario(usuarioObtenido.Nombre, textContraseñaActual.Text))
             {
-                fachada.ModificarDatosUsuario(DNI, new ActualizarUsuario { Password = textContraseñaNueva.Text });
+                try
+                {
+                    fachada.ModificarDatosUsuario(DNI, new ActualizarUsuario { Password = textContraseñaNueva.Text });
+                }
+                catch (ExcepcionUsuarioNoExiste)
+                {
+                    MessageBox.Show("El usuario no existe");
+                }
+                catch (ExcepcionUsuarioConNombreDeUsuarioYaExiste)
+                {
+                    MessageBox.Show("El nombre de usuario ya existe");
+                }
+                catch (ExcepcionUsuarioConMailYaExiste)
+                {
+                    MessageBox.Show("El mail ya existe");
+                }
+
                 MessageBox.Show("Contraseña modificada correctamente");
                 this.Close();
             }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
+using Aplication.Excepciones.Ediciones;
 using Inicio_Bliblioteca.Utils;
 
 namespace Inicio_Bliblioteca
@@ -15,12 +16,12 @@ namespace Inicio_Bliblioteca
     public partial class DarDeAltaEjemplar : Form
     {
         Fachada fachada;
-        DTOEdicion edicion1;
+        DTOEdicion edicion;
         public DarDeAltaEjemplar()
         {
             InitializeComponent();
             fachada = new Fachada();
-           
+
         }
 
         private void btnBuscarObra_Click(object sender, EventArgs e)
@@ -35,15 +36,15 @@ namespace Inicio_Bliblioteca
 
         private void btnBuscarEdicion_Click(object sender, EventArgs e)
         {
-            try
+            edicion = fachada.BuscarEdicion(FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text));
+
+            if (edicion != null)
             {
-                edicion1 = fachada.BuscarEdicion(FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text));
                 MessageBox.Show("ISBN encontrado");
                 btnAceptar.Enabled = true;
             }
-            catch (Exception)
+            else
             {
-
                 MessageBox.Show("No se encontro");
             }
         }
@@ -55,12 +56,25 @@ namespace Inicio_Bliblioteca
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i <  numericCantidad.Value; i++)
+            try
             {
-                fachada.AgregarEjemplar(new DTOEjemplar { Edicion = edicion1, FechaAlta = DateTime.Now, codigoInventario = "2" });
+                fachada.AgregarEjemplar(new Aplication.Contratos.Ejemplar.AgregarEjemplar
+                {
+                    ISBNEdicion = edicion.Isbn,
+                    CantidadEjemplares = (int)numericCantidad.Value,
+                });
             }
-            MessageBox.Show("Guardado correctamente");
+            catch (ExcepcionEdicionNoExiste)
+            {
+                MessageBox.Show("No se encontro la edicion");
+            }
+            catch (Exception)
+            {
 
+                MessageBox.Show("Error al guardar");
+            }
+
+            MessageBox.Show("Guardado correctamente");
         }
 
         private void DarDeAltaEjemplar_Load(object sender, EventArgs e)

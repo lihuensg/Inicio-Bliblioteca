@@ -17,7 +17,7 @@ namespace Inicio_Bliblioteca
     {
         Fachada fachada;
         List<DTOEdicion> ediciones;
-        
+
         public AgregarEdicionRemota()
         {
             InitializeComponent();
@@ -38,8 +38,8 @@ namespace Inicio_Bliblioteca
                 return;
             }
 
-            var pFiltros = new Dictionary<string, string>() {{"ISBN", isbn}};
-            
+            var pFiltros = new Dictionary<string, string>() { { "ISBN", isbn } };
+
             DTOEdicion item = await Task.Run(() => ServiceEdicionesOpenLibrary.Instance.Buscar(pFiltros));
             AgregarItem(item);
 
@@ -65,17 +65,29 @@ namespace Inicio_Bliblioteca
             }
         }
 
-        private void label2_Click(object sender, EventArgs e) {
+        private void label2_Click(object sender, EventArgs e)
+        {
 
         }
 
-        private void txtAutor_TextChanged(object sender, EventArgs e) {
+        private void txtAutor_TextChanged(object sender, EventArgs e)
+        {
 
         }
-        private void btnAgregarTodos_Click(object sender, EventArgs e) {
-            foreach(var edicion in ediciones) {
+        private void btnAgregarTodos_Click(object sender, EventArgs e)
+        {
+            foreach (var edicion in ediciones)
+            {
                 edicion.Isbn = FormateoUtiles.LimpiarGuionesISBN(edicion.Isbn);
-                fachada.AgregarEdicion(edicion);
+
+                try
+                {
+                    fachada.AgregarEdicion(edicion);
+                }
+                catch (Aplication.Excepciones.Ediciones.ExcepcionEdicionYaExiste)
+                {
+                    // no pasa nada
+                }
             }
             MessageBox.Show("Agregados correctamente");
         }

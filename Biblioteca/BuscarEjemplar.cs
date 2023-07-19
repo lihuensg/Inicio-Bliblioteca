@@ -15,7 +15,7 @@ namespace Inicio_Bliblioteca
     public partial class BuscarEjemplar : Form
     {
         Fachada fachada;
-       List <DTOEjemplarPrestamo> ejemplar1;
+        List<DTOEjemplar> ejemplar1;
         public BuscarEjemplar()
         {
             InitializeComponent();
@@ -26,12 +26,11 @@ namespace Inicio_Bliblioteca
         {
             try
             {
-                ejemplar1 = fachada.ListarEjemplaresConPrestamos(FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text));
+                ejemplar1 = fachada.ListarEjemplares(FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text));
                 foreach (var item in ejemplar1)
                 {
                     dataGridView1.Rows.Add(item.codigoInventario, item.Prestado, item.FechaAlta, item.FechaBaja == DateTime.MinValue ? "-" : item.FechaBaja.ToString());
                 }
-               
             }
             catch (Exception)
             {

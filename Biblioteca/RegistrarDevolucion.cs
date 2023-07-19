@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
 using Aplication.Excepciones;
+using Aplication.Excepciones.Ejemplares;
 
 namespace Inicio_Bliblioteca
 {
@@ -25,15 +26,22 @@ namespace Inicio_Bliblioteca
         {
             if (fachada.ExisteEjemplar(textCodigoInventario.Text))
             {
-                if (fachada.EstaPrestadoEjemplar(textCodigoInventario.Text))
+                try
                 {
-                    btnDevolver.Enabled = true;
-                    MessageBox.Show("Encontrado correctamente");
+                    if (fachada.EstaPrestadoEjemplar(textCodigoInventario.Text))
+                    {
+                        btnDevolver.Enabled = true;
+                        MessageBox.Show("Encontrado correctamente");
+                    }
+                    else
+                    {
+                        btnDevolver.Enabled = false;
+                        MessageBox.Show("Ejemplar no esta prestado");
+                    }
                 }
-                else
+                catch (ExcepcionCodigoInventarioInvalido)
                 {
-                    btnDevolver.Enabled = false;
-                    MessageBox.Show("Ejemplar no esta prestado");
+                    MessageBox.Show("Codigo de inventario invalido");
                 }
             }
             else

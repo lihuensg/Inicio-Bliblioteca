@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aplication;
 using Aplication.Excepciones;
+using Aplication.Excepciones.Ejemplares;
 
 namespace Inicio_Bliblioteca
 {
@@ -33,17 +34,19 @@ namespace Inicio_Bliblioteca
 
         private void btnBusUsuario_Click(object sender, EventArgs e)
         {
-            if (Int32.TryParse(txtDNI.Text, out int dni) && fachada.ExisteUsuario(dni))
+            if (Int32.TryParse(txtDNI.Text, out int dni))
             {
-                fachada.CantidadDiaMaximoHabilesDeUsuario(Int32.Parse(txtDNI.Text));
-                var fechaVencimiento = DateTime.Now.AddDays(fachada.CantidadDiaMaximoHabilesDeUsuario(Int32.Parse(txtDNI.Text)));
-                txtFechaVencimiento.Text = fechaVencimiento.ToString();
+                if (fachada.ExisteUsuario(dni))
+                {
+                    btnEjemplar.Enabled = true;
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("DNI no encontrado");
+                }
             }
-            else
-            {
-                MessageBox.Show("DNI no encontrado");
-            }
-
+            btnEjemplar.Enabled = false;
         }
 
         private void btnBuscarEjemplar_Click(object sender, EventArgs e)
@@ -68,8 +71,8 @@ namespace Inicio_Bliblioteca
 
             try
             {
-                fachada.PrestarEjemplar(dni, txtCodigoInventario.Text);
-                MessageBox.Show("Prestamo registrado exitosamente");
+                DateTime fechaVencimiento = fachada.PrestarEjemplar(dni, txtCodigoInventario.Text);
+                MessageBox.Show("Prestamo registrado exitosamente.\n Fecha de vencimiento del prestamo: " + fechaVencimiento.ToString());
             }
             catch (ExcepcionCodigoInventarioInvalido)
             {

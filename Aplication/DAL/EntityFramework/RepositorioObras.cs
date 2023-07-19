@@ -7,13 +7,13 @@ namespace Aplication.DAL.EntityFramework
 {
     public class RepositorioObras : Repository<Obra, BibliotecaDbContext>, IRepositorioObras
     {
-        public RepositorioObras (BibliotecaDbContext pDbContext) : base(pDbContext)
+        public RepositorioObras(BibliotecaDbContext pDbContext) : base(pDbContext)
         {
         }
 
-        public Obra ObtenerPorLccn (string Lccn)
+        public Obra ObtenerPorLccn(string Lccn)
         {
-            return iDbContext.Obras.Where(u => u.Lccn == Lccn).First();
+            return iDbContext.Obras.Where(u => u.Lccn == Lccn).FirstOrDefault();
         }
 
     }

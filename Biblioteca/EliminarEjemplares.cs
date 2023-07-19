@@ -17,7 +17,7 @@ namespace Inicio_Bliblioteca
     {
         bool seleccionoEjemplar = false;
         Fachada fachada;
-        List<DTOEjemplarPrestamo> ejemplar1;
+        List<DTOEjemplar> ejemplares;
 
         public EliminarEjemplares()
         {
@@ -63,8 +63,8 @@ namespace Inicio_Bliblioteca
             dataGridView1.Rows.Clear();
             try
             {
-                ejemplar1 = fachada.ListarEjemplaresConPrestamos(isbn);
-                foreach (var item in ejemplar1)
+                ejemplares = fachada.ListarEjemplares(isbn);
+                foreach (var item in ejemplares)
                 {
                     dataGridView1.Rows.Add(item.codigoInventario, item.Prestado, item.FechaAlta, item.FechaBaja == DateTime.MinValue ? "-" : item.FechaBaja.ToString());
                 }
@@ -83,7 +83,7 @@ namespace Inicio_Bliblioteca
             {
                 for (int i = 0; i < selectedCellCount; i++)
                 {
-                    var ejemplar = ejemplar1[dataGridView1.SelectedCells[i].RowIndex];
+                    var ejemplar = ejemplares[dataGridView1.SelectedCells[i].RowIndex];
                     try
                     {
                         fachada.BajaEjemplar(ejemplar.codigoInventario);
