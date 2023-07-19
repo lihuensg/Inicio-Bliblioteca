@@ -13,12 +13,12 @@ namespace Aplication.Test.Tareas
     {
         public class TareaEnviarAvisoADosDiasVencimientoMock : TareaEnviarAvisoADosDiasVencimiento
         {
-            public TareaEnviarAvisoADosDiasVencimientoMock(TimeSpan intervaloDeVerificacion, INotificador notificador, IUnitOfWorkFactory pUnitOfWorkFactory): base(intervaloDeVerificacion, notificador, pUnitOfWorkFactory)
+            public TareaEnviarAvisoADosDiasVencimientoMock(TimeSpan intervaloDeVerificacion, INotificador notificador, IUnitOfWorkFactory pUnitOfWorkFactory) : base(intervaloDeVerificacion, notificador, pUnitOfWorkFactory)
             {
 
             }
 
-        public void ejecutar()
+            public void ejecutar()
             {
                 base.Tarea();
             }
@@ -28,10 +28,13 @@ namespace Aplication.Test.Tareas
         {
             //Arrange
             var notificadorMock = new Mock<INotificador>();
-      
-            notificadorMock.Setup(library => library.Enviar(
+
+            var usuarioMock = new Mock<Usuario>();
+            usuarioMock.SetupGet(u => u.Mail).Returns("juan@gmail.com");
+
+            notificadorMock.Setup(library => library.EnviarGenerico(
                             It.IsAny<string>(), It.IsAny<string>(),
-                            It.IsAny<string>(), It.IsAny<string>()))
+                            usuarioMock.Object))
                 .Returns(true);
 
             var unitOfWorkMock = new Mock<IUnitOfWork>();
@@ -39,9 +42,9 @@ namespace Aplication.Test.Tareas
             var repositorioVencimientoMock = new Mock<IRepositorioNotificacionVencimientoPrestamo>();
 
             repositorioVencimientoMock.Setup(repo => repo.ObtenerPrestamosQueEstenPorVencerYNoSeNotifico(It.IsAny<int>()))
-                .Returns(new List<Prestamo>() { new Prestamo() {    
-                    FechaDevolucion = DateTime.Now.AddDays(1), 
-                    Solicitante = new Usuario() {Mail = "juan@gmail.com" } }  });
+                .Returns(new List<Prestamo>() { new Prestamo() {
+                    FechaDevolucion = DateTime.Now.AddDays(1),
+                    Solicitante = usuarioMock.Object  } });
 
 
             unitOfWorkMock.Setup(unit => unit.RepositorioNotificacionVencimientoPrestamo)
@@ -51,18 +54,18 @@ namespace Aplication.Test.Tareas
 
             unitOfWorkFactoryMock.Setup(library => library.Crear())
                 .Returns(unitOfWorkMock.Object);
-                         
+
 
             var tarea = new TareaEnviarAvisoADosDiasVencimientoMock(TimeSpan.FromMinutes(1), notificadorMock.Object, unitOfWorkFactoryMock.Object);
 
             //Act
             tarea.ejecutar();
-      
+
 
             //Assert 
-            notificadorMock.Verify(library => library.Enviar("juan@gmail.com", 
+            notificadorMock.Verify(library => library.EnviarGenerico(
                             It.IsAny<string>(),
-                            It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(1));
+                            It.IsAny<string>(), usuarioMock.Object), Times.Exactly(1));
 
             repositorioVencimientoMock.Verify(repo => repo.Agregar(It.IsAny<NotificacionVencimientoPrestamo>()), Times.Exactly(1));
 

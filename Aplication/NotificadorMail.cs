@@ -38,21 +38,26 @@ namespace Aplication
             get { return this.eneableSSL; }
 
         }
-        
-        public bool Enviar(string pDestinoMail, string pDestinoNombre, string pSubject, string pTexto)
+
+        public bool EnviarGenerico(string titulo, string cuerpo, Usuario destinatario)
         {
+            string destinoNombre = destinatario.NombreUsuario;
+            string destinoMail = destinatario.Mail;
+
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(serverAuthUsername, mailRemitente));
-            message.To.Add(new MailboxAddress(pDestinoNombre, pDestinoMail));
-            message.Subject = pSubject;
-                        
+            message.To.Add(new MailboxAddress(destinoNombre, destinoMail));
+            message.Subject = titulo;
+
             message.Body = new TextPart("plain")
             {
-                Text = pTexto
+                Text = cuerpo
             };
 
-            try {
-                using (var client = new SmtpClient()) {
+            try
+            {
+                using (var client = new SmtpClient())
+                {
                     client.Connect(this.smtpServerName, this.puerto, false);
 
                     // Note: only needed if the SMTP server requires authentication
@@ -62,7 +67,9 @@ namespace Aplication
                     client.Disconnect(true);
                 };
                 return true;
-            } catch(Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 // TODO: Logear el problema
                 return false;
             }

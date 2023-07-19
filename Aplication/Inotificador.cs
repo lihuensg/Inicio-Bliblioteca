@@ -7,6 +7,6 @@ namespace Aplication
 {
     public interface INotificador
     {
-         bool Enviar(string destinoMail, string destinoNombre, string asunto, string texto );
+        bool EnviarGenerico(string titulo, string cuerpo, Usuario destinatario);
     }
 }
