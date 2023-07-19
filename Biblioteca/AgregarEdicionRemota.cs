@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Aplication;
 using Inicio_Bliblioteca.Utils;
 using Aplication.Servicios.LibrosRemotos.OpenLibrary;
+using Aplication.Servicios.LibrosRemotos;
 
 namespace Inicio_Bliblioteca
 {
@@ -17,6 +18,7 @@ namespace Inicio_Bliblioteca
     {
         Fachada fachada;
         List<DTOEdicion> ediciones;
+        ILibraryServiceFactory libraryServiceFactory = new LibraryServiceFactory();
 
         public AgregarEdicionRemota()
         {
@@ -40,7 +42,7 @@ namespace Inicio_Bliblioteca
 
             var pFiltros = new Dictionary<string, string>() { { "ISBN", isbn } };
 
-            DTOEdicion item = await Task.Run(() => ServiceEdicionesOpenLibrary.Instance.Buscar(pFiltros));
+            DTOEdicion item = await Task.Run(() => libraryServiceFactory.ObtenerServiceEdicion().Buscar(pFiltros));
             AgregarItem(item);
 
             btnBuscar.Enabled = true;

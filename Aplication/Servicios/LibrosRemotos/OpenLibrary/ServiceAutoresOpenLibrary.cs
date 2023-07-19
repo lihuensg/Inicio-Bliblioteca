@@ -13,23 +13,14 @@ using Aplication.LOG;
 
 namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
 {
-    
-    public class ServiceAutoresOpenLibrary:IServicesAutores
+
+    public class ServiceAutoresOpenLibrary : IServicesAutores
     {
-        private readonly static ServiceAutoresOpenLibrary _instance = new ServiceAutoresOpenLibrary();
-
-        private ServiceAutoresOpenLibrary()
+        public ServiceAutoresOpenLibrary()
         {
         }
 
-        public static ServiceAutoresOpenLibrary Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
-        public  List<DTOAutor> Buscar(Dictionary<string, string> pFiltros)
+        public List<DTOAutor> Buscar(Dictionary<string, string> pFiltros)
         {
 
             if (pFiltros.Count == 0)
@@ -95,7 +86,7 @@ namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
             }
             catch (ExcepcionRespuestaInvalida ex1)
             {
-                LogManager.GetLogger().Error(ex1,"No se encontro respuesta");
+                LogManager.GetLogger().Error(ex1, "No se encontro respuesta");
             }
 
             return autores;

@@ -187,6 +187,8 @@
     <Compile Include="Servicios\LibrosRemotos\IServicesAutores.cs" />
     <Compile Include="Servicios\LibrosRemotos\IServicesEdicion.cs" />
     <Compile Include="Servicios\LibrosRemotos\IServicesObras.cs" />
+    <Compile Include="Servicios\LibrosRemotos\LibraryServiceFactory.cs" />
+    <Compile Include="Servicios\LibrosRemotos\OpenLibrary\OpenLibraryServiceFactory.cs" />
     <Compile Include="Servicios\LibrosRemotos\OpenLibrary\ServiceAutoresOpenLibrary.cs" />
     <Compile Include="Servicios\LibrosRemotos\OpenLibrary\ServicesEdicionOpenLibrary.cs" />
     <Compile Include="Servicios\LibrosRemotos\OpenLibrary\ServicesObrasOpenLibrary.cs" />

@@ -12,23 +12,14 @@ using Aplication.SERVICE.Http;
 using Aplication.LOG;
 
 
-namespace Aplication.Servicios.LibrosRemotos.OpenLibrary 
+namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
 {
     public class ServiceEdicionesOpenLibrary : IServicesEdicion
     {
-        private readonly static ServiceEdicionesOpenLibrary _instance = new ServiceEdicionesOpenLibrary();
-
-        private ServiceEdicionesOpenLibrary()
+        public ServiceEdicionesOpenLibrary()
         {
         }
 
-        public static ServiceEdicionesOpenLibrary Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
         public DTOEdicion Buscar(Dictionary<string, string> pFiltros)
         {
             // Establecimiento del protocolo ssl de transporte
@@ -54,26 +45,35 @@ namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
                 string isbn = null;
                 string lccn = null;
 
-                if (mResponseJson != null) {
+                if (mResponseJson != null)
+                {
                     var llave = String.Format("ISBN:{0}", pFiltros["ISBN"]);
                     mResponseJson = mResponseJson[llave];
 
-                    if (mResponseJson == null) {
+                    if (mResponseJson == null)
+                    {
                         return null;
                     }
-                } else {
+                }
+                else
+                {
                     return null;
                 }
 
 
-                if (mResponseJson.ContainsKey("identifiers")) {
-                    if (mResponseJson["identifiers"].ContainsKey("isbn_13")) {
+                if (mResponseJson.ContainsKey("identifiers"))
+                {
+                    if (mResponseJson["identifiers"].ContainsKey("isbn_13"))
+                    {
                         isbn = (string)mResponseJson["identifiers"]["isbn_13"][0];
-                    } else if (mResponseJson["identifiers"].ContainsKey("isbn_10")) {
+                    }
+                    else if (mResponseJson["identifiers"].ContainsKey("isbn_10"))
+                    {
                         isbn = (string)mResponseJson["identifiers"]["isbn_10"][0];
                     }
 
-                    if (mResponseJson["identifiers"].ContainsKey("lccn")) {
+                    if (mResponseJson["identifiers"].ContainsKey("lccn"))
+                    {
                         lccn = (string)mResponseJson["identifiers"]["lccn"][0];
                     }
                 }
@@ -103,22 +103,26 @@ namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
                     catch (FormatException ex)
                     {
                         // Error fecha invalida
-                        LogManager.GetLogger().Error(ex,"Error: Fecha invalida '{0}'. {1}", fechaString, ex.Message);
+                        LogManager.GetLogger().Error(ex, "Error: Fecha invalida '{0}'. {1}", fechaString, ex.Message);
                     }
                 }
 
                 // seteamos los datos de la obra
                 edicion.Obra = new DTOObra();
                 edicion.Obra.Generos = new List<string>();
-                if (mResponseJson.ContainsKey("subjects")) {
-                    foreach (var genero in mResponseJson.subjects) {
+                if (mResponseJson.ContainsKey("subjects"))
+                {
+                    foreach (var genero in mResponseJson.subjects)
+                    {
                         edicion.Obra.Generos.Add((string)genero.name);
                     }
                 }
 
-                for(int i = 0; i < mResponseJson.authors.Count; i++) {
+                for (int i = 0; i < mResponseJson.authors.Count; i++)
+                {
                     edicion.Obra.Autores = (string)mResponseJson.authors[i].name;
-                    if (i != mResponseJson.authors.Count - 1) {
+                    if (i != mResponseJson.authors.Count - 1)
+                    {
                         edicion.Obra.Autores += ", ";
                     }
                 }
@@ -137,7 +141,7 @@ namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
             }
             catch (ExcepcionRespuestaInvalida ex1)
             {
-                LogManager.GetLogger().Error(ex1,"No se encontro respuesta");
+                LogManager.GetLogger().Error(ex1, "No se encontro respuesta");
             }
 
             return null;

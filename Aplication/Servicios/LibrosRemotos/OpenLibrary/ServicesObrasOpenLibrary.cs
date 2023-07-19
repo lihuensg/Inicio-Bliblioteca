@@ -12,21 +12,14 @@ using Aplication.LOG;
 
 namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
 {
-    public class ServicesObrasOpenLibrary:IServicesObras
+    public class ServicesObrasOpenLibrary : IServicesObras
     {
-        private readonly static ServicesObrasOpenLibrary _instance = new ServicesObrasOpenLibrary();
+        private readonly LibraryServiceFactory mFactory = new LibraryServiceFactory();
 
-        private ServicesObrasOpenLibrary()
+        public ServicesObrasOpenLibrary()
         {
         }
 
-        public static ServicesObrasOpenLibrary Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
         public List<DTOObra> Buscar(Dictionary<string, string> pFiltros)
         {
             if (pFiltros.Count == 0)
@@ -69,15 +62,15 @@ namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
                     foreach (var autorkey in bResponseItem.author_key)
                     {
                         // como lo buscamos por el id que nos da openlibrary sabemos que existe
-                        var autores = ServiceAutoresOpenLibrary.Instance.Buscar(new Dictionary<string, string>() { { "Id", autorkey.Value } });
+                        var autores = mFactory.ObtenerServiceAutores().Buscar(new Dictionary<string, string>() { { "Id", autorkey.Value } });
                         listaAutores.Add(autores[0].Nombre);
                     }
-                     
+
                     foreach (var author in listaAutores)
                     {
                         obra.Autores += author + ",";
                     }
-                    
+
                     obra.Titulo = HttpUtility.HtmlDecode(bResponseItem.title.ToString());
                     obra.Generos = new List<string>();
                     if (bResponseItem.ContainsKey("subject"))
@@ -94,7 +87,7 @@ namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
                         foreach (var edicionkey in bResponseItem.edition_key)
                         {
                             // TODO: Ediciones -> Buscar devuelve un DTOEdicion, no una lista.
-                            DTOEdicion edicion = ServiceEdicionesOpenLibrary.Instance.Buscar(new Dictionary<string, string>() { { "Id", edicionkey.Value } });
+                            DTOEdicion edicion = mFactory.ObtenerServiceEdicion().Buscar(new Dictionary<string, string>() { { "Id", edicionkey.Value } });
                             if (edicion != null)
                             {
                                 obra.Ediciones.Add(edicion);
@@ -123,7 +116,8 @@ namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
         /// </summary>
         /// <param name="pIdRemoto">Un ID de obra de OpenLibrary</param>
         /// <returns></returns>
-        public DTOObra BuscarUnaObra(string pIdRemoto) {
+        public DTOObra BuscarUnaObra(string pIdRemoto)
+        {
             /**
              * Nueva funcion para buscar a una sola obra, ya que cuando se carga una nueva edicion se busca cual es la obra
              * a la cual pertenece. Ademas es necesaria esta funcion ya que la API response con un esquema diferente al anterior.
@@ -132,32 +126,41 @@ namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
 
             DTOObra obra = new DTOObra();
             var listaAutores = new List<string>();
-            try {
+            try
+            {
                 dynamic respuesta = HttpJsonRequest.Obtener(apiUrl);
 
                 obra.Generos = new List<string>();
-                if (respuesta.ContainsKey("subject")) {
-                    foreach (var genero in respuesta.subject) {
+                if (respuesta.ContainsKey("subject"))
+                {
+                    foreach (var genero in respuesta.subject)
+                    {
                         obra.Generos.Add(genero.Value);
                     }
                 }
 
-                foreach (var autorkey in respuesta.authors) {
+                foreach (var autorkey in respuesta.authors)
+                {
                     // como lo buscamos por el id que nos da openlibrary sabemos que existe
                     var id = ((string)autorkey.author.key).Replace("/authors/", "");
-                    var autores = ServiceAutoresOpenLibrary.Instance.Buscar(new Dictionary<string, string>() { { "Id", id} });
+                    var autores = mFactory.ObtenerServiceAutores().Buscar(new Dictionary<string, string>() { { "Id", id } });
                     listaAutores.Add(autores[0].Nombre);
                 }
 
                 // obra.Autores = String.Join(",", listaAutores)
-                foreach (var author in listaAutores) {
+                foreach (var author in listaAutores)
+                {
                     obra.Autores += author + ",";
                 }
 
                 obra.Titulo = HttpUtility.HtmlDecode(respuesta.title.ToString());
-            } catch (ExcepcionConsultaWeb ex) {
+            }
+            catch (ExcepcionConsultaWeb ex)
+            {
                 LogManager.GetLogger().Error(ex, "No se puede realizar la consulta en el servidor");
-            } catch (ExcepcionRespuestaInvalida ex1) {
+            }
+            catch (ExcepcionRespuestaInvalida ex1)
+            {
                 LogManager.GetLogger().Error("Error {0}", ex1.Message);
             }
 
