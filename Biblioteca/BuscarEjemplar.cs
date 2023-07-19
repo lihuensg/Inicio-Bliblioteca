@@ -15,19 +15,36 @@ namespace Inicio_Bliblioteca
     public partial class BuscarEjemplar : Form
     {
         Fachada fachada;
-        List<DTOEjemplar> ejemplar1;
-        public BuscarEjemplar()
+        List<DTOEjemplar> listEjemplares;
+        DTOEjemplar seleccionado = null;
+
+        public BuscarEjemplar(bool EsSeleccionDeEjemplar = false)
         {
             InitializeComponent();
             fachada = new Fachada();
+
+            if (EsSeleccionDeEjemplar)
+            {
+                btnSeleccionar.Visible = true;
+            }
+        }
+
+        public bool SeleccionoEjemplar()
+        {
+            return seleccionado != null;
+        }
+
+        public DTOEjemplar ObtenerEjemplarSeleccionado()
+        {
+            return seleccionado;
         }
 
         private void btnSelecISBN_Click(object sender, EventArgs e)
         {
             try
             {
-                ejemplar1 = fachada.ListarEjemplares(FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text));
-                foreach (var item in ejemplar1)
+                listEjemplares = fachada.ListarEjemplares(FormateoUtiles.LimpiarGuionesISBN(txtISBN.Text));
+                foreach (var item in listEjemplares)
                 {
                     dataGridView1.Rows.Add(item.codigoInventario, item.Prestado, item.FechaAlta, item.FechaBaja == DateTime.MinValue ? "-" : item.FechaBaja.ToString());
                 }
@@ -37,6 +54,21 @@ namespace Inicio_Bliblioteca
 
                 MessageBox.Show("No se encontro");
             }
+        }
+
+        private void btnSeleccionar_Click(object sender, EventArgs e)
+        {
+            // verificar que haya seleccionado una fila
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Debe seleccionar una fila");
+                return;
+            }
+
+            // obtener el seleccionado
+            seleccionado = listEjemplares[dataGridView1.SelectedRows[0].Index];
+
+            this.Close();
         }
     }
 }

@@ -21,11 +21,18 @@ namespace Inicio_Bliblioteca
             fachada = new Fachada();
         }
 
-        public bool EncontroUsuario()
+        /// <summary>
+        /// Devuelve true si el usuario selecciono un usuario de la grilla
+        /// </summary>
+        public bool SeleccionoUsuario()
         {
             return usuarioObtenido != null;
         }
 
+        /// <summary>
+        /// Devuelve el usuario seleccionado en la grilla
+        /// </summary>
+        /// <returns>usuario seleccionado o null</returns>
         public DTOUsuario ObtenerUsuarioSeleccionado()
         {
             return usuarioObtenido;
@@ -46,7 +53,9 @@ namespace Inicio_Bliblioteca
             {
                 this.dgvUsuarios.Rows.Insert(0, usuarioObtenido.Nombre, usuarioObtenido.Dni, usuarioObtenido.FechaRegistro,
                     usuarioObtenido.Puntaje, usuarioObtenido.Mail);
-            } else {
+            }
+            else
+            {
                 MessageBox.Show("No se encontro usuario con ese DNI");
             }
         }

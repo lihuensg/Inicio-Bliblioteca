@@ -30,43 +30,44 @@ namespace Inicio_Bliblioteca
         private void InitializeComponent()
         {
             this.textCodigoInventario = new System.Windows.Forms.TextBox();
-            this.btnBuscarCodInv = new System.Windows.Forms.Button();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxMalEstado = new System.Windows.Forms.CheckBox();
             this.btnDevolver = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textCodigoInventario
             // 
-            this.textCodigoInventario.Location = new System.Drawing.Point(36, 57);
+            this.textCodigoInventario.Location = new System.Drawing.Point(118, 57);
             this.textCodigoInventario.Name = "textCodigoInventario";
             this.textCodigoInventario.Size = new System.Drawing.Size(146, 20);
             this.textCodigoInventario.TabIndex = 1;
             // 
-            // btnBuscarCodInv
+            // btnBuscar
             // 
-            this.btnBuscarCodInv.Location = new System.Drawing.Point(207, 55);
-            this.btnBuscarCodInv.Name = "btnBuscarCodInv";
-            this.btnBuscarCodInv.Size = new System.Drawing.Size(71, 23);
-            this.btnBuscarCodInv.TabIndex = 2;
-            this.btnBuscarCodInv.Text = "Buscar";
-            this.btnBuscarCodInv.UseVisualStyleBackColor = true;
-            this.btnBuscarCodInv.Click += new System.EventHandler(this.btnBuscarCodInv_Click);
+            this.btnBuscar.Location = new System.Drawing.Point(282, 57);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(71, 23);
+            this.btnBuscar.TabIndex = 2;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 31);
+            this.label1.Location = new System.Drawing.Point(12, 60);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 13);
+            this.label1.Size = new System.Drawing.Size(100, 13);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Ingrese Codigo Inventario";
+            this.label1.Text = "Ejemplar a devolver";
             // 
             // checkBoxMalEstado
             // 
             this.checkBoxMalEstado.AutoSize = true;
-            this.checkBoxMalEstado.Location = new System.Drawing.Point(36, 108);
+            this.checkBoxMalEstado.Location = new System.Drawing.Point(15, 107);
             this.checkBoxMalEstado.Name = "checkBoxMalEstado";
             this.checkBoxMalEstado.Size = new System.Drawing.Size(159, 17);
             this.checkBoxMalEstado.TabIndex = 4;
@@ -75,8 +76,7 @@ namespace Inicio_Bliblioteca
             // 
             // btnDevolver
             // 
-            this.btnDevolver.Enabled = false;
-            this.btnDevolver.Location = new System.Drawing.Point(36, 168);
+            this.btnDevolver.Location = new System.Drawing.Point(84, 168);
             this.btnDevolver.Name = "btnDevolver";
             this.btnDevolver.Size = new System.Drawing.Size(71, 23);
             this.btnDevolver.TabIndex = 5;
@@ -86,7 +86,7 @@ namespace Inicio_Bliblioteca
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(181, 168);
+            this.btnCancelar.Location = new System.Drawing.Point(249, 168);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(71, 23);
             this.btnCancelar.TabIndex = 6;
@@ -94,16 +94,27 @@ namespace Inicio_Bliblioteca
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label2.Location = new System.Drawing.Point(115, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Código inventario";
+            // 
             // RegistrarDevolucion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(308, 295);
+            this.ClientSize = new System.Drawing.Size(369, 201);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnDevolver);
             this.Controls.Add(this.checkBoxMalEstado);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnBuscarCodInv);
+            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.textCodigoInventario);
             this.Name = "RegistrarDevolucion";
             this.Text = "RegistrarDevolucion";
@@ -114,10 +125,11 @@ namespace Inicio_Bliblioteca
 
         #endregion
         private System.Windows.Forms.TextBox textCodigoInventario;
-        private System.Windows.Forms.Button btnBuscarCodInv;
+        private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBoxMalEstado;
         private System.Windows.Forms.Button btnDevolver;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label label2;
     }
 }

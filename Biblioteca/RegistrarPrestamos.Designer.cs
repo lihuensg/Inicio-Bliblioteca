@@ -68,7 +68,6 @@ namespace Inicio_Bliblioteca
             // 
             // btnEjemplar
             // 
-            this.btnEjemplar.Enabled = false;
             this.btnEjemplar.Location = new System.Drawing.Point(277, 172);
             this.btnEjemplar.Name = "btnEjemplar";
             this.btnEjemplar.Size = new System.Drawing.Size(91, 21);
@@ -95,7 +94,6 @@ namespace Inicio_Bliblioteca
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Enabled = false;
             this.btnAceptar.Location = new System.Drawing.Point(111, 270);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);

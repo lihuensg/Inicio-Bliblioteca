@@ -22,36 +22,6 @@ namespace Inicio_Bliblioteca
             fachada = new Fachada();
         }
 
-        private void btnBuscarCodInv_Click(object sender, EventArgs e)
-        {
-            if (fachada.ExisteEjemplar(textCodigoInventario.Text))
-            {
-                try
-                {
-                    if (fachada.EstaPrestadoEjemplar(textCodigoInventario.Text))
-                    {
-                        btnDevolver.Enabled = true;
-                        MessageBox.Show("Encontrado correctamente");
-                    }
-                    else
-                    {
-                        btnDevolver.Enabled = false;
-                        MessageBox.Show("Ejemplar no esta prestado");
-                    }
-                }
-                catch (ExcepcionCodigoInventarioInvalido)
-                {
-                    MessageBox.Show("Codigo de inventario invalido");
-                }
-            }
-            else
-            {
-                btnDevolver.Enabled = false;
-                MessageBox.Show("Ejemplar no existe");
-            }
-
-        }
-
         private void btnDevolver_Click(object sender, EventArgs e)
         {
             try
@@ -61,17 +31,28 @@ namespace Inicio_Bliblioteca
             }
             catch (ExcepcionCodigoInventarioInvalido)
             {
-                MessageBox.Show("Codigo de inventario invalido");
+                MessageBox.Show("Codigo de inventario invalido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (ExcepcionEjemplarNoEstaPrestado)
             {
-                MessageBox.Show("Ejemplar no esta prestado");
+                MessageBox.Show("Ejemplar no esta prestado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            BuscarEjemplar buscarEjemplar = new BuscarEjemplar(true);
+            buscarEjemplar.ShowDialog();
+
+            if (buscarEjemplar.SeleccionoEjemplar())
+            {
+                textCodigoInventario.Text = buscarEjemplar.ObtenerEjemplarSeleccionado().codigoInventario;
+            }
         }
     }
 }

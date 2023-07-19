@@ -148,6 +148,7 @@
     <Compile Include="DOMAIN\UsuarioSimple.cs" />
     <Compile Include="Excepciones\Ediciones\ExcepcionEdicionYaExiste.cs" />
     <Compile Include="Excepciones\Ediciones\ExcepcionEdicionNoExiste.cs" />
+    <Compile Include="Excepciones\Ejemplar\ExcepcionEjemplarNoExiste.cs" />
     <Compile Include="Excepciones\Ejemplar\ExcepcionEjemplarYaPrestado.cs" />
     <Compile Include="Excepciones\ExcepcionCodigoInventarioInvalido.cs" />
     <Compile Include="Excepciones\Ejemplar\ExcepcionEjemplarNoEstaPrestado.cs" />

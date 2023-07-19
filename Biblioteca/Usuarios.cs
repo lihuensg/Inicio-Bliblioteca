@@ -32,20 +32,20 @@ namespace Inicio_Bliblioteca
         {
             BuscarUsuario buscarUsuario = new BuscarUsuario();
             buscarUsuario.ShowDialog();
-            if (buscarUsuario.EncontroUsuario())
+            if (buscarUsuario.SeleccionoUsuario())
             {
                 var usuario = buscarUsuario.ObtenerUsuarioSeleccionado();
                 EditarUsuario editarUsuario = new EditarUsuario(usuario);
                 editarUsuario.ShowDialog();
             }
-           
+
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             BuscarUsuario buscarUsuario = new BuscarUsuario();
             buscarUsuario.ShowDialog();
-            if (buscarUsuario.EncontroUsuario())
+            if (buscarUsuario.SeleccionoUsuario())
             {
                 var usuarioEncontrado = buscarUsuario.ObtenerUsuarioSeleccionado();
                 fachada.BajaUsuario(usuarioEncontrado.Dni);
@@ -75,7 +75,7 @@ namespace Inicio_Bliblioteca
         private void Usuarios_Load(object sender, EventArgs e)
         {
 
-            RefrescarDatos();    
+            RefrescarDatos();
 
         }
 

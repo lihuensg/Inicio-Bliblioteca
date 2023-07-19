@@ -373,20 +373,6 @@ namespace Aplication
         }
 
         /// <summary>
-        /// Verifica si existe un usuario.
-        /// </summary>
-        /// <param name="Dni">DNI del usuario a verificar.</param>
-        /// <returns>true si el usuario existe.</returns>
-        public bool ExisteUsuario(int Dni)
-        {
-            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
-            {
-                Usuario usuario = bUoW.RepositorioUsuarios.ObtenerPorDNI(Dni);
-                return usuario != null;
-            }
-        }
-
-        /// <summary>
         /// Modifica los datos de un usuario.
         /// </summary>
         /// <param name="dni">DNI del usuario a modificar.</param>
@@ -472,6 +458,8 @@ namespace Aplication
         /// <returns>Fecha de vencimiento del préstamo.</returns>
         /// <exception cref="ExcepcionCodigoInventarioInvalido">Si el código de inventario no es válido.</exception>
         /// <exception cref="ExcepcionEjemplarYaPrestado">Si el ejemplar ya está prestado.</exception>
+        /// <exception cref="ExcepcionEjemplarNoExiste">Si el ejemplar no existe.</exception>
+        /// <exception cref="ExcepcionUsuarioNoExiste">Si el usuario no existe.</exception>
         public DateTime PrestarEjemplar(int dni, string codigoInventario)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
@@ -488,7 +476,17 @@ namespace Aplication
 
                 Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(codigoEjemplar);
 
+                if (ejemplar == null)
+                {
+                    throw new ExcepcionEjemplarNoExiste();
+                }
+
                 Usuario usuario = bUoW.RepositorioUsuarios.ObtenerPorDNI(dni);
+
+                if (usuario == null)
+                {
+                    throw new ExcepcionUsuarioNoExiste();
+                }
 
                 var prestamo = Prestamo.Crear(DateTime.Now, usuario, ejemplar);
                 bUoW.RepositorioPrestamos.Agregar(prestamo);
@@ -552,25 +550,6 @@ namespace Aplication
 
                 ejemplar.FechaBaja = DateTime.Now;
                 bUoW.Complete();
-            }
-        }
-
-        /// <summary>
-        /// Verifica si existe un ejemplar.
-        /// </summary>
-        /// <param name="codigoInventario">Código de inventario del ejemplar.</param>
-        /// <returns>true si existe.</returns>
-        public bool ExisteEjemplar(string codigoInventario)
-        {
-            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
-            {
-                if (!Int32.TryParse(codigoInventario, out int codigoEjemplar))
-                {
-                    return false;
-                }
-
-                Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(codigoEjemplar);
-                return ejemplar != null;
             }
         }
 

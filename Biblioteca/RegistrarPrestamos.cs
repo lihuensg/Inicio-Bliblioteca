@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Aplication;
 using Aplication.Excepciones;
 using Aplication.Excepciones.Ejemplares;
+using Aplication.Excepciones.Usuarios;
 
 namespace Inicio_Bliblioteca
 {
@@ -34,32 +35,24 @@ namespace Inicio_Bliblioteca
 
         private void btnBusUsuario_Click(object sender, EventArgs e)
         {
-            if (Int32.TryParse(txtDNI.Text, out int dni))
+            BuscarUsuario buscarUsuario = new BuscarUsuario();
+            buscarUsuario.ShowDialog();
+
+            if (buscarUsuario.SeleccionoUsuario())
             {
-                if (fachada.ExisteUsuario(dni))
-                {
-                    btnEjemplar.Enabled = true;
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("DNI no encontrado");
-                }
+                txtDNI.Text = buscarUsuario.ObtenerUsuarioSeleccionado().Dni.ToString();
             }
-            btnEjemplar.Enabled = false;
         }
 
         private void btnBuscarEjemplar_Click(object sender, EventArgs e)
         {
-            if (fachada.ExisteEjemplar(txtCodigoInventario.Text))
-            {
-                btnAceptar.Enabled = true;
-            }
-            else
-            {
-                MessageBox.Show("Codigo Inventario no encontrado");
-            }
+            BuscarEjemplar buscarEjemplar = new BuscarEjemplar(true);
+            buscarEjemplar.ShowDialog();
 
+            if (buscarEjemplar.SeleccionoEjemplar())
+            {
+                txtCodigoInventario.Text = buscarEjemplar.ObtenerEjemplarSeleccionado().codigoInventario;
+            }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -76,13 +69,20 @@ namespace Inicio_Bliblioteca
             }
             catch (ExcepcionCodigoInventarioInvalido)
             {
-                MessageBox.Show("Codigo Inventario no encontrado");
+                MessageBox.Show("Codigo Inventario no encontrado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (ExcepcionEjemplarYaPrestado)
             {
-                MessageBox.Show("El ejemplar ya esta prestado");
+                MessageBox.Show("El ejemplar ya esta prestado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            catch (ExcepcionEjemplarNoExiste)
+            {
+                MessageBox.Show("El ejemplar no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ExcepcionUsuarioNoExiste)
+            {
+                MessageBox.Show("El usuario no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)
