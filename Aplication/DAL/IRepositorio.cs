@@ -8,8 +8,6 @@ namespace Aplication
 {
     public interface IRepositorio<T>
     {
-        IEnumerable<T> Search(Expression<Func<T,bool>> predicate);
-
         void Agregar(T pItem);
 
         IEnumerable<T> ObtenerTodos();

@@ -8,5 +8,7 @@ namespace Aplication
     public interface IRepositorioEjemplares : IRepositorio<Ejemplar>
     {
         Ejemplar ObtenerPorCodInv(string CodigoInventario);
+
+        List<Ejemplar> ObtenerPorISBN(string ISBN);
     }
 }

@@ -7,14 +7,19 @@ namespace Aplication.DAL.EntityFramework
 {
     public class RepositorioEjemplares : Repository<Ejemplar, BibliotecaDbContext>, IRepositorioEjemplares
     {
-        public RepositorioEjemplares (BibliotecaDbContext pDbContext) : base(pDbContext)
+        public RepositorioEjemplares(BibliotecaDbContext pDbContext) : base(pDbContext)
         {
-            
+
         }
 
         public Ejemplar ObtenerPorCodInv(string codigoInventario)
         {
             return iDbContext.Ejemplares.Where(u => u.CodigoInventario == codigoInventario).FirstOrDefault();
+        }
+
+        public List<Ejemplar> ObtenerPorISBN(string ISBN)
+        {
+            return iDbContext.Ejemplares.Where(u => u.Edicion.Isbn == ISBN).ToList();
         }
     }
 }

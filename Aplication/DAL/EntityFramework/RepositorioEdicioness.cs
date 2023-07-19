@@ -14,7 +14,12 @@ namespace Aplication.DAL.EntityFramework
 
         public Edicion ObtenerPorISBN(string Isbn)
         {
-            return iDbContext.Ediciones.Where(u => u.Isbn == Isbn).First();
+            return iDbContext.Ediciones.Where(u => u.Isbn == Isbn).FirstOrDefault();
+        }
+
+        public List<Edicion> ObtenerPorLccn(string Lccn)
+        {
+            return iDbContext.Ediciones.Where(u => u.Obra.Lccn == Lccn).ToList();
         }
     }
 }

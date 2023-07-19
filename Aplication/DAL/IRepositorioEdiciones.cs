@@ -7,6 +7,14 @@ namespace Aplication
 {
     public interface IRepositorioEdiciones : IRepositorio<Edicion>
     {
-       Edicion ObtenerPorISBN(string Isbn);
+        ///
+        /// <summary>
+        /// Obtiene una edicion por su ISBN
+        /// </summary>
+        /// <param name="Isbn">ISBN de la edicion</param>
+        /// <returns>Edicion o nulo si no se encuentra</returns>
+        Edicion ObtenerPorISBN(string Isbn);
+
+        List<Edicion> ObtenerPorLccn(string Lccn);
     }
 }

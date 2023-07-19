@@ -154,6 +154,12 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 Edicion edicion = bUoW.RepositorioEdiciones.ObtenerPorISBN(ejemplar.Edicion.Isbn);
+
+                if (edicion == null)
+                {
+                    throw new Aplication.Excepciones.ExcepcionEdicionNoExiste;
+                }
+
                 Ejemplar ejemplar1 = new Ejemplar
                 {
                     Edicion = edicion,
@@ -171,7 +177,7 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var sig7Dias = DateTime.Today.AddDays(7);
-                var listaPrestamosProxAVencer = bUoW.RepositorioPrestamos.Search(u => (u.FechaVencimiento <= sig7Dias && u.FechaDevolucion == null)).ToList();
+                var listaPrestamosProxAVencer = bUoW.RepositorioPrestamos.ObtenerProximoAVencer(sig7Dias);
                 return listaPrestamosProxAVencer.Select(p => new DTOPrestamo { SolicitanteDNI = p.Solicitante.Dni, Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
             }
         }
@@ -180,7 +186,7 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var listaPrestamos = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni).ToList();
+                var listaPrestamos = bUoW.RepositorioPrestamos.ObtenerPrestamosPorDNI(dni);
                 return listaPrestamos.Select(p => new DTOPrestamo { SolicitanteDNI = p.Solicitante.Dni, Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento }).ToList();
             }
         }
@@ -197,7 +203,7 @@ namespace Aplication
 
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var listaPrestamosEntreFechas = bUoW.RepositorioPrestamos.Search(u => u.Solicitante.Dni == dni && u.FechaPrestamo <= fechaFin && u.FechaPrestamo >= fechaInicio).ToList();
+                var listaPrestamosEntreFechas = bUoW.RepositorioPrestamos.ObtenerPrestamosPorDNIEntreFechas(dni, fechaInicio, fechaFin);
                 return listaPrestamosEntreFechas.Select(p => new DTOPrestamoConUsuarioYEjemplar { Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento, Nombre = p.Solicitante.NombreUsuario, CodigoInventario = p.Ejemplar.Id.ToString() }).ToList();
             }
         }
@@ -206,7 +212,7 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var usuario = bUoW.RepositorioUsuarios.Search(u => u.NombreUsuario == nombreUsuario).First();
+                var usuario = bUoW.RepositorioUsuarios.ObtenerPorNombreDeUsuario(nombreUsuario);
                 return usuario.EsAdministrador;
             }
         }
@@ -215,31 +221,25 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var listaEjemplares = bUoW.RepositorioEjemplares.Search(u => u.Edicion.Isbn == isbn).ToList();
+                List<Ejemplar> listaEjemplares = bUoW.RepositorioEjemplares.ObtenerPorISBN(isbn);
                 List<DTOEjemplarPrestamo> prestamosEjemplares = new List<DTOEjemplarPrestamo>();
                 foreach (var item in listaEjemplares)
                 {
-                    var prestamo = bUoW.RepositorioPrestamos.Search(u => u.FechaDevolucion == null && u.Ejemplar.Id == item.Id).ToList();
+                    bool prestado = bUoW.RepositorioPrestamos.EjemplarEstaPrestado(item.Id);
+
                     var ejemplarPrestamo = cMapper.Map<DTOEjemplarPrestamo>(item);
-                    if (prestamo.Count == 0)
-                    {
-                        ejemplarPrestamo.Prestado = false;
-                    }
-                    else
-                    {
-                        ejemplarPrestamo.Prestado = true;
-                    }
+                    ejemplarPrestamo.Prestado = prestado;
                     prestamosEjemplares.Add(ejemplarPrestamo);
                 }
                 return prestamosEjemplares;
             };
         }
+
         public List<DTOEjemplar> ListarEjemplares(string isbn)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var listaEjemplares = bUoW.RepositorioEjemplares.Search(u => u.Edicion.Isbn == isbn).ToList();
-                // var edicion = bUoW.RepositorioEdiciones.ObtenerPorISBN(isbn);
+                var listaEjemplares = bUoW.RepositorioEjemplares.ObtenerPorISBN(isbn);
                 var ejemplar = cMapper.Map<IList<DTOEjemplar>>(listaEjemplares);
                 return ejemplar.ToList();
             };
@@ -249,8 +249,8 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var listarEdiciones = bUoW.RepositorioEdiciones.Search(u => u.Obra.Lccn == Lccn).ToList();
-                var ediciones = cMapper.Map<IList<DTOEdicion>>(listarEdiciones);
+                var listaEdiciones = bUoW.RepositorioEdiciones.ObtenerPorLccn(Lccn);
+                var ediciones = cMapper.Map<IList<DTOEdicion>>(listaEdiciones);
                 return ediciones.ToList();
             };
         }
@@ -259,8 +259,14 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var buscarEdicion = bUoW.RepositorioEdiciones.Search(u => u.Isbn == ISBN).ToList().First();
-                var ediciones = cMapper.Map<DTOEdicion>(buscarEdicion);
+                Edicion encontrado = bUoW.RepositorioEdiciones.ObtenerPorISBN(ISBN);
+
+                if (encontrado == null)
+                {
+                    return null;
+                }
+
+                var ediciones = cMapper.Map<DTOEdicion>(encontrado);
                 return ediciones;
             };
         }
@@ -301,8 +307,8 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var edicion = bUoW.RepositorioEdiciones.Search(u => u.Isbn == Isbn).ToList();
-                return edicion.Count() > 0;
+                Edicion edicion = bUoW.RepositorioEdiciones.ObtenerPorISBN(Isbn);
+                return edicion != null;
             }
         }
         public void BajaUsuario(int dni)
@@ -319,8 +325,8 @@ namespace Aplication
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                var usuario = bUoW.RepositorioUsuarios.Search(u => u.Dni == Dni).ToList();
-                return usuario.Count() > 0;
+                Usuario usuario = bUoW.RepositorioUsuarios.ObtenerPorDNI(Dni);
+                return usuario != null;
             }
         }
         public void ModificarDatosUsuario(int dni, ActualizarUsuario solicitud)
@@ -421,7 +427,8 @@ namespace Aplication
                     throw new ExcepcionCodigoInventarioInvalido();
                 }
 
-                Prestamo prestamo = bUoW.RepositorioPrestamos.Search(u => u.Ejemplar.Id == codigoEjemplarInt && u.FechaDevolucion == null).FirstOrDefault();
+                Prestamo prestamo = bUoW.RepositorioPrestamos.ObtenerPorCodigoEjemplar(codigoEjemplarInt)
+                                            .Where(u => u.FechaDevolucion == null).FirstOrDefault();
 
                 if (prestamo == null)
                 {
@@ -470,8 +477,8 @@ namespace Aplication
                     return false;
                 }
 
-                var usuario = bUoW.RepositorioEjemplares.Search(u => u.Id == codigoEjemplar).ToList();
-                return usuario.Count() > 0;
+                Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(codigoEjemplar);
+                return ejemplar != null;
             }
         }
 
@@ -484,8 +491,7 @@ namespace Aplication
                     throw new ExcepcionCodigoInventarioInvalido();
                 }
 
-                var ejemplar = bUoW.RepositorioPrestamos.Search(u => u.Ejemplar.Id == codigoInvInt && u.FechaDevolucion == null).ToList();
-                return ejemplar.Count() > 0;
+                return bUoW.RepositorioPrestamos.EjemplarEstaPrestado(codigoInvInt);
             }
         }
 
