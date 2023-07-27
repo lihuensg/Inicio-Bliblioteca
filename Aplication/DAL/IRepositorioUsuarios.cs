@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aplication
+namespace Aplication.DAL
 {
     public interface IRepositorioUsuarios : IRepositorio<Usuario>
     {

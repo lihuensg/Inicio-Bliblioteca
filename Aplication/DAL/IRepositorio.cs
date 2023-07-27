@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 
-namespace Aplication
+namespace Aplication.DAL
 {
     public interface IRepositorio<T>
     {

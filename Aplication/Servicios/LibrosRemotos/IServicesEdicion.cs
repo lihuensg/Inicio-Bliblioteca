@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Aplication.Servicios.LibrosRemotos
 {
-    public interface IServicesEdicion
+    public interface IServiciosEdicion
     {
-        DTOEdicion Buscar(Dictionary<string, string> pFiltros);
+        Task<DTOEdicion> BuscarPorISBNAsync(string pISBN);
     }
 }

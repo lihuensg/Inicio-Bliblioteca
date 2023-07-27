@@ -12,6 +12,7 @@ using Aplication.Excepciones.Ediciones;
 using Aplication.Excepciones.Usuarios;
 using Aplication.Excepciones.Ejemplares;
 using Aplication.Excepciones.Obras;
+using Aplication.Servicios.Tiempo;
 
 namespace Aplication
 {
@@ -20,26 +21,37 @@ namespace Aplication
 
     {
         private static readonly IMapper cMapper;
-        private static readonly IHashingManager cHashingManager;
+        private readonly IHashingManager mHashingManager;
+        private readonly IUnitOfWorkFactory mUoWFactory;
+        private readonly IDateTimeProvider mDateTimeProvider;
+
 
         static Fachada()
         {
             var mConfiguration = new MapperConfiguration(pConfiguration =>
             {
                 pConfiguration.CreateMap<Edicion, DTOEdicion>();
-                pConfiguration.CreateMap<Obra, DTOObra>();
-                pConfiguration.CreateMap<Ejemplar, DTOEjemplar>().ForMember(dest => dest.codigoInventario, act => act.MapFrom(src => src.Id));
+                pConfiguration.CreateMap<Ejemplar, DTOEjemplar>()
+                              .ForMember(dest => dest.CodigoInventario,
+                                         act => act.MapFrom(src => src.Id));
             });
 
             cMapper = mConfiguration.CreateMapper();
+        }
 
-            cHashingManager = new HashingManager();
+        public Fachada(IUnitOfWorkFactory pUoWFactory,
+                       IHashingManager pHashingManager,
+                       IDateTimeProvider pDateTimeProvider)
+        {
+            mUoWFactory = pUoWFactory;
+            mHashingManager = pHashingManager;
+            mDateTimeProvider = pDateTimeProvider;
         }
 
         /// <summary>
         /// Inicializa la base de datos con un usuario administrador
         /// </summary>
-        public void Inicializar()
+        public void CrearAdminSiNoHayUsuarios()
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
@@ -50,8 +62,8 @@ namespace Aplication
                         Dni = 0,
                         NombreUsuario = "admin",
                         Mail = "email@cambiar.com",
-                        Password = cHashingManager.Hash("admin"),
-                        FechaRegistro = DateTime.Now,
+                        Password = mHashingManager.Hash("admin"),
+                        FechaRegistro = mDateTimeProvider.Now,
                         Puntaje = 0,
                         EsAdministrador = true
                     };
@@ -145,37 +157,9 @@ namespace Aplication
                     throw new ExcepcionUsuarioConMailYaExiste();
                 }
 
-                solicitud.Password = cHashingManager.Hash(solicitud.Password);
-                var usuario1 = Usuario.Crear(solicitud);
+                var usuario1 = Usuario.Crear(solicitud, mHashingManager, mDateTimeProvider);
 
                 bUoW.RepositorioUsuarios.Agregar(usuario1);
-                bUoW.Complete();
-            }
-        }
-
-        /// <summary>
-        /// Agrega una obra.
-        /// </summary>
-        /// <param name="nuevaObra">Datos de la obra a agregar.</param>
-        /// <exception cref="ExcepcionObraYaExiste">Si ya existe una obra con el LCCN indicado.</exception>
-        public void AgregarObra(DTOObra nuevaObra)
-        {
-            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
-            {
-                if (bUoW.RepositorioObras.ObtenerPorLccn(nuevaObra.Lccn) != null)
-                {
-                    throw new ExcepcionObraYaExiste();
-                }
-
-                Obra obra = new Obra
-                {
-                    Titulo = nuevaObra.Titulo,
-                    Lccn = nuevaObra.Lccn,
-                    Descripcion = nuevaObra.Descripcion,
-                    autores = nuevaObra.Autores
-                };
-
-                bUoW.RepositorioObras.Agregar(obra);
                 bUoW.Complete();
             }
         }
@@ -199,9 +183,7 @@ namespace Aplication
                 Ejemplar ejemplar1 = new Ejemplar
                 {
                     Edicion = edicion,
-                    FechaAlta = DateTime.Now, // TODO: Usar un TimeProvider si es necesario para los tests.
-                    CodigoInventario = "2", // TODO: el codigo ingresado aqui no es relevante, se mapea desde el id
-                                            // del ejemplar en la base de datos. Quitar el required.
+                    FechaAlta = mDateTimeProvider.Now,
                 };
 
                 bUoW.RepositorioEjemplares.Agregar(ejemplar1);
@@ -243,7 +225,15 @@ namespace Aplication
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
                 var listaPrestamosEntreFechas = bUoW.RepositorioPrestamos.ObtenerPrestamosPorDNIEntreFechas(dni, fechaInicio, fechaFin);
-                return listaPrestamosEntreFechas.Select(p => new DTOPrestamoConUsuarioYEjemplar { Id = p.Id, FechaPrestamo = p.FechaPrestamo, FechaVencimiento = p.FechaVencimiento, Nombre = p.Solicitante.NombreUsuario, CodigoInventario = p.Ejemplar.Id.ToString() }).ToList();
+                return listaPrestamosEntreFechas.Select(p => new DTOPrestamoConUsuarioYEjemplar
+                {
+                    Id = p.Id,
+                    FechaPrestamo = p.FechaPrestamo,
+                    FechaVencimiento = p.FechaVencimiento,
+                    FechaDevolucion = p.FechaDevolucion,
+                    Nombre = p.Solicitante.NombreUsuario,
+                    CodigoInventario = p.Ejemplar.Id.ToString()
+                }).ToList();
             }
         }
 
@@ -275,28 +265,17 @@ namespace Aplication
                 List<DTOEjemplar> prestamosEjemplares = new List<DTOEjemplar>();
                 foreach (var item in listaEjemplares)
                 {
-                    bool estaPrestado = bUoW.RepositorioPrestamos.EjemplarEstaPrestado(item.Id);
+                    var prestamo = bUoW.RepositorioPrestamos
+                                            .ObtenerSinDevolverPorCodigoEjemplarODefault(item.Id);
+
+                    bool estaPrestado = prestamo != null;
 
                     var ejemplarPrestamo = cMapper.Map<DTOEjemplar>(item);
                     ejemplarPrestamo.Prestado = estaPrestado;
+                    ejemplarPrestamo.PrestadoA = estaPrestado ? $"dni: {prestamo.Solicitante.Dni}" : null;
                     prestamosEjemplares.Add(ejemplarPrestamo);
                 }
                 return prestamosEjemplares;
-            };
-        }
-
-        /// <summary>
-        /// Obtiene una lista de ediciones para una obra.
-        /// </summary>
-        /// <param name="Lccn">LCCN de la obra.</param>
-        /// <returns>Lista de ediciones.</returns>
-        public List<DTOEdicion> ListarEdiciones(string Lccn)
-        {
-            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
-            {
-                var listaEdiciones = bUoW.RepositorioEdiciones.ObtenerPorLccn(Lccn);
-                var ediciones = cMapper.Map<IList<DTOEdicion>>(listaEdiciones);
-                return ediciones.ToList();
             };
         }
 
@@ -324,36 +303,59 @@ namespace Aplication
         /// <summary>
         /// Agrega una edicion.
         /// </summary>
-        /// <param name="edicion">Edicion a agregar.</param>
-        public void AgregarEdicion(DTOEdicion edicion)
+        /// <param name="pEdicion">Edicion a agregar.</param>
+        public void AgregarEdicion(DTOEdicion pEdicion)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
-                Obra obra = bUoW.RepositorioObras.ObtenerPorLccn(edicion.Obra.Lccn);
-
-                if (obra == null)
-                {
-                    AgregarObra(edicion.Obra); // no puede lanzar excepcion
-
-                    obra = bUoW.RepositorioObras.ObtenerPorLccn(edicion.Obra.Lccn);
-                }
-
-                if (bUoW.RepositorioEdiciones.ObtenerPorISBN(edicion.Isbn) != null)
+                if (bUoW.RepositorioEdiciones.ObtenerPorISBN(pEdicion.Isbn) != null)
                 {
                     throw new ExcepcionEdicionYaExiste();
                 }
 
-                Edicion edition = new Edicion
+                Edicion edicion = new Edicion
                 {
-                    Isbn = edicion.Isbn,
-                    AñoEdicion = edicion.AnioEdicion,
-                    NumeroPaginas = edicion.NumeroPaginas,
-                    Portada = edicion.Portada,
-                    FechaPublicacion = edicion.FechaPublicacion,
-                    Obra = obra,
+                    Isbn = pEdicion.Isbn,
+                    AñoEdicion = pEdicion.AñoEdicion,
+                    NumeroPaginas = pEdicion.NumeroPaginas,
+                    Portada = pEdicion.Portada,
+                    Titulo = pEdicion.Titulo,
+                    Autores = pEdicion.Autores,
+                    Descripcion = pEdicion.Descripcion,
+                    Publicacion = pEdicion.Publicacion,
+                    DatosAdicionales = pEdicion.DatosAdicionales
                 };
 
-                bUoW.RepositorioEdiciones.Agregar(edition);
+                bUoW.RepositorioEdiciones.Agregar(edicion);
+                bUoW.Complete();
+            }
+        }
+
+        /// <summary>
+        /// Modifica una edicion.
+        /// </summary>
+        /// <param name="pEdicion">Datos de la edicion.</param>
+        /// <exception cref="ExcepcionEdicionNoExiste">Si la edicion no existe.</exception>
+        public void ModificarEdicion(DTOEdicion pEdicion)
+        {
+            using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
+            {
+                Edicion edicion = bUoW.RepositorioEdiciones.ObtenerPorISBN(pEdicion.Isbn);
+
+                if (edicion == null)
+                {
+                    throw new ExcepcionEdicionNoExiste();
+                }
+
+                edicion.AñoEdicion = pEdicion.AñoEdicion;
+                edicion.NumeroPaginas = pEdicion.NumeroPaginas;
+                edicion.Portada = pEdicion.Portada ?? edicion.Portada;
+                edicion.Titulo = pEdicion.Titulo ?? edicion.Titulo;
+                edicion.Autores = pEdicion.Autores ?? edicion.Autores;
+                edicion.Descripcion = pEdicion.Descripcion ?? edicion.Descripcion;
+                edicion.Publicacion = pEdicion.Publicacion ?? edicion.Publicacion;
+                edicion.DatosAdicionales = pEdicion.DatosAdicionales ?? edicion.DatosAdicionales;
+
                 bUoW.Complete();
             }
         }
@@ -405,13 +407,7 @@ namespace Aplication
                     throw new ExcepcionUsuarioConMailYaExiste();
                 }
 
-                if (solicitud.Password != null)
-                {
-                    // hashear contraseña
-                    solicitud.Password = cHashingManager.Hash(solicitud.Password);
-                }
-
-                usuario.Actualizar(solicitud);
+                usuario.Actualizar(solicitud, mHashingManager);
 
                 bUoW.Complete();
             }
@@ -436,13 +432,13 @@ namespace Aplication
                     return false;
                 }
 
-                if (!cHashingManager.IsHashSupported(usuario.Password))
+                if (!mHashingManager.IsHashSupported(usuario.Password))
                 {
                     LogManager.GetLogger().Warn("Una contraseña almacenada no soporta el hasher!");
                     return false;
                 }
 
-                contraCorrecta = cHashingManager.Verify(password, usuario.Password);
+                contraCorrecta = mHashingManager.Verify(password, usuario.Password);
 
                 bUoW.Complete();
             }
@@ -488,7 +484,10 @@ namespace Aplication
                     throw new ExcepcionUsuarioNoExiste();
                 }
 
-                var prestamo = Prestamo.Crear(DateTime.Now, usuario, ejemplar);
+                var prestamo = Prestamo.Crear(usuario,
+                                              ejemplar,
+                                              mDateTimeProvider);
+
                 bUoW.RepositorioPrestamos.Agregar(prestamo);
 
                 bUoW.Complete();
@@ -525,8 +524,7 @@ namespace Aplication
 
                 Usuario usuario = prestamo.Solicitante;
 
-                prestamo.FechaDevolucion = DateTime.Now;
-                prestamo.DevolverEjemplar(buenEstado);
+                prestamo.DevolverEjemplar(buenEstado, mDateTimeProvider);
 
                 bUoW.Complete();
             }
@@ -548,7 +546,8 @@ namespace Aplication
 
                 Ejemplar ejemplar = bUoW.RepositorioEjemplares.Obtener(codigoEjemplar);
 
-                ejemplar.FechaBaja = DateTime.Now;
+                ejemplar.DarDeBaja(mDateTimeProvider);
+
                 bUoW.Complete();
             }
         }
@@ -559,7 +558,7 @@ namespace Aplication
         /// <param name="codigoInventario">Código de inventario del ejemplar.</param>
         /// <returns>true si está prestado.</returns>
         /// <exception cref="ExcepcionCodigoInventarioInvalido">Si el código de inventario no es válido.</exception>
-        public bool EstaPrestadoEjemplar(string codigoInventario)
+        private bool EstaPrestadoEjemplar(string codigoInventario)
         {
             using (IUnitOfWork bUoW = new UnitOfWork(new BibliotecaDbContext()))
             {
@@ -568,7 +567,7 @@ namespace Aplication
                     throw new ExcepcionCodigoInventarioInvalido();
                 }
 
-                return bUoW.RepositorioPrestamos.EjemplarEstaPrestado(codigoInvInt);
+                return bUoW.RepositorioPrestamos.ObtenerSinDevolverPorCodigoEjemplarODefault(codigoInvInt) != null;
             }
         }
 

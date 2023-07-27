@@ -11,18 +11,18 @@ namespace Aplication.DAL.EntityFramework.Mapping
     {
         public EjemplarConfiguration()
         {
-           this.HasKey(pEjemplar => pEjemplar.Id);
+            this.HasKey(pEjemplar => pEjemplar.Id);
 
             this.Property(pEjemplar => pEjemplar.CodigoInventario)
-                .HasMaxLength(100)
-                .IsRequired();
+                .HasMaxLength(100);
 
-           this.Property(pEjemplar => pEjemplar.FechaAlta)
-                .IsRequired();
+            this.HasIndex(pEjemplar => pEjemplar.CodigoInventario);
+            // No se puede forzar .IsUnique() ya que puede ser null
+
+            this.Property(pEjemplar => pEjemplar.FechaAlta)
+                 .IsRequired();
 
             this.HasRequired(pEjemplar => pEjemplar.Edicion);
-
-
         }
 
     }

@@ -8,25 +8,29 @@ namespace Aplication.DAL.EntityFramework.Mapping
 {
     public class EdicionConfiguration : EntityTypeConfiguration<Edicion>
     {
-        public  EdicionConfiguration()
+        public EdicionConfiguration()
         {
+            // Esta configuración es permisiva ya que el bibliotecario puede modificarlo
+
             this.HasKey(pEdicion => pEdicion.Id);
 
             this.Property(pEdicion => pEdicion.Isbn)
                 .IsRequired();
 
-            this.Property(pEdicion => pEdicion.AñoEdicion);
-
             this.Property(pEdicion => pEdicion.NumeroPaginas)
                 .IsRequired();
 
-            this.Property(pEdicion => pEdicion.Portada)
-                .IsRequired();
+            /*
+            this.Property(pEdicion => pEdicion.AñoEdicion);
 
-            this.HasRequired(pEdicion => pEdicion.Obra);
+            this.Property(pEdicion => pEdicion.Portada);
 
-            this.Property(pEdicion => pEdicion.FechaPublicacion)
-                .IsRequired();
+            this.Property(pEdicion => pEdicion.Titulo);
+
+            this.Property(pEdicion => pEdicion.Descripcion);
+
+            this.Property(pEdicion => pEdicion.Autores);
+            */
         }
 
     }

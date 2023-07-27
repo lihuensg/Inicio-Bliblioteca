@@ -9,7 +9,6 @@ namespace Aplication.DAL
     {
         IRepositorioEjemplares RepositorioEjemplares { get; }
 
-        IRepositorioObras RepositorioObras { get; }
         IRepositorioPrestamos RepositorioPrestamos { get; }
 
         IRepositorioUsuarios RepositorioUsuarios { get; }

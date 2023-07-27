@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 
-namespace Aplication
+namespace Aplication.DAL
 {
     public interface IRepositorioPrestamos : IRepositorio<Prestamo>
     {
@@ -39,11 +39,11 @@ namespace Aplication
         List<Prestamo> ObtenerPorCodigoEjemplar(int codigoEjemplar);
 
         /// <summary>
-        /// Verifica si un ejemplar esta prestado.
+        /// Obtiene el prestamo para un ejemplar que no fue devuelto, o null.
         /// </summary>
         /// <param name="idEjemplar">id del ejemplar, el codigo inventario.</param>
-        /// <returns>verdadero si esta prestado</returns>
-        bool EjemplarEstaPrestado(int idEjemplar);
+        /// <returns>Prestamo o null</returns>
+        Prestamo ObtenerSinDevolverPorCodigoEjemplarODefault(int idEjemplar);
 
     }
 }

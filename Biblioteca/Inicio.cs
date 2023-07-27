@@ -1,5 +1,4 @@
-﻿using Aplication;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,74 +7,77 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Inicio_Bliblioteca.Ediciones;
 
 namespace Inicio_Bliblioteca
 {
     public partial class Inicio : Form
     {
-      
+        readonly PrestamosProxVencer prestamosProxVencerControl;
+        readonly PrestamosYDevoluciones prestamosYDevolucionesControl;
+        readonly Usuarios usuariosControl;
+        readonly Ejemplares ejemplaresControl;
+        readonly EdicionesNavegacion ucEdicionesNavControl;
 
-        Aplication.Fachada fachada;
-
-        public Inicio()
+        public Inicio(PrestamosProxVencer pPrestamosProxVencerControl,
+                       PrestamosYDevoluciones pPrestamosYDevolucionesControl,
+                       Usuarios pUsuariosControl,
+                       Ejemplares pEjemplaresControl,
+                       EdicionesNavegacion pUcEdicionesNavControl)
         {
-            fachada = new Fachada();
-
             InitializeComponent();
+            prestamosProxVencerControl = pPrestamosProxVencerControl;
+            prestamosYDevolucionesControl = pPrestamosYDevolucionesControl;
+            usuariosControl = pUsuariosControl;
+            ejemplaresControl = pEjemplaresControl;
+            ucEdicionesNavControl = pUcEdicionesNavControl;
+
+            // agregar controles al panel
+            panelCuerpo.Controls.Add(prestamosProxVencerControl);
+            panelCuerpo.Controls.Add(prestamosYDevolucionesControl);
+            panelCuerpo.Controls.Add(usuariosControl);
+            panelCuerpo.Controls.Add(ejemplaresControl);
+            panelCuerpo.Controls.Add(ucEdicionesNavControl);
+
+            // expandir al tamaño del panel
+            prestamosProxVencerControl.Dock = DockStyle.Fill;
+            prestamosYDevolucionesControl.Dock = DockStyle.Fill;
+            usuariosControl.Dock = DockStyle.Fill;
+            ejemplaresControl.Dock = DockStyle.Fill;
+            ucEdicionesNavControl.Dock = DockStyle.Fill;
+
+            // mostrar usuario por defecto
+            usuariosControl.BringToFront();
         }
 
-
-        private void botSalir_Click_1(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void botCancelar_Click_1(object sender, EventArgs e)
-        {
-            txtUsuario.Clear();
-            txtContraseña.Clear();
-            txtUsuario.Focus();
-            return;
-        }
-
-        private void botAceptar_Click_1(object sender, EventArgs e)
-        {
-            
-            if (fachada.LoguearUsuario(txtUsuario.Text, txtContraseña.Text)) {
-                    //MessageBox.Show("Logueado correctamente");
-            
-                    string nombre = txtUsuario.Text;
-                   
-                if (fachada.EsUsuarioAdmin(nombre))
-                {
-                    InformacionDelLogin.DNI = fachada.ObtenerUsuario(txtUsuario.Text).Dni;
-                    txtUsuario.Clear();
-                    txtContraseña.Clear();
-                    this.Hide();
-                    using (Usuario ventanaUsuario = new Usuario(nombre))
-                        ventanaUsuario.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("No pudo acceder porque no es administrador");
-                }
-            }
-            else
-            {
-               MessageBox.Show("Usuario o Contraseña incorrecta");
-            }
-     
-        }
-
-        private void label3_Click(object sender, EventArgs e)
+        private void Usuario_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void btnRegistrar_Click(object sender, EventArgs e)
+        private void btnUsuarios_Click(object sender, EventArgs e)
         {
-            Registro_Usuario nuevoUsuario = new Registro_Usuario();
-            nuevoUsuario.ShowDialog();
+            usuariosControl.BringToFront();
+        }
+
+        private void btnPrestamosYDevoluciones_Click(object sender, EventArgs e)
+        {
+            prestamosYDevolucionesControl.BringToFront();
+        }
+
+        private void btnEdiciones_Click(object sender, EventArgs e)
+        {
+            ucEdicionesNavControl.BringToFront();
+        }
+
+        private void btnPrestamosProxVencer_Click(object sender, EventArgs e)
+        {
+            prestamosProxVencerControl.BringToFront();
+        }
+
+        private void btnEjemplares_Click(object sender, EventArgs e)
+        {
+            ejemplaresControl.BringToFront();
         }
     }
 }

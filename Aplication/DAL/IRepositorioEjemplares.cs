@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aplication
+namespace Aplication.DAL
 {
     public interface IRepositorioEjemplares : IRepositorio<Ejemplar>
     {
-        Ejemplar ObtenerPorCodInv(string CodigoInventario);
+        Ejemplar ObtenerPorCodigoInventario(string CodigoInventario);
 
         List<Ejemplar> ObtenerPorISBN(string ISBN);
     }

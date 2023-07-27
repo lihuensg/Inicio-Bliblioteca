@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aplication
+namespace Aplication.DAL
 {
     public interface IRepositorioEdiciones : IRepositorio<Edicion>
     {
@@ -14,7 +14,5 @@ namespace Aplication
         /// <param name="Isbn">ISBN de la edicion</param>
         /// <returns>Edicion o nulo si no se encuentra</returns>
         Edicion ObtenerPorISBN(string Isbn);
-
-        List<Edicion> ObtenerPorLccn(string Lccn);
     }
 }

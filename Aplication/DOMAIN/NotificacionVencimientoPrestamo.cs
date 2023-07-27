@@ -10,7 +10,5 @@ namespace Aplication
         public int Id { get; set; }
         public virtual Prestamo Prestamo { get; set; }
         public int DiasAnteracion { get; set; }
-
-
     }
 }

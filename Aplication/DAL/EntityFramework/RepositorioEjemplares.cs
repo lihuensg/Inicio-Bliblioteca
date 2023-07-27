@@ -12,9 +12,23 @@ namespace Aplication.DAL.EntityFramework
 
         }
 
-        public Ejemplar ObtenerPorCodInv(string codigoInventario)
+        public Ejemplar ObtenerPorCodigoInventario(string codigoInventario)
         {
-            return iDbContext.Ejemplares.Where(u => u.CodigoInventario == codigoInventario).FirstOrDefault();
+            if (int.TryParse(codigoInventario, out int codigoInventarioInt))
+            {
+                // Tanto el id como el código de inventario cuentan como posible 
+                // código de inventario.
+                return iDbContext.Ejemplares
+                                    .Where(u => u.CodigoInventario == codigoInventario
+                                                || u.Id == codigoInventarioInt)
+                                    .FirstOrDefault();
+            }
+            else
+            {
+                // solo el código de inventario cuenta como posible código de inventario.
+                return iDbContext.Ejemplares.Where(u => u.CodigoInventario == codigoInventario)
+                                            .FirstOrDefault();
+            }
         }
 
         public List<Ejemplar> ObtenerPorISBN(string ISBN)

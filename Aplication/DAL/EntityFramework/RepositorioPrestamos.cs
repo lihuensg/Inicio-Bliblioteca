@@ -32,11 +32,11 @@ namespace Aplication.DAL.EntityFramework
                     .ToList();
         }
 
-        public bool EjemplarEstaPrestado(int idEjemplar)
+        public Prestamo ObtenerSinDevolverPorCodigoEjemplarODefault(int idEjemplar)
         {
             return iDbSet
                     .Where(u => (u.Ejemplar.Id == idEjemplar && u.FechaDevolucion == null))
-                    .Any();
+                    .FirstOrDefault();
         }
 
         public List<Prestamo> ObtenerPorCodigoEjemplar(int idEjemplar)

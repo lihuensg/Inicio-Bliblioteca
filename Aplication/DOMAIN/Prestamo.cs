@@ -2,56 +2,58 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Aplication.Servicios.Tiempo;
 
 namespace Aplication
 {
     public class Prestamo
     {
-        public Prestamo(int pId,DateTime pFechaPrestamo, DateTime pFechaVencimiento, Ejemplar pEjemplar, Usuario pSolicitante) 
+        public void DevolverEjemplar(bool buenEstado, IDateTimeProvider dateTimeProvider)
         {
-            Id = pId;
-            FechaPrestamo = pFechaPrestamo;
-            FechaVencimiento = pFechaVencimiento;
-            Ejemplar = pEjemplar;
-            Solicitante = pSolicitante;
-        }
-        public Prestamo()
-        {
-            
-        }
+            if (!buenEstado)
+            {
+                Solicitante.Puntaje += Constantes.Puntaje.PuntajePorEjemplarEnMalasCondiciones;
+            }
 
-        public void DevolverEjemplar(bool buenEstado)
-        {
-             if (!buenEstado)
-                {
-                    Solicitante.Puntaje -= 10;
-                }
+            if (dateTimeProvider.Now > this.FechaVencimiento)
+            {
+                int diasDeMora = (int)(dateTimeProvider.Now - this.FechaVencimiento).TotalDays;
+                Solicitante.Puntaje += Constantes.Puntaje.PuntajePorEjemplarFueraDePlazoPorDiaDeMora
+                                       * diasDeMora;
+            }
 
-             if (DateTime.Now > this.FechaVencimiento)
-                {
-                    Solicitante.Puntaje -= 2 * (int)(DateTime.Now - this.FechaVencimiento).TotalDays;
-                }
+            if (buenEstado && this.FechaVencimiento > dateTimeProvider.Now)
+            {
+                Solicitante.Puntaje += Constantes.Puntaje.PuntajePorEjemplarDevueltoCorrectamente;
+            }
 
-             if (buenEstado && this.FechaVencimiento > DateTime.Now)
-                {
-                    Solicitante.Puntaje += 5;
-                }
+            this.FechaDevolucion = dateTimeProvider.Now;
         }
 
-        public static Prestamo Crear(DateTime pFechaPrestamo, Usuario pSolicitante, Ejemplar pEjemplar)
+        public static Prestamo Crear(Usuario pSolicitante,
+                                     Ejemplar pEjemplar,
+                                     IDateTimeProvider pDateTimeProvider)
         {
-            var fechaVencimiento = DateTime.Now.AddDays(pSolicitante.MaximoDiasHabilesPrestamos());
+            DateTime now = pDateTimeProvider.Now;
+
+            var fechaVencimiento = now.AddDays(pSolicitante.MaximoDiasHabilesPrestamos());
 
             Prestamo prestamo = new Prestamo
             {
-                FechaPrestamo = pFechaPrestamo,
+                FechaPrestamo = now,
                 FechaVencimiento = fechaVencimiento,
                 Solicitante = pSolicitante,
                 Ejemplar = pEjemplar,
             };
+
             return prestamo;
         }
-    
+
+        public Prestamo()
+        {
+
+        }
+
         public int Id { get; set; }
         public DateTime FechaPrestamo { get; set; }
 

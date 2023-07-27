@@ -20,7 +20,6 @@ namespace Aplication.DAL.EntityFramework
 
             this.iDbContext = pDbContext;
             this.RepositorioEjemplares = new RepositorioEjemplares(pDbContext);
-            this.RepositorioObras = new RepositorioObras(pDbContext);
             this.RepositorioPrestamos = new RepositorioPrestamos(pDbContext);
             this.RepositorioUsuarios = new RepositorioUsuarios(pDbContext);
             this.RepositorioEdiciones = new RepositorioEdiciones(pDbContext);
@@ -29,7 +28,6 @@ namespace Aplication.DAL.EntityFramework
 
         public IRepositorioEjemplares RepositorioEjemplares { get; private set; }
 
-        public IRepositorioObras RepositorioObras { get; private set; }
         public IRepositorioPrestamos RepositorioPrestamos { get; private set; }
 
         public IRepositorioUsuarios RepositorioUsuarios { get; private set; }

@@ -10,141 +10,210 @@ using System.Web;
 using System.Globalization;
 using Aplication.SERVICE.Http;
 using Aplication.LOG;
-
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Json;
+using Newtonsoft.Json.Linq;
+using Aplication.Utils;
 
 namespace Aplication.Servicios.LibrosRemotos.OpenLibrary
 {
-    public class ServiceEdicionesOpenLibrary : IServicesEdicion
+    public class ServiceEdicionesOpenLibrary : IServiciosEdicion
     {
-        public ServiceEdicionesOpenLibrary()
+        private readonly HttpClient mCliente;
+
+        public ServiceEdicionesOpenLibrary(IHttpClientFactory pClienteFactory)
         {
+            mCliente = pClienteFactory.CreateClient("OpenLibrary");
         }
 
-        public DTOEdicion Buscar(Dictionary<string, string> pFiltros)
+        public async Task<DTOEdicion> BuscarPorISBNAsync(string pIsbn)
         {
-            // Establecimiento del protocolo ssl de transporte
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            if (pFiltros.Count == 0)
-            {
-                throw new Exception("Se nececita filtrar por ISBN o ID de openlibrary");
-            }
-            string mUrl = "";
-            if (pFiltros.ContainsKey("Id"))
-            {
-                throw new NotImplementedException();
-            }
-            else if (pFiltros.ContainsKey("ISBN"))
-            {
-                mUrl = String.Format("https://openlibrary.org/api/books?bibkeys=ISBN:{0}&format=json&jscmd=data", pFiltros["ISBN"]);
-            }
-
             try
             {
-                dynamic mResponseJson = HttpJsonRequest.Obtener(mUrl);
-                DTOEdicion edicion = new DTOEdicion();
-                string isbn = null;
-                string lccn = null;
+                var respuesta = await mCliente.GetAsync($"api/books?bibkeys=ISBN:{pIsbn}&jscmd=data&format=json");
 
-                if (mResponseJson != null)
+                if (!respuesta.IsSuccessStatusCode)
                 {
-                    var llave = String.Format("ISBN:{0}", pFiltros["ISBN"]);
-                    mResponseJson = mResponseJson[llave];
-
-                    if (mResponseJson == null)
-                    {
-                        return null;
-                    }
+                    throw new ExcepcionConsultaWeb("Error al obtener la respuesta");
                 }
-                else
+
+                if (respuesta.Content.Headers.ContentType.MediaType != "application/json")
+                {
+                    throw new ExcepcionRespuestaInvalida("Respuesta invalida");
+                }
+
+                var bodyJson = await respuesta.Content.ReadAsStringAsync();
+                var cuerpo = JObject.Parse(bodyJson);
+
+                if (cuerpo == null || cuerpo.Count == 0)
                 {
                     return null;
                 }
 
+                DTOEdicion edicion = ConvertirEdicionDesdeJsonData(pIsbn, cuerpo);
+                /*
+                                DTOEdicion edicion = new DTOEdicion();
 
-                if (mResponseJson.ContainsKey("identifiers"))
-                {
-                    if (mResponseJson["identifiers"].ContainsKey("isbn_13"))
-                    {
-                        isbn = (string)mResponseJson["identifiers"]["isbn_13"][0];
-                    }
-                    else if (mResponseJson["identifiers"].ContainsKey("isbn_10"))
-                    {
-                        isbn = (string)mResponseJson["identifiers"]["isbn_10"][0];
-                    }
+                                //https://openlibrary.org/api/books?bibkeys=ISBN:978-0-9767736-6-5&jscmd=data&format=json
+                                var llave = $"ISBN:{pIsbn}";
+                                if (mResponseJson.ContainsKey(llave))
+                                {
+                                    mResponseJson = (JObject)mResponseJson[llave];
 
-                    if (mResponseJson["identifiers"].ContainsKey("lccn"))
-                    {
-                        lccn = (string)mResponseJson["identifiers"]["lccn"][0];
-                    }
-                }
+                                    if (mResponseJson == null)
+                                    {
+                                        return null;
+                                    }
+                                }
 
+                                edicion.Isbn = pIsbn;
 
-                // FIX: El lccn es obligatorio ya que se usa como identificador para la obra,
-                // pero la api a veces no tiene lccn en la respuesta
-                if (isbn == null || lccn == null) { return null; }
+                                if (mResponseJson.ContainsKey("number_of_pages"))
+                                {
+                                    edicion.NumeroPaginas = (int)mResponseJson["number_of_pages"];
+                                }
 
-                edicion.Isbn = isbn;
-                edicion.Portada = String.Format("https://covers.openlibrary.org/b/isbn/{0}-L.jpg", isbn);
+                                string portada = null;
+                                if (mResponseJson.ContainsKey("cover"))
+                                {
+                                    var cover = (JObject)mResponseJson["cover"];
+                                    if (cover.ContainsKey("medium"))
+                                    {
+                                        portada = (string)cover["medium"];
+                                    }
+                                    else if (cover.ContainsKey("large"))
+                                    {
+                                        portada = (string)cover["large"];
+                                    }
+                                    else if (cover.ContainsKey("small"))
+                                    {
+                                        portada = (string)cover["small"];
+                                    }
+                                }
 
-                if (mResponseJson.ContainsKey("number_of_pages"))
-                {
-                    edicion.NumeroPaginas = mResponseJson["number_of_pages"];
-                }
+                                edicion.Portada = portada != null ? portada : $"https://covers.openlibrary.org/b/isbn/{pIsbn}-M.jpg";
 
-                if (mResponseJson.ContainsKey("publish_date"))
-                {
-                    string fechaString = (string)mResponseJson["publish_date"];
-                    try
-                    {
-                        edicion.FechaPublicacion = PasarFecha(fechaString, new CultureInfo("en-US"));
+                                if (mResponseJson.ContainsKey("publish_date"))
+                                {
+                                    string fechaString = (string)mResponseJson["publish_date"];
+                                    try
+                                    {
+                                        edicion.FechaPublicacion = PasarFecha(fechaString, new CultureInfo("en-US"));
 
-                        edicion.AnioEdicion = edicion.FechaPublicacion.Year;
-                    }
-                    catch (FormatException ex)
-                    {
-                        // Error fecha invalida
-                        LogManager.GetLogger().Error(ex, "Error: Fecha invalida '{0}'. {1}", fechaString, ex.Message);
-                    }
-                }
+                                        edicion.AnioEdicion = edicion.FechaPublicacion.Year;
+                                    }
+                                    catch (FormatException ex)
+                                    {
+                                        // Error fecha invalida
+                                        LogManager.GetLogger().Error(ex, "Error: Fecha invalida '{0}'. {1}", fechaString, ex.Message);
+                                    }
+                                }
 
-                // seteamos los datos de la obra
-                edicion.Obra = new DTOObra();
-                edicion.Obra.Generos = new List<string>();
-                if (mResponseJson.ContainsKey("subjects"))
-                {
-                    foreach (var genero in mResponseJson.subjects)
-                    {
-                        edicion.Obra.Generos.Add((string)genero.name);
-                    }
-                }
+                                // seteamos los datos de la obra
+                                edicion.Obra = new DTOObra();
+                                edicion.Obra.Generos = new List<string>();
+                                if (mResponseJson.ContainsKey("subjects"))
+                                {
+                                    foreach (var genero in mResponseJson["subjects"])
+                                    {
+                                        if (genero.Type == JTokenType.String)
+                                        {
+                                            edicion.Obra.Generos.Add((string)genero);
+                                        }
+                                        else if (genero.Type == JTokenType.Object && genero["name"] != null)
+                                        {
+                                            edicion.Obra.Generos.Add((string)genero["name"]);
+                                        }
+                                    }
+                                }
 
-                for (int i = 0; i < mResponseJson.authors.Count; i++)
-                {
-                    edicion.Obra.Autores = (string)mResponseJson.authors[i].name;
-                    if (i != mResponseJson.authors.Count - 1)
-                    {
-                        edicion.Obra.Autores += ", ";
-                    }
-                }
+                                if (mResponseJson.ContainsKey("authors")
+                                    && mResponseJson["authors"].Type == JTokenType.Array
+                                    && mResponseJson["authors"].Count() > 0)
+                                {
+                                    var autores = mResponseJson["authors"];
+                                    if (autores[0].Type == JTokenType.String)
+                                    {
+                                        edicion.Obra.Autores = string.Join(", ", autores.Select(a => (string)a["name"]));
+                                    }
+                                }
 
-                edicion.Obra.Titulo = mResponseJson.title;
-                edicion.Obra.Descripcion = mResponseJson.subtitle;
-                edicion.Obra.Lccn = lccn;
+                                edicion.Obra.Titulo = mResponseJson.ContainsKey("title") ? (string)mResponseJson["title"] : null;
+                                edicion.Obra.Descripcion = mResponseJson.ContainsKey("subtitle") ? (string)mResponseJson["subtitle"] : null;
+                                //edicion.Obra.Lccn = lccn;
 
-                edicion.Obra.Ediciones = new List<DTOEdicion>();
-
+                                edicion.Obra.Ediciones = new List<DTOEdicion>();
+                */
                 return edicion;
             }
-            catch (ExcepcionConsultaWeb ex)
+            catch (ExcepcionConsultaWeb e)
             {
-                LogManager.GetLogger().Error(ex, "No se puede realizar la consulta en el servidor");
+                LogManager.GetLogger().Error(e, "No se puede realizar la consulta en el servidor");
             }
-            catch (ExcepcionRespuestaInvalida ex1)
+            catch (ExcepcionRespuestaInvalida e)
             {
-                LogManager.GetLogger().Error(ex1, "No se encontro respuesta");
+                LogManager.GetLogger().Error(e, "Respuesta invalida");
+            }
+            catch (Exception e)
+            {
+                LogManager.GetLogger().Error(e, "Error desconocido");
             }
 
             return null;
+        }
+
+        private DTOEdicion ConvertirEdicionDesdeJsonData(string isbn, JObject cuerpo)
+        {
+            if (cuerpo == null)
+            {
+                return null;
+            }
+
+            // implementacion para convertir el json especificado aqui en un DTOEdicion
+            // https://openlibrary.org/dev/docs/api/books#:~:text=books/OL23377687M/adventures_of_Tom_Sawyer%22%0A%20%20%20%20%7D%0A%7D-,jscmd%3Ddata,-When%20the%20jscmd
+            DTOEdicion edicion = new DTOEdicion();
+
+            cuerpo = (JObject)cuerpo[$"ISBN:{isbn}"];
+
+            edicion.Titulo = cuerpo.GetOptional<string>("title", "");
+            edicion.Descripcion = cuerpo.GetOptional<string>("subtitle", "");
+
+            edicion.Isbn = isbn;
+            edicion.NumeroPaginas = cuerpo.GetOptional<int>("number_of_pages", 0);
+
+            if (cuerpo.ContainsKey("authors"))
+            {
+                edicion.Autores = string.Join(", ", cuerpo["authors"].Select(a => (string)a["name"]));
+            }
+
+            if (cuerpo.ContainsKey("publish_date"))
+            {
+                string fechaString = (string)cuerpo["publish_date"];
+                try
+                {
+                    DateTime fechaPublicacion = PasarFecha(fechaString, new CultureInfo("en-US"));
+
+                    edicion.Publicacion = fechaPublicacion.ToString("dd/MM/yyyy");
+
+                    edicion.AñoEdicion = fechaPublicacion.Year;
+                }
+                catch (FormatException ex)
+                {
+                    // Error fecha invalida
+                    LogManager.GetLogger().Error(ex, "Error: Fecha invalida '{0}'. {1}", fechaString, ex.Message);
+                }
+            }
+
+            if (cuerpo.ContainsKey("publishers"))
+            {
+                string publicadores = string.Join(", ", cuerpo["publishers"].Select(a => (string)a["name"]));
+                edicion.Publicacion = publicadores + ";" + edicion.Publicacion;
+            }
+
+            edicion.Portada = $"https://covers.openlibrary.org/b/isbn/{isbn}-M.jpg";
+
+            return edicion;
         }
 
         private static DateTime PasarFecha(string fecha, CultureInfo cultureInfo)
