@@ -3,14 +3,15 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+!PublishTaller/
+!PublishTaller/**/*
+
 # User-specific files
 *.rsuser
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
-
-ARQUITECTURA.md
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -363,8 +364,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-
-!Aplication/TAREAS/*.cs
-
-Aplication/*.mdf
-Aplication/*.ldf

@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TallerBiblioteca.Domain", "TallerBiblioteca.Domain\TallerBiblioteca.Domain.csproj", "{EB08FC1E-0F0E-44B0-BE19-7314AD077CCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TallerBiblioteca.Aplication", "TallerBiblioteca.Aplication\TallerBiblioteca.Aplication.csproj", "{E05CCC27-ED7C-4C60-BBCC-62137F90368B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TallerBiblioteca.Infrastructure", "TallerBiblioteca.Infrastructure\TallerBiblioteca.Infrastructure.csproj", "{D56087E6-3523-4DA0-88FF-F8489DF7F7BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TallerBiblioteca.WindowsForms", "TallerBiblioteca.WindowsForms\TallerBiblioteca.WindowsForms.csproj", "{0E0D236A-07AC-4215-A756-5BDD838E83F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{1E68F749-62E9-4770-8B67-7C03C95F360E}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TallerBiblioteca.UnitTest", "TallerBiblioteca.UnitTest\TallerBiblioteca.UnitTest.csproj", "{6B5E7392-3789-486F-8407-95C7E98146DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TallerBiblioteca.IntegrationTests", "TallerBiblioteca.IntegrationTests\TallerBiblioteca.IntegrationTests.csproj", "{BF870FEB-BEA2-469B-BDFA-CE439FFB2264}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB08FC1E-0F0E-44B0-BE19-7314AD077CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB08FC1E-0F0E-44B0-BE19-7314AD077CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB08FC1E-0F0E-44B0-BE19-7314AD077CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB08FC1E-0F0E-44B0-BE19-7314AD077CCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E05CCC27-ED7C-4C60-BBCC-62137F90368B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E05CCC27-ED7C-4C60-BBCC-62137F90368B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E05CCC27-ED7C-4C60-BBCC-62137F90368B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E05CCC27-ED7C-4C60-BBCC-62137F90368B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D56087E6-3523-4DA0-88FF-F8489DF7F7BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D56087E6-3523-4DA0-88FF-F8489DF7F7BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D56087E6-3523-4DA0-88FF-F8489DF7F7BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D56087E6-3523-4DA0-88FF-F8489DF7F7BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E0D236A-07AC-4215-A756-5BDD838E83F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E0D236A-07AC-4215-A756-5BDD838E83F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E0D236A-07AC-4215-A756-5BDD838E83F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E0D236A-07AC-4215-A756-5BDD838E83F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B5E7392-3789-486F-8407-95C7E98146DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B5E7392-3789-486F-8407-95C7E98146DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B5E7392-3789-486F-8407-95C7E98146DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B5E7392-3789-486F-8407-95C7E98146DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF870FEB-BEA2-469B-BDFA-CE439FFB2264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF870FEB-BEA2-469B-BDFA-CE439FFB2264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF870FEB-BEA2-469B-BDFA-CE439FFB2264}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF870FEB-BEA2-469B-BDFA-CE439FFB2264}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A6DB64BE-689B-46E6-B634-FFE4B4E16A5A}
+	EndGlobalSection
+EndGlobal
