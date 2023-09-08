@@ -229,15 +229,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TallerPreRevision.Aplication\TallerBiblioteca.Aplication.csproj">
+    <ProjectReference Include="..\TallerBiblioteca.Aplication\TallerBiblioteca.Aplication.csproj">
       <Project>{e05ccc27-ed7c-4c60-bbcc-62137f90368b}</Project>
       <Name>TallerBiblioteca.Aplication</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TallerPreRevision.Domain\TallerBiblioteca.Domain.csproj">
+    <ProjectReference Include="..\TallerBiblioteca.Domain\TallerBiblioteca.Domain.csproj">
       <Project>{eb08fc1e-0f0e-44b0-be19-7314ad077ccf}</Project>
       <Name>TallerBiblioteca.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TallerPreRevision.Infrastructure\TallerBiblioteca.Infrastructure.csproj">
+    <ProjectReference Include="..\TallerBiblioteca.Infrastructure\TallerBiblioteca.Infrastructure.csproj">
       <Project>{d56087e6-3523-4da0-88ff-f8489df7f7be}</Project>
       <Name>TallerBiblioteca.Infrastructure</Name>
     </ProjectReference>
